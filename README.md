@@ -22,6 +22,7 @@ This project is for Mac OS.
 
 * [WritingYourOwnShell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
 * [mysh](https://github.com/Swoorup/mysh)
+* [shell syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
 
 
 ## Sanitize
