@@ -1,0 +1,42 @@
+# 42Minishell
+
+The objective of this project is for you to create a simple shell.
+
+## Prerequisites
+
+This project is for Mac OS.
+
+## Installation
+
+* `git clone git@github.com:MLeganes/42Minishell.git` this repository
+* `cd 42Minishell`
+
+## Running
+ 
+* `make`
+
+* Run program with ``` ./minishell```
+  
+
+## Useful Links
+
+* [link](https://link)
+
+
+## Sanitize
+
+Add -g in gcc command.
+
+	-fsanitize=leak
+	-fsanitize=address
+
+
+## Print traces
+
+Add in header file this define:
+
+	# define PRINT_HERE() (printf("file: %s, line: %d\n", __FILE__, __LINE__))
+
+And used it from any part of your program
+
+	PRINT_HERE();
