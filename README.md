@@ -20,7 +20,8 @@ This project is for Mac OS.
 
 ## Useful Links
 
-* [link](https://link)
+* [WritingYourOwnShell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+* [mysh](https://github.com/Swoorup/mysh)
 
 
 ## Sanitize
