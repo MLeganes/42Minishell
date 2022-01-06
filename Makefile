@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/05 11:49:31 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/06 13:59:27 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS	=	minishell.c \
 all: $(NAME)
 
 $(NAME): libft/libft.a $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME) 
+	$(CC) $(FLAGS) $(OBJS) -Llibft -lreadline -lft -o $(NAME) 
 
 clean:
 	rm -f *.o
