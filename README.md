@@ -6,6 +6,11 @@ The objective of this project is for you to create a simple shell.
 
 This project is for Mac OS.
 
+For Linux distribution, need to install the readline development libraries.
+
+	sudo apt-get install libreadline-dev 
+	
+
 ## Installation
 
 * `git clone git@github.com:MLeganes/42Minishell.git` this repository
