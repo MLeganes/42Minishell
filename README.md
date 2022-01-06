@@ -17,6 +17,8 @@ This project is for Mac OS.
 
 * Run program with ``` ./minishell```
   
+## Shell Operation
+![shell_operation](readme_additions/shell_operation.png)
 
 ## Useful Links
 
