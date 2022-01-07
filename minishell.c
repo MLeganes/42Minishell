@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/06 15:39:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:22:13 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void execute(t_command *cmd, char **env)
 {
-	execve("/bin/ls", cmd->argv, env);
+	pid_t child_pid;;
+
+	child_pid = fork();
+	if (child_pid == 0)
+		execve("/bin/ls", cmd->argv, env);
+	else
+		waitpid(child_pid, 0 , 0);
 }
 
 int parse( char *cmdline, t_command *cmd)
