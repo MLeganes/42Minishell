@@ -22,7 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
+struct s_command;
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -32,6 +32,20 @@
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
+typedef struct s_info
+{
+	char		*cmdline;
+	char		*prompt;
+	t_token		*list;
+	t_command	cmd;
+} t_info;
+
+typedef struct s_token
+{
+	int		flag;
+	char	*token;
+	t_token	*next;
+} t_token;
 
 typedef struct s_command
 {
