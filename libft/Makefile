@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
+#    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/23 12:57:35 by amorcill          #+#    #+#              #
-#    Updated: 2021/12/01 17:30:11 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/10 15:50:22 by arohmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,17 @@ BONUS = ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c ft_lstlast.c	 ft_lstadd_back
 all: $(NAME) bonus
 
 $(NAME):
-	gcc $(CFLAGS) -c $(SRCS)
-	ar -crs $(NAME) *.o
+	@gcc $(CFLAGS) -c $(SRCS)
+	@ar -crs $(NAME) *.o
 
 clean:
-	rm -f *.o
+	@rm -f *.o
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean $(NAME)
 
 bonus: 
-	gcc $(CFLAGS) -c $(BONUS) 
-	ar -crs $(NAME) *.o
+	@gcc $(CFLAGS) -c $(BONUS) 
+	@ar -crs $(NAME) *.o
