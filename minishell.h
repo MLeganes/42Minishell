@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/06 14:31:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:51:50 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,33 @@
 # include <readline/history.h>
 
 struct s_command;
+struct s_token;
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
 # include "libft/libft.h"
 
-
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
-typedef struct s_info
+enum type
 {
-	char		*cmdline;
-	char		*prompt;
-	t_token		*list;
-	t_command	cmd;
-} t_info;
+	DLESS,
+	DGREAT,
+	LESS,
+	GREAT,
+	PIPE,
+	DQUOTE,
+	QUOTE,
+} type;
 
 typedef struct s_token
 {
-	int		flag;
-	char	*token;
-	t_token	*next;
+	enum type		type;
+	char			*data;
+	struct s_token	*next;
 } t_token;
+
 
 typedef struct s_command
 {
@@ -60,9 +64,16 @@ typedef struct s_command
 		FG
 	} builtin;
 	char *name;
-	
 } t_command;
 
+typedef struct s_info
+{
+	char		*cmdline;
+	char		*prompt;
+	t_token		*list;
+	char		**args;
+	t_command	cmd;
+} t_info;
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -72,5 +83,6 @@ typedef struct s_command
  * MINISHELL
  */
 
+void lexer(t_info *info);
 
 # endif

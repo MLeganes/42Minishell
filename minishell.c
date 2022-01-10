@@ -3,24 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/07 17:20:45 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:55:59 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void open_url(void)
-{
-	char launch[255];
-
-	sprintf(launch, "open '%s' &", "https://www.42heilbronn.de/en/");
-	system(launch);
-}
-
-void execute(t_command *cmd, char **env)
+/* void execute(t_command *cmd, char **env)
 {
 	pid_t child_pid;
 	int		result;
@@ -79,30 +71,38 @@ void eval(t_command *cmd, char *cmdline)
 	background = parse(cmdline, cmd);
 	printf("Found command %s\n", cmd->argv[0]);
 		
+} */
+
+void init_struct(t_info *info)
+{
+	info->prompt = "minishell >";
+	info->list = NULL;
+	info->cmdline = NULL;
 }
 
 int main(int argc, char **argv, char **env)
 {
-	t_command cmd;
-	char *cmdline;
-	char *prompt;
+	t_info info;
 	(void)argv;
 	(void)argc;
-
-	open_url();
-
-	prompt = "minishell >";
+	(void)env;
+	
+	init_struct(&info);
 	while (1)
 	{
 		printf("minishell >");
 		
-		cmdline = readline(NULL);
-		printf("\n Readed command: %s len: %lu", cmdline, strlen(cmdline));
+		info.cmdline = readline(info.prompt);
+		printf("\n Readed command: %s len: %lu\n", info.cmdline, strlen(info.cmdline));
 		break;	
 	}
+	lexer(&info);
+	//parser(&info);
+	//execute(&info);
+	//free_all(&info);
 	
-	eval(&cmd, cmdline);
+	/* 	eval(&cmd, cmdline);
 	printf("Env %s\n", env[0]);
-	execute(&cmd, env);
+	execute(&cmd, env); */
 	return (0);
 }
