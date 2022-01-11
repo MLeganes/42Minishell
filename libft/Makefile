@@ -20,6 +20,7 @@ SRCS = 	ft_atoi.c		ft_isalnum.c    ft_isdigit.c    ft_lstnew.c     ft_memcmp.c  
 		ft_strdup.c     ft_strlcat.c    ft_strmapi.c    ft_strrchr.c    ft_tolower.c	ft_calloc.c \
 		ft_isascii.c    ft_itoa.c       ft_memchr.c     ft_memmove.c    ft_putendl_fd.c ft_split.c \
 		ft_striteri.c   ft_strlcpy.c    ft_strncmp.c    ft_strtrim.c    ft_toupper.c 	ft_atoi_ext.c \
+		ft_strtok.c \
 		get_next_line.c get_next_line_utils.c \
 		ft_printf.c    ft_printf_d.c  ft_printf_p.c  	ft_printf_arg.c  ft_printf_s.c  ft_printf_hex.c\
 		ft_printf_u.c \
