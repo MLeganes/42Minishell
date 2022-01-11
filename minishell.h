@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/10 15:51:50 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:56:26 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,27 @@ enum type
 	PIPE,
 	DQUOTE,
 	QUOTE,
-} type;
+	
+	WORD,
+	OPERATOR,	// 
+	
+	
+	REDIR_IN,		// < repited!!
+	REDIR_OUT,		// >
+	REDIR_HEREDOC,	// <<
+	REDIR_APPEND,	// >>
+	REDIR_VOID,		// If the input for the simpre command is just an immediate EOF.
+	
+	
+};
 
 typedef struct s_token
 {
-	enum type		type;
 	char			*data;
+	int				type;			// 	WORD, OPERATOR, 
+	char			*expansion;		//When there is a " $USER BLA BLA BLA ..." for type DQUOUTE or QUOUTE
 	struct s_token	*next;
-} t_token;
-
-
-typedef struct s_command
-{
-	int		argc;
-	char	*argv[128];
-	enum	builtin 
-	{
-		NONE,
-		QUIT,
-		JOBS,
-		BG,
-		FG
-	} builtin;
-	char *name;
-} t_command;
+} 					t_token;
 
 typedef struct s_info
 {
@@ -72,8 +69,10 @@ typedef struct s_info
 	char		*prompt;
 	t_token		*list;
 	char		**args;
-	t_command	cmd;
-} t_info;
+	int			state;		// LEXER to know what are you reading. 
+							// For ex. if you start reading " need to read 
+							// until you  find another ", or ' 
+}				t_info;
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
