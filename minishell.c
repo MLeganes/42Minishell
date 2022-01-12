@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/10 15:55:59 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:06:34 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void init_struct(t_info *info)
 	info->prompt = "minishell >";
 	info->list = NULL;
 	info->cmdline = NULL;
+	info->state = STATE_GENERAL;
+	info->idx = 0;
 }
 
 int main(int argc, char **argv, char **env)
@@ -90,13 +92,9 @@ int main(int argc, char **argv, char **env)
 	init_struct(&info);
 	while (1)
 	{
-		printf("minishell >");
-		
 		info.cmdline = readline(info.prompt);
-		printf("\n Readed command: %s len: %lu\n", info.cmdline, strlen(info.cmdline));
-		break;	
+		lexer(&info);
 	}
-	lexer(&info);
 	//parser(&info);
 	//execute(&info);
 	//free_all(&info);
