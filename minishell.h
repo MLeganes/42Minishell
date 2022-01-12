@@ -30,6 +30,11 @@ struct s_token;
 # include "libft/libft.h"
 
 /* ************************************************************************** */
+/* COLORS															  */
+/* ************************************************************************** */
+#define GREEN	"\033[32m"
+#define RE		"\033[0m"
+/* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
 enum type
@@ -98,7 +103,7 @@ typedef struct s_info
 	t_token		*list;
 	char 		tmp_c;
 	t_token 	*tmp_tkn;
-
+	int			ntok;
 	int			state;		// LEXER to know what are you reading. 
 							// For ex. if you start reading " need to read 
 							// until you  find another ", or ' 

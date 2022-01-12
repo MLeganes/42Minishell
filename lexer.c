@@ -177,7 +177,33 @@ static void ms_state_selector(t_info *ms, int chartype)
 	}
 }
 
-static void mini_spliter(t_info *ms)
+static void ms_state_dquote(t_info *ms, int chartype)
+{
+	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
+	ms->tmp_tkn->len++;
+	if (chartype == CHAR_DQUOTE)
+		ms->state = STATE_GENERAL;
+}
+
+static void ms_state_quote(t_info *ms, int chartype)
+{
+	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
+	ms->tmp_tkn->len++;
+	if (chartype == CHAR_QUOTE)
+		ms->state = STATE_GENERAL;
+}
+
+static void	ms_end_tok(t_info *ms)
+{
+	if (ms->tmp_tkn->len > 0)
+	{
+		ms->tmp_tkn->data[ms->tmp_tkn->len] = '\0';
+		ms->ntok++;
+		ms->tmp_tkn->len = 0;
+	}
+}
+
+static void	mini_spliter(t_info *ms)
 {
 	int chartype;
 
@@ -195,38 +221,47 @@ static void mini_spliter(t_info *ms)
 		
 		if (ms->state == STATE_GENERAL)
 			ms_state_selector(ms, chartype);
+		else if (ms->state == STATE_IN_DQUOTE)
+			ms_state_dquote(ms, chartype);
+		else if (ms->state == STATE_IN_QUOTE)
+			ms_state_quote(ms, chartype);
+		if (chartype == CHAR_NULL)
+			ms_end_tok(ms);
 		ms->idx++;
 	}
 }
 
 static void ms_print(t_info *ms)
 {
+	int i;
 	t_token *token;
 
-
 	token = ms->list;
-	printf("Token: %s\n", token->data);
+/* 	printf("Token: %s\n", token->data);
 	token = token->next;
 	printf("Token: %s\n", token->data);
 	token = token->next;
 	printf("Token: %s\n", token->data);
 	token = token->next;
 	printf("Token: %s\n", token->data);
-	token = token->next;
-	printf("Token: %s\n", token->data);
-	// token = ms->tmp_tkn;
-	// printf("Token: %s\n", token->data);
+	token = token->next; */
+	//token = ms->tmp_tkn;
+	//printf("Token: %s\n", token->data);
 	// token = ms->tmp_tkn->next;
 	// printf("Token: %s\n", token->data);
-	
+	i = 0;
+	while ( token->next != NULL)
+	{
+		printf(GREEN"%d: "RE, i);
+		printf("%s\t", token->data);
+		if (token->next != NULL)
+			token = token->next;
+		i++;
+	}
 
-	
-	// while (token != NULL)
-	// {
-	// 	printf("Token %s\n", token->data);
-	// 	if (token->next != NULL)
-	// 		token = token->next;
-	// }
+	printf(GREEN"%d: "RE, i);
+	printf("%s\t", token->data);
+	printf("\n");
 }
 
 void lexer(t_info *ms)

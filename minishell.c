@@ -80,6 +80,7 @@ void init_struct(t_info *info)
 	info->cmdline = NULL;
 	info->state = STATE_GENERAL;
 	info->idx = 0;
+	info->ntok = 0;
 }
 
 int main(int argc, char **argv, char **env)
