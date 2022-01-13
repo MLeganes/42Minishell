@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
+#    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/10 15:48:52 by arohmann         ###   ########.fr        #
+#    Updated: 2022/01/13 11:53:45 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= minishell
 CC		= clang
 FLAGS	= -Wall -Wextra -Werror -g
 OBJS	= $(patsubst %.c, %.o, $(SRCS))
-SRCS	=	minishell.c lexer.c \
+SRCS	=	minishell.c lexer.c free.c \
  
 %.o: %.c
 	$(CC) $(FLAGS) -Ilibft -c $< -o $@

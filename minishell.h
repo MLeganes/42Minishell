@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/12 19:06:16 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:12:22 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,30 @@ struct s_token;
 /* COLORS															  */
 /* ************************************************************************** */
 #define GREEN	"\033[32m"
+#define RED		"\033[35m"
 #define RE		"\033[0m"
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
 enum type
 {
-	DLESS,
-	DGREAT,
-	LESS,
-	GREAT,
+	REDIR_DLESS,
+	REDIR_DGREAT,
+	REDIR_LESS,
+	REDIR_GREAT,
 	PIPE,
+	SEMICOLON,
+	AMPERSAND,
 	DQUOTE,
-	QUOTE,
-	
-	WORD,
-	OPERATOR,	// 
-	DOLLAR,
-	
-	REDIR_IN,		// < repited!!
-	REDIR_OUT,		// >
-	REDIR_HEREDOC,	// <<
-	REDIR_APPEND,	// >>
+	QUOTE,	
+	TOKEN,
+	DOLLAR,	
 	REDIR_VOID,		// If the input for the simpre command is just an immediate EOF.
 };
 
 
 // New token type for lexer. I just copy, to be faster. It is duplicated now.
-enum TokenType{
+enum CharType{
 	CHAR_GENERAL = -1,
 	CHAR_PIPE = '|',
 	CHAR_AMPERSAND = '&',
@@ -73,8 +69,7 @@ enum TokenType{
 	CHAR_NEWLINE = '\n',
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
-	CHAR_NULL = 0,	
-	TOKEN	= -1,  // repited!!!!!
+	CHAR_NULL = '\0',
 };
 
 
@@ -117,6 +112,11 @@ typedef struct s_info
  * MINISHELL
  */
 
-void lexer(t_info *info);
+void	lexer(t_info *info);
+
+/*
+ * FREE
+ */
+void	free_after_cmd(t_info *ms);
 
 # endif

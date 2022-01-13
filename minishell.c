@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/12 18:06:34 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:56:04 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void init_struct(t_info *info)
 	info->prompt = "minishell >";
 	info->list = NULL;
 	info->cmdline = NULL;
+	info->tmp_tkn = NULL;
 	info->state = STATE_GENERAL;
 	info->idx = 0;
 	info->ntok = 0;
@@ -95,13 +96,15 @@ int main(int argc, char **argv, char **env)
 	{
 		info.cmdline = readline(info.prompt);
 		lexer(&info);
+		//parser(&info);
+		//execute(&info);		
+		free_after_cmd(&info);
 	}
-	//parser(&info);
-	//execute(&info);
 	//free_all(&info);
 	
 	/* 	eval(&cmd, cmdline);
 	printf("Env %s\n", env[0]);
 	execute(&cmd, env); */
+	system("leaks minishell");
 	return (0);
 }
