@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 15:26:45 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:54:48 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-struct s_command;
-struct s_token;
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -32,13 +30,17 @@ struct s_token;
 /* ************************************************************************** */
 /* COLORS															  */
 /* ************************************************************************** */
-#define GREEN	"\033[32m"
-#define RED		"\033[35m"
-#define RE		"\033[0m"
+# define GREEN	"\033[32m"
+# define RED		"\033[35m"
+# define RE		"\033[0m"
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
-enum type
+
+/***
+ * If the input for the simple command is just an immediate EOF.
+ ***/
+typedef enum e_type
 {
 	REDIR_DLESS = 1000,
 	REDIR_DGREAT,
@@ -51,12 +53,12 @@ enum type
 	QUOTE,	
 	TOKEN,
 	DOLLAR,	
-	REDIR_VOID,		// If the input for the simpre command is just an immediate EOF.
-};
-
+	REDIR_VOID,
+	NONE,
+}	t_type;
 
 // New token type for lexer. I just copy, to be faster. It is duplicated now.
-enum CharType{
+enum e_chartype{
 	CHAR_GENERAL = -1,
 	CHAR_PIPE = '|',
 	CHAR_AMPERSAND = '&',
@@ -72,38 +74,41 @@ enum CharType{
 	CHAR_NULL = '\0',
 };
 
-
 // State of the lexer, when it is checking the char by char.
-enum {
+typedef enum e_state{
 	STATE_IN_DQUOTE,
 	STATE_IN_QUOTE,	
 	STATE_IN_ESCAPESEQ,
 	STATE_GENERAL,
-};
+}	t_state;
 
+/***
+* expansion = When there is a " $USER BLA BLA BLA ..." for type DQUOUTE or QUOUTE
+***/
 typedef struct s_token
 {
-	int 			len;
+	int				len;
 	char			*data;
-	int				type;			// 	WORD, OPERATOR, 
-	char			*expansion;		//When there is a " $USER BLA BLA BLA ..." for type DQUOUTE or QUOUTE
+	t_type			type;
+	char			*expansion;
 	struct s_token	*next;
-} 					t_token;
+}					t_token;
 
+/***
+ * state = LEXER to know what are you reading. 
+ *   For ex. if you start reading " need to read until you  find another ", or '.
+***/
 typedef struct s_info
 {
-	int 		idx;
+	int			idx;
+	t_state		state;
 	char		*cmdline;
 	char		*prompt;
 	t_token		*list;
-	char 		tmp_c;
-	t_token 	*tmp_tkn;
+	t_token		*tmp_tkn;
+	char		tmp_c;
 	int			ntok;
-	int			state;		// LEXER to know what are you reading. 
-							// For ex. if you start reading " need to read 
-							// until you  find another ", or ' 
 }				t_info;
-
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
 /* ************************************************************************** */
@@ -117,6 +122,7 @@ void	lexer(t_info *info);
 /*
  * FREE
  */
+
 void	free_after_cmd(t_info *ms);
 
-# endif
+#endif
