@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 17:29:09 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:26:24 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		info.cmdline = readline(info.prompt);
-		//info.cmdline = " <<";
 		lexer(&info);
 		//parser(&info);
 		//execute(&info);		
@@ -108,4 +107,4 @@ int main(int argc, char **argv, char **env)
 	execute(&cmd, env); */
 	system("leaks minishell");
 	return (0);
-}
+}ca
