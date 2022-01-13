@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 13:12:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:26:45 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ struct s_token;
 /* ************************************************************************** */
 enum type
 {
-	REDIR_DLESS,
+	REDIR_DLESS = 1000,
 	REDIR_DGREAT,
 	REDIR_LESS,
 	REDIR_GREAT,

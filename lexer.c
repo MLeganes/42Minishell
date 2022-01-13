@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 13:44:26 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:26:30 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	ms_chartype(char c)
 		return (CHAR_GREATER);
 	else if (c == '<')
 		return (CHAR_LESSER);
-	else if (c == 0)
+	else if (c == '\0')
 		return (CHAR_NULL);
 	return (CHAR_GENERAL);
 }
@@ -113,7 +113,7 @@ static void	ms_case_redirect(t_info *ms, int chartype)
 		ms->tmp_tkn->data[2] = '\0';
 		if (chartype == REDIR_GREAT)
 			ms->tmp_tkn->type = REDIR_DGREAT;
-		else
+		else if (chartype == REDIR_LESS )
 			ms->tmp_tkn->type = REDIR_DLESS;
 		ms->idx++;
 	}
@@ -250,26 +250,26 @@ static void	ms_print(t_info *ms)
 	while (token->next != NULL)
 	{
 		printf(GREEN"%d: "RE, i);
-		printf("%s\t\t", token->data);
+		printf("%-15s", token->data);
 		if (token->next != NULL)
 			token = token->next;
 		i++;
 	}
 	printf(GREEN"%d: "RE, i);
-	printf("%s\t\t", token->data);
+	printf("%-15s", token->data);
 	printf("\n");
 	token = ms->list;
 	i = 0;
 	while (token->next != NULL)
 	{
 		printf(RED"%d: "RE, i);
-		printf("%s\t\t", print_type(token->type));
+		printf("%-15s", print_type(token->type));
 		if (token->next != NULL)
 			token = token->next;
 		i++;
 	}
 	printf(RED"%d: "RE, i);
-	printf("%s\t\t", print_type(token->type));
+	printf("%-15s", print_type(token->type));
 	printf("\n");
 }
 
