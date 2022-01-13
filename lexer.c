@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 15:26:30 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:47:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_token	*new_tok(int len)
 	new->data = ft_calloc(sizeof(char), len + 1);
 	if (new->data == NULL)
 		return (NULL);
-	new->type = CHAR_NULL;
+	new->type = NONE;
 	new->expansion = NULL;
 	new->next = NULL;
 	new->len = 0;
@@ -216,7 +216,7 @@ static void	mini_spliter(t_info *ms)
 	}
 }
 
-static char	*print_type(enum type a)
+static char	*print_type(t_type a)
 {
 	if (a == REDIR_DLESS)
 		return ("REDIR_DLESS");
