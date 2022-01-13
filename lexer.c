@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 15:47:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:28:33 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ static void	ms_case_redirect(t_info *ms, int chartype)
 	{
 		ms->tmp_tkn->data[1] = chartype;
 		ms->tmp_tkn->data[2] = '\0';
-		if (chartype == REDIR_GREAT)
+		if (chartype == CHAR_GREATER)
 			ms->tmp_tkn->type = REDIR_DGREAT;
-		else if (chartype == REDIR_LESS )
+		else if (chartype == CHAR_LESSER )
 			ms->tmp_tkn->type = REDIR_DLESS;
 		ms->idx++;
 	}
@@ -124,7 +124,7 @@ static void	ms_case_redirect(t_info *ms, int chartype)
 			ms->tmp_tkn->type = REDIR_GREAT;
 		else if (chartype == CHAR_LESSER)
 			ms->tmp_tkn->type = REDIR_LESS;
-	}
+	}	
 	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }

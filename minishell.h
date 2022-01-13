@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 15:54:48 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:02:03 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef enum e_type
 }	t_type;
 
 // New token type for lexer. I just copy, to be faster. It is duplicated now.
-enum e_chartype{
+typedef enum e_chartype{
 	CHAR_GENERAL = -1,
 	CHAR_PIPE = '|',
 	CHAR_AMPERSAND = '&',
@@ -72,7 +72,7 @@ enum e_chartype{
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_NULL = '\0',
-};
+}			t_chartype;
 
 // State of the lexer, when it is checking the char by char.
 typedef enum e_state{

@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/13 11:53:45 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/13 16:31:37 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,4 +38,4 @@ fclean: clean
 re: fclean $(NAME)
 	
 libft/libft.a:
-	make -C libft all
+	@make -C libft all
