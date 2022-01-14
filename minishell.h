@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 17:02:03 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:17:11 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ typedef enum e_type
 	REDIR_LESS,
 	REDIR_GREAT,
 	PIPE,
-	SEMICOLON,
 	AMPERSAND,
-	DQUOTE,
-	QUOTE,	
+	IN_DQUOTE,
+	IN_QUOTE,	
 	TOKEN,
 	DOLLAR,	
 	REDIR_VOID,
@@ -64,7 +63,6 @@ typedef enum e_chartype{
 	CHAR_AMPERSAND = '&',
 	CHAR_QUOTE = '\'',
 	CHAR_DQUOTE = '\"',
-	CHAR_SEMICOLON = ';',
 	CHAR_WHITESPACE = ' ',
 	CHAR_ESCAPESEQUENCE = '\\',
 	CHAR_TAB = '\t',
@@ -90,6 +88,8 @@ typedef struct s_token
 	int				len;
 	char			*data;
 	t_type			type;
+	int				in_q;
+	int				in_dq;
 	char			*expansion;
 	struct s_token	*next;
 }					t_token;

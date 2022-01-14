@@ -33,6 +33,17 @@ For Linux distribution, need to install the readline development libraries.
 * [GNU-manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
 
 
+# Commands
+
+## echo
+
+	"ec"ho" str"ing"					cmd: NOt found.
+	e"cho hello"						cmd: bash: echo hello: command not found
+	echo "hello " | cat -e ech"o" "he"llo"o"				cmd: cat: echo: No such file or directory
+
+
+
+
 ## Sanitize
 
 Add -g in gcc command.

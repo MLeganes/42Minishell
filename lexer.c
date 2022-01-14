@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 17:28:33 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:36:49 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	ms_chartype(char c)
 		return (CHAR_AMPERSAND);
 	else if (c == ' ')
 		return (CHAR_WHITESPACE);
-	else if (c == ';')
-		return (CHAR_SEMICOLON);
 	else if (c == '\\')
 		return (CHAR_ESCAPESEQUENCE);
 	else if (c == '\t')
@@ -139,8 +137,6 @@ static void	ms_case_multiple(t_info *ms, int chartype)
 		ms->tmp_tkn->type = AMPERSAND;
 	else if (chartype == CHAR_PIPE)
 		ms->tmp_tkn->type = PIPE;
-	else if (chartype == CHAR_SEMICOLON)
-		ms->tmp_tkn->type = SEMICOLON;
 	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }
@@ -160,7 +156,7 @@ static void	ms_state_selector(t_info *ms, int chartype)
 	}
 	else if (chartype == CHAR_GREATER || chartype == CHAR_LESSER)
 		ms_case_redirect(ms, chartype);
-	else if (chartype == CHAR_SEMICOLON || chartype == CHAR_AMPERSAND || chartype == CHAR_PIPE)
+	else if (chartype == CHAR_AMPERSAND || chartype == CHAR_PIPE)
 	{		
 		// end the token that was being read before
 		ms_case_multiple(ms, chartype);
@@ -214,6 +210,11 @@ static void	mini_spliter(t_info *ms)
 			ms_end_tok(ms);
 		ms->idx++;
 	}
+	if (ms->cmdline[ms->idx] == '\0' && ms->state != STATE_GENERAL)
+	{
+		printf("Error: Incomplete command.\n");
+		free_after_cmd(ms);
+	}
 }
 
 static char	*print_type(t_type a)
@@ -228,14 +229,12 @@ static char	*print_type(t_type a)
 		return ("REDIR_GREAT");
 	else if (a == PIPE)
 		return ("PIPE");
-	else if (a == SEMICOLON)
-		return ("SEMICOLON");
 	else if (a == AMPERSAND)
 		return ("AMPERSAND");
-	else if (a == DQUOTE)
-		return ("DQUOTE");
-	else if (a == QUOTE)
-		return ("QUOTE");
+	else if (a == IN_DQUOTE)
+		return ("IN_DQUOTE");
+	else if (a == IN_QUOTE)
+		return ("IN_QUOTE");
 	else
 		return ("TOKEN");
 }
