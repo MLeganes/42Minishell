@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/14 14:17:11 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:35:42 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /* USER INCLUDES															  */
 /* ************************************************************************** */
 # include "libft/libft.h"
-
+# include <stdbool.h>
 /* ************************************************************************** */
 /* COLORS															  */
 /* ************************************************************************** */
@@ -94,6 +94,13 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_env
+{
+	char	*var;
+	char	*content;
+	struct s_env	*next;
+}	t_env;
+
 /***
  * state = LEXER to know what are you reading. 
  *   For ex. if you start reading " need to read until you  find another ", or '.
@@ -102,6 +109,8 @@ typedef struct s_info
 {
 	int			idx;
 	t_state		state;
+	t_env		*env_v;
+	t_env		*tmp_env;
 	char		*cmdline;
 	char		*prompt;
 	t_token		*list;
@@ -118,6 +127,7 @@ typedef struct s_info
  */
 
 void	lexer(t_info *info);
+void	get_env(t_info *info, char **env);
 
 /*
  * FREE

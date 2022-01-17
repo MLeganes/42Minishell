@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/14 14:37:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:19:45 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int main(int argc, char **argv, char **env)
 	(void)env;
 	
 	init_struct(&info);
+	get_env(&info, env);
 	while (1)
 	{
 		//info.cmdline = "\"ec\"ho\" str\"ing\"";
@@ -100,7 +101,7 @@ int main(int argc, char **argv, char **env)
 		//parser(&info);
 		//execute(&info);		
 		free_after_cmd(&info);
-		system("leaks minishell");
+		//system("leaks minishell");
 	}
 	//free_all(&info);
 	
