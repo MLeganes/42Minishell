@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/14 14:17:11 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:30:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,39 @@ typedef enum e_state{
 	STATE_GENERAL,
 }	t_state;
 
+typedef enum e_cmdname
+{
+	CMD_ECHO,
+	CMD_CD,
+	CMD_PWD,
+	CMD_EXPORT,
+	CMD_UNSET,
+	CMD_ENV,
+	CMD_EXIT,
+	CMD_REDIR,	//
+	CMD_ERROR,
+	CMD_NO_FOUND,	
+}		t_cmdname;
+
 /***
-* expansion = When there is a " $USER BLA BLA BLA ..." for type DQUOUTE or QUOUTE
-***/
+ * 
+ * type:		used in lexer.
+ * cmdname: 	used in parser, used to indicate the command-program-name
+ * expansion:	When there is a " $USER BLA BLA BLA ..." for type DQUOUTE or QUOUTE
+ * 
+ * 
+ ***/
 typedef struct s_token
 {
 	int				len;
 	char			*data;
 	t_type			type;
+	t_cmdname		cmdname;
 	int				in_q;
 	int				in_dq;
 	char			*expansion;
 	struct s_token	*next;
+	
 }					t_token;
 
 /***
@@ -108,7 +129,43 @@ typedef struct s_info
 	t_token		*tmp_tkn;
 	char		tmp_c;
 	int			ntok;
+	int			npipes;
+	int 		error;
 }				t_info;
+
+
+
+/***
+ *  
+ *  Struct to keep the command to execute.
+ * 
+ * 
+ * 
+ ***/
+typedef struct s_cmd
+{
+	t_cmdname	cmdname;
+	char 		*option; 	// echo -n, 
+	char 		*argument; 	// Everything after the command, echo "hola" 
+	int 		std_in;		// pipex
+	int 		std_out;	// pipex
+	char 		*path;
+	
+	
+}				t_cmd;
+
+/***
+ * 
+ *  List of command to execute.
+ *  Default, every command is separeted by |
+ *  
+ ***/
+typedef struct s_cmd_exe
+{
+	s_cmd 		*cmds;
+}				t_cmdexe;
+
+
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
 /* ************************************************************************** */
@@ -118,6 +175,7 @@ typedef struct s_info
  */
 
 void	lexer(t_info *info);
+void	parser(t_info *ms);
 
 /*
  * FREE

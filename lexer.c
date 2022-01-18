@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/14 14:36:49 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:37:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_token	*new_tok(int len)
 	new->expansion = NULL;
 	new->next = NULL;
 	new->len = 0;
+	new->cmdname = CMD_NO_FOUND;
 	return (new);
 }
 

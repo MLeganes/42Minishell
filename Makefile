@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/13 16:31:37 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/17 12:08:56 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= minishell
 CC		= clang
 FLAGS	= -Wall -Wextra -Werror -g
 OBJS	= $(patsubst %.c, %.o, $(SRCS))
-SRCS	=	minishell.c lexer.c free.c \
+SRCS	=	minishell.c lexer.c free.c parser.c\
  
 %.o: %.c
 	$(CC) $(FLAGS) -Ilibft -c $< -o $@
