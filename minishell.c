@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/17 21:08:51 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:08:20 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,32 +83,33 @@ void init_struct(t_info *info)
 	info->idx = 0;
 	info->ntok = 0;
 	info->npipes = 0;
+	info->pgmlist = NULL;
 }
 
 int main(int argc, char **argv, char **env)
 {
 	t_info info;
-	t_
+
 	(void)argv;
 	(void)argc;
 	(void)env;
-	
+
 	init_struct(&info);
 	while (1)
 	{
-		//info.cmdline = "\"ec\"ho\" str\"ing\"";
 		info.cmdline = readline(info.prompt);
+		//info.cmdline = "cd ..";
 		lexer(&info);
 		parser(&info);
-		//execute(&info);		
-		free_after_cmd(&info);
-		system("leaks minishell");
+		execute(&info);
+		//	free_after_cmd(&info);
+		//system("leaks minishell");
 	}
 	//free_all(&info);
 	
 	/* 	eval(&cmd, cmdline);
 	printf("Env %s\n", env[0]);
 	execute(&cmd, env); */
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/13 12:03:50 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:25:26 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void free_list(t_info *ms)
 			next = actual->next;
 			if (actual->data)
 				free(actual->data);
-			if (actual->expansion)
-				free(actual->expansion);
-			if (actual->next != NULL)
+			// if (actual->expansion)
+			// 	free(actual->expansion);
+			if (actual != NULL)
 			 	free(actual);
 			actual = next;
 		}		

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/17 16:30:35 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:50:18 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef enum e_cmdname
 	CMD_ENV,
 	CMD_EXIT,
 	CMD_REDIR,	//
-	CMD_ERROR,
+	CMD_NONE,
 	CMD_NO_FOUND,	
 }		t_cmdname;
 
@@ -116,8 +116,27 @@ typedef struct s_token
 }					t_token;
 
 /***
+ *
+ * Struct to keep the program (cmd) to execute.
+ *
+ ***/
+typedef struct s_program
+{
+	t_cmdname			name; //echo cd 
+	char 				*option; 	// -n in echo  
+	char 				**argv; 	// agrv[0] cmd, agrv[1]   Everything after the command, echo "hola" or expanded env.
+	int 				std_in;		// pipex
+	int 				std_out;	// pipex
+	char 				*homedir;
+	struct s_program	*next;
+}						t_program;
+
+/***
  * state = LEXER to know what are you reading. 
  *   For ex. if you start reading " need to read until you  find another ", or '.
+ * 
+ * pgmlist = list of program-cmd to exucute
+ * 
 ***/
 typedef struct s_info
 {
@@ -131,39 +150,9 @@ typedef struct s_info
 	int			ntok;
 	int			npipes;
 	int 		error;
+	t_program	*pgmlist;
+	
 }				t_info;
-
-
-
-/***
- *  
- *  Struct to keep the command to execute.
- * 
- * 
- * 
- ***/
-typedef struct s_cmd
-{
-	t_cmdname	cmdname;
-	char 		*option; 	// echo -n, 
-	char 		*argument; 	// Everything after the command, echo "hola" 
-	int 		std_in;		// pipex
-	int 		std_out;	// pipex
-	char 		*path;
-	
-	
-}				t_cmd;
-
-/***
- * 
- *  List of command to execute.
- *  Default, every command is separeted by |
- *  
- ***/
-typedef struct s_cmd_exe
-{
-	s_cmd 		*cmds;
-}				t_cmdexe;
 
 
 /* ************************************************************************** */
@@ -176,6 +165,7 @@ typedef struct s_cmd_exe
 
 void	lexer(t_info *info);
 void	parser(t_info *ms);
+void	execute(t_info *ms);
 
 /*
  * FREE

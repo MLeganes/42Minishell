@@ -8,27 +8,14 @@
 			"name": "gcc - Build and debug active file",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/home/x250/42-Heilbronn/42Minishell/minishell",
+			"program": "/Users/amorcill/42-Minishell/minishell",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "gdb",
-			"setupCommands": [
-				{
-					"description": "Enable pretty-printing for gdb",
-					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
-				},
-				{
-					"description": "Set Disassembly Flavor to Intel",
-					"text": "-gdb-set disassembly-flavor intel",
-					"ignoreFailures": true
-				}
-			],
-			//"preLaunchTask": "C/C++: gcc build active file",
-			"miDebuggerPath": "/usr/bin/gdb"
+			"MIMode": "lldb",
+			//"preLaunchTask": "C/C++: gcc build active file"
 		}
 	]
 }
