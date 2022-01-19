@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/18 17:50:18 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:56:34 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
+
+# define READ 0 //STDIN_FILENO
+# define WRITE 1
 
 /***
  * If the input for the simple command is just an immediate EOF.
@@ -123,11 +126,11 @@ typedef struct s_token
 typedef struct s_program
 {
 	t_cmdname			name; //echo cd 
-	char 				*option; 	// -n in echo  
+	pid_t				pid;
 	char 				**argv; 	// agrv[0] cmd, agrv[1]   Everything after the command, echo "hola" or expanded env.
-	int 				std_in;		// pipex
-	int 				std_out;	// pipex
+	int 				nargvs;	
 	char 				*homedir;
+	
 	struct s_program	*next;
 }						t_program;
 
@@ -151,7 +154,9 @@ typedef struct s_info
 	int			npipes;
 	int 		error;
 	t_program	*pgmlist;
-	
+	int 		std_in;		// pipex
+	int 		std_out;	// pipex
+	int			npgms;
 }				t_info;
 
 
@@ -168,9 +173,13 @@ void	parser(t_info *ms);
 void	execute(t_info *ms);
 
 /*
+ * BUILTIN COMMANDS
+ */
+void	ms_pwd(t_info *ms, t_program *pgm);
+void	ms_cd(t_info *ms, t_program *pgm);
+
+/*
  * FREE
  */
-
 void	free_after_cmd(t_info *ms);
-
 #endif

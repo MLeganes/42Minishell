@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/18 17:08:20 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:34:09 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void init_struct(t_info *info)
 	info->ntok = 0;
 	info->npipes = 0;
 	info->pgmlist = NULL;
+	info->npgms = 0;
 }
 
 int main(int argc, char **argv, char **env)

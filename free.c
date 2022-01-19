@@ -6,12 +6,17 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/18 14:25:26 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:16:36 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/***
+ * 
+ *  parser is deleteing the ms.list!!!
+ * 
+ ***/
 static void free_list(t_info *ms)
 {
 	t_token *actual;

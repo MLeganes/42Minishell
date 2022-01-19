@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:36:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/18 17:49:45 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:51:08 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static t_program *new_program()
 	if (new == NULL)
 		return (NULL);
 	new->name = CMD_NONE;
-	new->option = NULL;
 	new->argv = NULL;
+	new->nargvs = 0;
 	new->std_in = 0;
 	new->std_out = 0;
 	new->homedir = NULL;
@@ -42,120 +42,141 @@ static void ms_program_lstadd_last(t_program **lst, t_program *new)
 	
 	if (*lst == NULL)
 		*lst = new;
-	last = ms_program_lstlast(*lst);
-	last->next = new;
-	new->next = NULL;
-}
-
-static void ms_cmd_case_echo(t_info *ms, t_token *tk)
-{
-	(void)ms;
-	tk->cmdname = CMD_ECHO;
-	// path = env(cd)
-	// path = env(pwd)
-	
-	printf("Command is echo cmdname: %d\n", tk->cmdname);
-}
-
-static void ms_cmd_case_cd(t_info *ms, t_token *tk)
-{
-	t_program *p;
-
-	tk->cmdname = CMD_CD;
-	p = new_program();
-	if ( p == NULL)
-		return ;
-	p->name = CMD_CD;
-	p->argv = (char **) malloc(sizeof(char **) * 2); // protection!!
-	p->argv[0] = ft_strdup("cd");
-	if (tk->next == NULL)
-		p->argv[1] = NULL;
 	else
 	{
-		// WARNING::
-		// NO MALLOC -- copy ref to pointer DATA!!!!!!!
-		p->argv[1] = tk->next->data; //path to change
-	}	
-	// p->option; //no needed
-	// p->path;   //no needed	
-	ms_program_lstadd_last(&ms->pgmlist, p);
-	
-	printf("Command is cd cmdname: %d\n", tk->cmdname);
+		last = ms_program_lstlast(*lst);
+		if (last)
+			last->next = new;
+	}
 }
 
-// static void ms_cmd_case_pwd(t_info *ms, t_token *tk)
+// static void ms_cmd_case_echo(t_info *ms, t_token *tk)
 // {
+// 	(void)ms;
+// 	tk->cmdname = CMD_ECHO;
+// 	// path = env(cd)
+// 	// path = env(pwd)
 	
+// 	printf("Command is echo cmdname: %d\n", tk->cmdname);
 // }
 
-static void ms_cmd_selector(t_info *ms, t_token *tk)
+// static void ms_cmd_case_cd(t_info *ms, t_token *tk)
+// {
+// 	t_program *p;
+
+// 	tk->cmdname = CMD_CD;
+// 	p = new_program();
+// 	if ( p == NULL)
+// 		return ;
+// 	p->name = CMD_CD;
+// 	p->argv = (char **) malloc(sizeof(char **) * 2); // protection!!
+// 	p->argv[0] = ft_strdup("cd");
+// 	if (tk->next == NULL)
+// 		p->argv[1] = NULL;
+// 	else
+// 	{
+// 		// WARNING::
+// 		// NO MALLOC -- copy ref to pointer DATA!!!!!!!
+// 		p->argv[1] = tk->next->data; //path to change
+// 	}	
+// 	// p->option; //no needed
+// 	// p->path;   //no needed	
+// 	ms_program_lstadd_last(&ms->pgmlist, p);
+	
+// 	printf("Command is cd cmdname: %d\n", tk->cmdname);
+// }
+
+// // static void ms_cmd_case_pwd(t_info *ms, t_token *tk)
+// // {
+	
+// // }
+
+// static void	ms_cmd_selector(t_info *ms, t_token *tk)
+// {
+// 	if (ft_strncmp(tk->data, "echo", 4) == 0)
+// 		ms_cmd_case_echo(ms, tk);
+// 	else if (ft_strncmp(tk->data, "cd", 2) == 0)
+// 		ms_cmd_case_cd(ms, tk);
+// 	//else if (ft_strncmp(tk->data, "pwd", ft_strlen(tk->data)) == 0)
+// 	//	ms_cmd_case_pwd(ms, tk);
+// 	// else if (ft_strncmp(tk->data, "export", ft_strlen(tk->data)) == 0)
+// 	// 	ms_cmd_case_export(ms);	
+// 	// else if (ft_strncmp(tk->data, "unset", ft_strlen(tk->data)) == 0)
+// 	// 	ms_cmd_case_unset(ms);
+// 	// else if (ft_strncmp(tk->data, "env", ft_strlen(tk->data)) == 0)
+// 	// 	ms_cmd_case_env(ms);
+// 	// else if (ft_strncmp(tk->data, "exit", ft_strlen(tk->data)) == 0)
+// 	// 	ms_cmd_case_exit(ms);
+// }
+
+
+static void	ms_program_argv_add(t_program *pgm, char *data)
 {
-	if (ft_strncmp(tk->data, "echo", 4) == 0)
-		ms_cmd_case_echo(ms, tk);
-	else if (ft_strncmp(tk->data, "cd", 2) == 0)
-		ms_cmd_case_cd(ms, tk);
-	//else if (ft_strncmp(tk->data, "pwd", ft_strlen(tk->data)) == 0)
-	//	ms_cmd_case_pwd(ms, tk);
-	// else if (ft_strncmp(tk->data, "export", ft_strlen(tk->data)) == 0)
-	// 	ms_cmd_case_export(ms);	
-	// else if (ft_strncmp(tk->data, "unset", ft_strlen(tk->data)) == 0)
-	// 	ms_cmd_case_unset(ms);
-	// else if (ft_strncmp(tk->data, "env", ft_strlen(tk->data)) == 0)
-	// 	ms_cmd_case_env(ms);
-	// else if (ft_strncmp(tk->data, "exit", ft_strlen(tk->data)) == 0)
-	// 	ms_cmd_case_exit(ms);
+	char	**new;
+	int		i;
+
+	i = 0;
+	if(!pgm->argv)
+		new = malloc(sizeof(char *) * 2);
+	else
+		new = malloc(sizeof(char *) * (pgm->nargvs + 2));
+	while (pgm->argv && pgm->argv[i])
+	{
+		new[i] = pgm->argv[i];
+		i++;
+	}
+	new[i] = ft_strdup(data);
+	new[i++] = NULL;
+	/***
+	 *  FREEEE token from t_info
+	 ***/
+	free(data);
+	free(pgm->argv);
+	pgm->argv = new;
+	pgm->nargvs++;
 }
 
-/***
- * Function to do, remove "" from commma d!!
- * 
- ***/
-// static void ms_cmd_remove_dquote(t_token **tk)
-// {
-// 	ft_isdquoute((*tk)->data);
-// 	ft_strchr((*tk)->data, '"');
-// 	ft_strrchr((*tk)->data, '"');
-// }
+static void	parser_build_program(t_info *ms)
+{
+	t_program	*pgm;
 
+	// create new program-cmd
+	pgm = new_program();
+	if ( pgm == NULL)
+		return ;
+	while ( ms->list && ms->list->type != PIPE)
+	{
+		if (ms->list->type == TOKEN)
+			ms_program_argv_add(pgm, ms->list->data);	//append
+		else if (ms->list->type == REDIR_DGREAT || ms->list->type == REDIR_DLESS 
+			|| ms->list->type == REDIR_GREAT || ms->list->type == REDIR_LESS)
+		{
+			/***
+			 *  parser_build_redirection(...)
+			 *  to do something wiht redirrrrr!!!
+			 *  For Anna :)
+			 * 
+			 ***/
+		}
+		//if (ms->list && ms->list->type == PIPE)
+			//stop. new program
+		ms_program_lstadd_last(&ms->pgmlist, pgm);
+		ms->npgms++;
+	}
+}
 
 void	parser(t_info *ms)
 {
-	
-	// check 1° eleme list if cmd exist.
-	//ms_parser_cmd(ms);
-
-	t_token *tk;
-
-	/***
-	 * Function to do, remove "" from commma d!!
-	 * 
-	 ***/
-	//ms_remove_dquote(ms);
-	
-	// Only one command.
-	if (ms->list != NULL && ms->npipes == 0)
+	//2nd try!!
+	// token list
+	// free the ms.list!!!!
+	while (ms->list)
 	{
-		tk = ms->list;
-		ms_cmd_selector(ms, tk); 
-		if (ms->pgmlist == NULL)
-			return ;	//stop! display promt??
-		//
-		// ready to execute cmd
+		parser_build_program(ms);
+		if (ms->list && ms->list->next)
+			free(ms->list->data);
+		if (ms->list->next)
+			ms->list = ms->list->next;
 	}
-	else if (ms->list != NULL && ms->npipes > 0)
-	{
-		/**tk = ms->list:
-		 * while (ms->npipes > 0)
-		 * {
-		 * 		//call parser ms_cmd_selector
-		 * 		//if cmd-found
-		 * 		// do next
-		 * 		// ms->npipes--;
-		 * 		// tk = tk->next:
-		 * }
-		*/
-	}	
-
-	// Here, it should be everything in t_info 
-	// ready to execute.
+	// check what to free!!!
 }
