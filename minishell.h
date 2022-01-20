@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 16:06:08 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:14:44 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /* USER INCLUDES															  */
 /* ************************************************************************** */
 # include "libft/libft.h"
-
+# include <stdbool.h>
 /* ************************************************************************** */
 /* COLORS															  */
 /* ************************************************************************** */
@@ -118,6 +118,13 @@ typedef struct s_token
 	
 }					t_token;
 
+typedef struct s_env
+{
+	char	*var;
+	char	*content;
+	struct s_env	*next;
+}	t_env;
+
 /***
  *
  * Struct to keep the program (cmd) to execute.
@@ -145,6 +152,8 @@ typedef struct s_info
 {
 	int			idx;
 	t_state		state;
+	t_env		*env_v;
+	t_env		*tmp_env;
 	char		*cmdline;
 	char		*prompt;
 	t_token		*list; //Token form Lexer.
@@ -172,6 +181,7 @@ typedef struct s_info
 void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
+void	get_env(t_info *info, char **env);
 
 /*
  * BUILTIN COMMANDS
