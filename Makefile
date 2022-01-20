@@ -6,16 +6,16 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/20 17:13:37 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/20 18:43:48 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
-CC		= clang
+CC		= gcc
 FLAGS	= -Wall -Wextra -Werror -g
 OBJS	= $(patsubst %.c, %.o, $(SRCS))
 SRCS	=	minishell.c lexer.c free.c parser.c execute.c \
-			ms_cd.c ms_pwd.c ms_echo.c \
+			ms_cd.c ms_pwd.c ms_echo.c env.c \
  
 %.o: %.c
 	$(CC) $(FLAGS) -Ilibft -c $< -o $@

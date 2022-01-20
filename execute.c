@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 17:07:50 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:58:18 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void exec_init_fd(t_info *ms)
 {
-	dup2(ms->std_in, STDIN_FILENO);
-	dup2(ms->std_out, STDOUT_FILENO);
+	(void)ms;
+	// dup2(ms->std_in, STDIN_FILENO);
+	// dup2(ms->std_out, STDOUT_FILENO);
 }
 
 static void ms_program_findbinary(t_info *ms)

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 15:39:06 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:12:13 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void free_after_cmd(t_info *ms)
 
 void free_end(t_info *ms)
 {	
-	if (ms)
-		free(ms);
+	(void)ms;
+	// free env!!!!
+	
 }
 

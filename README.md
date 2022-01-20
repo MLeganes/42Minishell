@@ -61,3 +61,26 @@ Add in header file this define:
 And used it from any part of your program
 
 	PRINT_HERE();
+
+
+# Dockers and Valgrind
+
+ [42toolbox](https://github.com/alexandregv/42toolbox)
+ [guide](https://www.gungorbudak.com/blog/2018/06/13/memory-leak-testing-with-valgrind-on-macos-using-docker-containers/)
+
+## Dockerfile
+
+	FROM ubuntu:16.04
+	RUN apt-get update
+	RUN apt-get upgrade -y
+	RUN apt-get install g++ valgrind -y
+	RUN apt-get install libreadline6 libreadline6-dev
+	RUN apt-get update && apt-get install make
+
+## Build docker
+
+	docker build -t memory-test:0.1 .
+
+## Run docker in project folder
+
+	docker run -ti -v $(PWD):/test memory-test:0.1 bash -c "cd /test/; make && valgrind --leak-check=full --show-leak-kinds=all ./minishell; rm -f ./minishell"

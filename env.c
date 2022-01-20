@@ -43,6 +43,7 @@ void	print_env(t_info *ms)
 		i++;
 	}
 }
+
 void get_env(t_info *ms, char **env)
 {
 	int i;
