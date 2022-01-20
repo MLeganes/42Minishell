@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:36:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/19 18:51:08 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:56:25 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static t_program *new_program()
 	new->name = CMD_NONE;
 	new->argv = NULL;
 	new->nargvs = 0;
-	new->std_in = 0;
-	new->std_out = 0;
 	new->homedir = NULL;
 	new->next = NULL;
 	return (new);
@@ -126,12 +124,10 @@ static void	ms_program_argv_add(t_program *pgm, char *data)
 		i++;
 	}
 	new[i] = ft_strdup(data);
-	new[i++] = NULL;
-	/***
-	 *  FREEEE token from t_info
-	 ***/
-	free(data);
-	free(pgm->argv);
+	i++;
+	new[i] = NULL;	
+	if (pgm->argv)
+		free(pgm->argv);
 	pgm->argv = new;
 	pgm->nargvs++;
 }
@@ -144,12 +140,12 @@ static void	parser_build_program(t_info *ms)
 	pgm = new_program();
 	if ( pgm == NULL)
 		return ;
-	while ( ms->list && ms->list->type != PIPE)
+	while ( ms->tmp_tkn && ms->tmp_tkn->type != PIPE)
 	{
-		if (ms->list->type == TOKEN)
-			ms_program_argv_add(pgm, ms->list->data);	//append
-		else if (ms->list->type == REDIR_DGREAT || ms->list->type == REDIR_DLESS 
-			|| ms->list->type == REDIR_GREAT || ms->list->type == REDIR_LESS)
+		if (ms->tmp_tkn->type == TOKEN)
+			ms_program_argv_add(pgm, ms->tmp_tkn->data);	//append
+		else if (ms->tmp_tkn->type == REDIR_DGREAT || ms->tmp_tkn->type == REDIR_DLESS 
+			|| ms->tmp_tkn->type == REDIR_GREAT || ms->tmp_tkn->type == REDIR_LESS)
 		{
 			/***
 			 *  parser_build_redirection(...)
@@ -158,11 +154,18 @@ static void	parser_build_program(t_info *ms)
 			 * 
 			 ***/
 		}
+		ms->tmp_tkn = ms->tmp_tkn->next;
+		/***
+		 *  FREEEE token from t_info
+		 * 
+		 *  put in the free.c!!!!!!
+		//free(ms->list->data);
+		 ***/
+	}//END-WHILE
 		//if (ms->list && ms->list->type == PIPE)
 			//stop. new program
-		ms_program_lstadd_last(&ms->pgmlist, pgm);
-		ms->npgms++;
-	}
+	ms_program_lstadd_last(&ms->pgmlist, pgm);
+	ms->npgms++;
 }
 
 void	parser(t_info *ms)
@@ -170,13 +173,15 @@ void	parser(t_info *ms)
 	//2nd try!!
 	// token list
 	// free the ms.list!!!!
-	while (ms->list)
+	ms->tmp_tkn = ms->list;
+	
+	while (ms->tmp_tkn)
 	{
 		parser_build_program(ms);
-		if (ms->list && ms->list->next)
-			free(ms->list->data);
-		if (ms->list->next)
-			ms->list = ms->list->next;
+		// if (ms->list && ms->list->next)
+		// 	free(ms->list->data);
+		if (ms->tmp_tkn)
+			ms->tmp_tkn = ms->tmp_tkn->next;
 	}
 	// check what to free!!!
 }

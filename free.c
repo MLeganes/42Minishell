@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/19 11:16:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:39:06 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,44 @@ static void free_list(t_info *ms)
 			if (actual != NULL)
 			 	free(actual);
 			actual = next;
-		}		
+		}
 		ms->list = NULL;
+	}
+}
+
+static void free_argv(char **argv)
+{
+	int i;
+
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+		/* code */
+	}
+}
+
+static void free_pgmlist(t_info *ms)
+{
+	t_program *actual;
+	t_program *next;
+	
+	if (ms->pgmlist != NULL)
+	{
+		actual = ms->pgmlist;
+		while ( actual != NULL)
+		{
+			next = actual->next;
+			if (actual->argv)
+			{
+				free_argv(actual->argv);
+			}
+			if (actual != NULL)
+			 	free(actual);
+			actual = next;
+		}
+		ms->pgmlist = NULL;
 	}
 }
 
@@ -45,9 +81,18 @@ void free_after_cmd(t_info *ms)
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
 	free_list(ms);
-	if (ms->tmp_tkn != NULL)
-	{		
+	free_pgmlist(ms);
+	if (ms->tmp_pgm)
+		free(ms->tmp_pgm);
+	ms->tmp_pgm = NULL;
+	if (ms->tmp_tkn)
 		free(ms->tmp_tkn);
-		ms->tmp_tkn = NULL;
-	}
+	ms->tmp_tkn = NULL;
 }
+
+void free_end(t_info *ms)
+{	
+	if (ms)
+		free(ms);
+}
+

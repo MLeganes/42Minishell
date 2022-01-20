@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/19 11:34:09 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:47:31 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,24 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)env;
 
-	init_struct(&info);
+	
 	while (1)
 	{
-		info.cmdline = readline(info.prompt);
+		init_struct(&info);
+		/***
+		 *  Warnning: comment the free(ms->cmdline);
+		 ***/
 		//info.cmdline = "cd ..";
+		info.cmdline = readline(info.prompt);
+		add_history(info.cmdline);
 		lexer(&info);
 		parser(&info);
 		execute(&info);
-		//	free_after_cmd(&info);
-		//system("leaks minishell");
+		free_after_cmd(&info);
+		system("leaks minishell");
 	}
-	//free_all(&info);
 	
+	//free_end(&info);
 	/* 	eval(&cmd, cmdline);
 	printf("Env %s\n", env[0]);
 	execute(&cmd, env); */

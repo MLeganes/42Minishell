@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/19 18:56:34 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:06:08 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,14 @@ typedef struct s_info
 	t_state		state;
 	char		*cmdline;
 	char		*prompt;
-	t_token		*list;
+	t_token		*list; //Token form Lexer.
 	t_token		*tmp_tkn;
 	char		tmp_c;
 	int			ntok;
 	int			npipes;
 	int 		error;
 	t_program	*pgmlist;
+	t_program	*tmp_pgm;
 	int 		std_in;		// pipex
 	int 		std_out;	// pipex
 	int			npgms;
@@ -177,9 +178,11 @@ void	execute(t_info *ms);
  */
 void	ms_pwd(t_info *ms, t_program *pgm);
 void	ms_cd(t_info *ms, t_program *pgm);
+void	ms_echo(t_info *ms, t_program *pgm);
 
 /*
  * FREE
  */
 void	free_after_cmd(t_info *ms);
+void	free_end(t_info *ms);
 #endif
