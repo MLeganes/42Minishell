@@ -6,7 +6,8 @@ static void exe_cd(t_info *ms, t_program *pgm)
 	int	res;
 
 	res = 0;
-	res = chdir(pgm->argv[1]);
+	if (pgm->argv[1])
+		res = chdir(pgm->argv[1]);
 	if (res == -1)
 		printf("minishel: No such file or directory\n");
 }

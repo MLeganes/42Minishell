@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/17 13:37:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:27:30 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ static char	*print_type(t_type a)
 		return ("TOKEN");
 }
 
-static void	ms_print(t_info *ms)
+void	ms_print(t_info *ms)
 {
 	int		i;
 	t_token	*token;
@@ -278,5 +278,5 @@ void	lexer(t_info *ms)
 	// like split but puts everything in a linked list 
 	//and returns a pointer to the first element
 	mini_spliter(ms);
-	ms_print(ms);
+	//ms_print(ms);
 }

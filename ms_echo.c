@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:45:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 16:09:02 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:26:13 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ static void	exec_echo(t_info *ms, t_program *pgm)
 		i++;
 		flag = 1;
 	}
-	
-	// code missing
-
+	while (pgm->argv[i])
+	{
+		ft_putstr_fd(pgm->argv[i], STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
 	if (flag == 1)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }

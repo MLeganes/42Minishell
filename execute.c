@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 12:35:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:07:50 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static void exec_init_fd(t_info *ms)
 {
 	dup2(ms->std_in, STDIN_FILENO);
 	dup2(ms->std_out, STDOUT_FILENO);
+}
+
+static void ms_program_findbinary(t_info *ms)
+{
+	(void)ms;
 }
 
 int	ms_isbuiltin(char **argv)
@@ -75,27 +80,30 @@ void	execute(t_info *ms)
 	//2nd try!!
 	int			islast;
 	int			old_fd[2];
-	t_program	*tmp_pgm;
+	
 
-	tmp_pgm = ms->pgmlist;
+	ms->tmp_pgm = ms->pgmlist;
 	ms->idx = 0;
 	old_fd[READ] = STDIN_FILENO; //FD_READ 0 = STDIN_FILENO
 	old_fd[WRITE] = -1;			//FD WRITE 1 = STDOUT_FILENO
-	while (tmp_pgm)
+	while (ms->tmp_pgm)
 	{
 		islast = 0;
-		if (tmp_pgm->next == NULL)
+		if (ms->tmp_pgm->next == NULL)
 			islast = 1;
-		if (tmp_pgm->argv)
+		if (ms->tmp_pgm->argv)
 		{
 			exec_init_fd(ms);
-			//if (ms_isbuiltin(tmp_pgm->argv) == 0)
-				//ms_program_findbinary()
-			if (tmp_pgm->argv[0])
-				exec_program(ms, tmp_pgm, old_fd, islast);
+			if (ms_isbuiltin(ms->tmp_pgm->argv) == 0)
+				ms_program_findbinary(ms);
+			if (ms->tmp_pgm->argv[0])
+				exec_program(ms, ms->tmp_pgm, old_fd, islast);
 		}
-		tmp_pgm = tmp_pgm->next;
+		ms->tmp_pgm = ms->tmp_pgm->next;
 	}
+}
+
+
 
 
 	// program *pgm;
@@ -124,4 +132,3 @@ void	execute(t_info *ms)
 	// 	}
 	
 	
-}

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 15:47:31 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:26:43 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int main(int argc, char **argv, char **env)
 		parser(&info);
 		execute(&info);
 		free_after_cmd(&info);
-		system("leaks minishell");
+		//system("leaks minishell");
 	}
 	
 	//free_end(&info);
