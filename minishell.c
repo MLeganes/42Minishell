@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 17:38:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:42:59 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)argc;
 	(void)env;
+	//char *path;
 	
-	get_env(&info, env);
+	//get_env(&info, env);
+	// geting the f* path!!!!
+	//get_env_pgmpath(&info, "ls");
+	//get_env_path(&info);
+	
 	
 	while (1)
 	{
@@ -42,8 +47,8 @@ int main(int argc, char **argv, char **env)
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		info.cmdline = "cd ..";
-		info.cmdline = readline(info.prompt);
+		info.cmdline = "ls -la";
+		//info.cmdline = readline(info.prompt);
 		
 		add_history(info.cmdline);
 		lexer(&info);

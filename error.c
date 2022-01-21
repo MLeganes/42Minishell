@@ -8,3 +8,4 @@ void error_exit(t_info ms)
 	// Or maybe no exit, just print promt 
 	//exit (EXIT_FAILURE);
 }
+

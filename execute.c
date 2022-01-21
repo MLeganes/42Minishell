@@ -6,22 +6,31 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 18:58:18 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:22:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void exec_init_fd(t_info *ms)
+void exec_init_fd(t_info *ms)
 {
 	(void)ms;
 	// dup2(ms->std_in, STDIN_FILENO);
 	// dup2(ms->std_out, STDOUT_FILENO);
 }
 
-static void ms_program_findbinary(t_info *ms)
+static void ms_program_findpath(t_info *ms)
 {
 	(void)ms;
+	int res;
+
+	res = 0;
+		//get_env(&info, env);
+	// geting the f* path!!!!
+	//get_env_pgmpath(&info, "ls");
+	res = get_env_path(ms);
+	if (res == 0)
+		return ; // free everthing and show promt!!!
 }
 
 int	ms_isbuiltin(char **argv)
@@ -62,18 +71,39 @@ static void	exec_select_builtin(t_info *ms, t_program *pgm)
 	return ;
 }
 
-static void exec_program(t_info *ms, t_program *pgm, int old_fd[2], int islast)
+static void exec_program(t_info *ms, int old_fd[2], int islast)
 {
-	(void)old_fd;
-	(void)islast;
+	int fd[2];
 	
-	if (ms_isbuiltin(pgm->argv))
-		exec_select_builtin(ms, pgm);
-	
-	///more things to do
-	// fork
-	// exec child
-	// exec parent
+	if (ms_isbuiltin(ms->tmp_pgm->argv) && ms->npipes == 0)
+	{
+		// Redirection
+		// if (ms.redirection......)
+		
+		exec_select_builtin(ms, ms->tmp_pgm);
+	}
+	else
+	{
+		if (pipe(fd) == -1)
+			///////error_exit(127, "Pipe error\n", 0);
+		if (!strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes > 0)
+		{
+			exec_parent(fd, old_fd, islast);
+			return ;
+		}
+		ms->tmp_pgm->pid = fork();
+		if (ms->tmp_pgm->pid < 0)
+		{
+			printf("Error in fork pid");
+			/////////error(errno, strerror(errno), 0);
+		}
+		else if (ms->tmp_pgm->pid == 0)
+			printf("EXECUTE CHILD"); 
+			//exec_child(ms, fd, old_fd);
+		else
+			exec_parent(fd, old_fd, islast);
+		ms->idx++;
+	}
 }
 
 void	execute(t_info *ms)
@@ -84,7 +114,7 @@ void	execute(t_info *ms)
 	
 
 	ms->tmp_pgm = ms->pgmlist;
-	ms->idx = 0;
+	ms->idx = 0;				// using here as well.
 	old_fd[READ] = STDIN_FILENO; //FD_READ 0 = STDIN_FILENO
 	old_fd[WRITE] = -1;			//FD WRITE 1 = STDOUT_FILENO
 	while (ms->tmp_pgm)
@@ -94,11 +124,11 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			exec_init_fd(ms);
+			//exec_init_fd(ms);
 			if (ms_isbuiltin(ms->tmp_pgm->argv) == 0)
-				ms_program_findbinary(ms);
+				ms_program_findpath(ms);
 			if (ms->tmp_pgm->argv[0])
-				exec_program(ms, ms->tmp_pgm, old_fd, islast);
+				exec_program(ms, old_fd, islast);
 		}
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}

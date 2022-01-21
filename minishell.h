@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 17:14:44 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:21:47 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 /* ************************************************************************** */
 /* STD LIBC INCLUDES														  */
 /* ************************************************************************** */
-# include <unistd.h> // systemcalls, execve
-# include <stdlib.h> // exit
-# include <stdio.h>	 // printf, fgets
+# include <unistd.h>			// systemcalls, execve
+# include <stdlib.h>			// exit, getenv
+# include <stdio.h>				// printf, fgets
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <sys/stat.h>			// stat, fstat
+# include <fcntl.h>				// O_RDONLY
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -181,7 +182,18 @@ typedef struct s_info
 void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
+void	exec_parent(int fd[2], int old_fd[2],int islast);
+//void	exec_child(int fd[2], int old_fd[2],int islast);
+
 void	get_env(t_info *info, char **env);
+int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
+int		get_env_path(t_info *ms);					// (*) same func. check for one
+
+/*
+ * SIGNAL
+ */
+void	ms_signal(int signal);
+void	ms_signal_fork(int signal);
 
 /*
  * BUILTIN COMMANDS
