@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 16:21:47 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:22:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 # include <sys/stat.h>			// stat, fstat
 # include <fcntl.h>				// O_RDONLY
+# include <signal.h>			// signal
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -165,7 +166,8 @@ typedef struct s_info
 	int 		error;
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
-	int 		std_in;		// pipex
+	int 		fd_old[2];	// pipex
+	int 		fd_new[2];	// pipex
 	int 		std_out;	// pipex
 	int			npgms;
 }				t_info;
@@ -182,8 +184,8 @@ typedef struct s_info
 void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
-void	exec_parent(int fd[2], int old_fd[2],int islast);
-//void	exec_child(int fd[2], int old_fd[2],int islast);
+void	exec_parent(t_info *ms, int fd[2], int old_fd[2],int islast);
+void	exec_child(t_info *ms, int fd[2], int old_fd[2]);
 
 void	get_env(t_info *info, char **env);
 int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
@@ -198,6 +200,8 @@ void	ms_signal_fork(int signal);
 /*
  * BUILTIN COMMANDS
  */
+int		ms_isbuiltin(char **argv);
+void	ms_select_builtin(t_info *ms, t_program *pgm);
 void	ms_pwd(t_info *ms, t_program *pgm);
 void	ms_cd(t_info *ms, t_program *pgm);
 void	ms_echo(t_info *ms, t_program *pgm);

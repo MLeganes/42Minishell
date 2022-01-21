@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 16:22:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:26:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,44 +33,6 @@ static void ms_program_findpath(t_info *ms)
 		return ; // free everthing and show promt!!!
 }
 
-int	ms_isbuiltin(char **argv)
-{
-	if (ft_strlen(argv[0]) == 3 && !ft_strncmp(argv[0], "pwd", 3))
-		return (1);
-	else if (ft_strlen(argv[0]) == 2 && !ft_strncmp(argv[0], "cd", 2))
-		return (1);
-	else if (ft_strlen(argv[0]) == 4 && !ft_strncmp(argv[0], "echo", 4))
-		return (1);
-	else if (ft_strlen(argv[0]) == 3 && !ft_strncmp(argv[0], "env", 3))
-		return (1);
-	else if (ft_strlen(argv[0]) == 6 && !ft_strncmp(argv[0], "export", 6))
-		return (1);
-	else if (ft_strlen(argv[0]) == 5 && !ft_strncmp(argv[0], "unset", 5))
-		return (1);
-	else if (ft_strlen(argv[0]) == 4 && !ft_strncmp(argv[0], "exit", 4))
-		return (1);
-	return (0);
-}
-
-static void	exec_select_builtin(t_info *ms, t_program *pgm)
-{
-	if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "pwd", 3))
-		ms_pwd(ms, pgm);
-	else if (ft_strlen(pgm->argv[0]) == 2 && !ft_strncmp(pgm->argv[0], "cd", 2))
-		ms_cd(ms, pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "echo", 4))
-	// 	ms_echo(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "env", 3))
-	// 	ms_env(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 6 && !ft_strncmp(pgm->argv[0], "export", 6))
-	// 	ms_export(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 5 && !ft_strncmp(pgm->argv[0], "unset", 5))
-	// 	ms_unset(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "exit", 4))
-	// 	ms_exit(pgm);
-	return ;
-}
-
 static void exec_program(t_info *ms, int old_fd[2], int islast)
 {
 	int fd[2];
@@ -80,7 +42,7 @@ static void exec_program(t_info *ms, int old_fd[2], int islast)
 		// Redirection
 		// if (ms.redirection......)
 		
-		exec_select_builtin(ms, ms->tmp_pgm);
+		ms_select_builtin(ms, ms->tmp_pgm);
 	}
 	else
 	{
@@ -88,7 +50,7 @@ static void exec_program(t_info *ms, int old_fd[2], int islast)
 			///////error_exit(127, "Pipe error\n", 0);
 		if (!strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes > 0)
 		{
-			exec_parent(fd, old_fd, islast);
+			exec_parent(ms, fd, old_fd, islast);
 			return ;
 		}
 		ms->tmp_pgm->pid = fork();
@@ -101,9 +63,15 @@ static void exec_program(t_info *ms, int old_fd[2], int islast)
 			printf("EXECUTE CHILD"); 
 			//exec_child(ms, fd, old_fd);
 		else
-			exec_parent(fd, old_fd, islast);
+			exec_parent(ms, fd, old_fd, islast);
 		ms->idx++;
 	}
+}
+
+void init_fd(t_info *ms)
+{
+	dup2(ms->fd_new[READ], STDIN_FILENO);
+	dup2(ms->fd_new[WRITE], STDOUT_FILENO);
 }
 
 void	execute(t_info *ms)
@@ -111,10 +79,12 @@ void	execute(t_info *ms)
 	//2nd try!!
 	int			islast;
 	int			old_fd[2];
-	
 
 	ms->tmp_pgm = ms->pgmlist;
 	ms->idx = 0;				// using here as well.
+	
+	ms->fd_old[READ] = STDIN_FILENO;
+	ms->fd_old[WRITE] = -1;
 	old_fd[READ] = STDIN_FILENO; //FD_READ 0 = STDIN_FILENO
 	old_fd[WRITE] = -1;			//FD WRITE 1 = STDOUT_FILENO
 	while (ms->tmp_pgm)
@@ -124,7 +94,7 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			//exec_init_fd(ms);
+			init_fd(ms);
 			if (ms_isbuiltin(ms->tmp_pgm->argv) == 0)
 				ms_program_findpath(ms);
 			if (ms->tmp_pgm->argv[0])

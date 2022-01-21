@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 15:42:59 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:28:45 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int main(int argc, char **argv, char **env)
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		info.cmdline = "ls -la";
-		//info.cmdline = readline(info.prompt);
+		//info.cmdline = "ls -la";
+		info.cmdline = readline(info.prompt);
 		
 		add_history(info.cmdline);
 		lexer(&info);

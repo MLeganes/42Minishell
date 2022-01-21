@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/21 16:18:16 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/21 17:36:34 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ OBJS	= $(patsubst %.c, %.o, $(SRCS))
 SRCS	=	minishell.c lexer.c free.c parser.c \
 			ms_cd.c ms_pwd.c ms_echo.c \
 			env.c env_get.c \
-			execute.c execute_parent.c \
+			execute.c execute_parent.c execute_child.c \
 			signal.c \
+			ms_builtin.c \
  
 %.o: %.c
 	$(CC) $(FLAGS) -Ilibft -c $< -o $@
