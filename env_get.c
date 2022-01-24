@@ -6,12 +6,18 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:40:21 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 15:49:47 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:08:02 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/***
+ * 
+ * Func. to check if the command path exist e.g. /bin/ls
+ * 
+ * 
+ ***/
 static int	ms_existpath(char *file)
 {
 	int	fd;
@@ -23,9 +29,20 @@ static int	ms_existpath(char *file)
 	if (fd > 0)
 		ret = 1;
 	close(fd);
+
+	/* another way*/
+	ret = access(file, F_OK);
+	ret = access(file, W_OK);
 	return (ret);
 }
 
+/***
+ * 
+ * This func. is not working.
+ * I put the func.	get_env_path(t_info *ms) 
+ * 
+ * 
+ ***/
 int get_env_pgmpath(t_info *ms, char *pgmname)
 {
 	(void)ms;
@@ -82,35 +99,29 @@ int get_env_pgmpath(t_info *ms, char *pgmname)
  * 
  ***/
 int	get_env_path(t_info *ms)
-{
-	
-	if (ms->tmp_pgm->argv[0])
-	{
-		ms->tmp_pgm->homedir = ft_strjoin("/bin/", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-		//free(ms->tmp_pgm->homedir);
-		ms->tmp_pgm->homedir = ft_strjoin("/usr/bin/", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-		//free(ms->tmp_pgm->homedir);
-		ms->tmp_pgm->homedir = ft_strjoin("/usr/sbin/", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-		//free(ms->tmp_pgm->homedir);
-		ms->tmp_pgm->homedir = ft_strjoin("/usr/local/bin", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-		//free(ms->tmp_pgm->homedir);
-		ms->tmp_pgm->homedir = ft_strjoin("/sbin", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-		//free(ms->tmp_pgm->homedir);
-		ms->tmp_pgm->homedir = ft_strjoin("/usr/local/munki", ms->tmp_pgm->argv[0]);
-		if (ms_existpath(ms->tmp_pgm->homedir))
-			return 1;
-	}
-	// no file found. error
-	printf("minishel: No such file or directory\n");
+{	
+	ms->tmp_pgm->homedir = ft_strjoin("/bin/", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
+	//free(ms->tmp_pgm->homedir);
+	ms->tmp_pgm->homedir = ft_strjoin("/usr/bin/", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
+	//free(ms->tmp_pgm->homedir);
+	ms->tmp_pgm->homedir = ft_strjoin("/usr/sbin/", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
+	//free(ms->tmp_pgm->homedir);
+	ms->tmp_pgm->homedir = ft_strjoin("/usr/local/bin", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
+	//free(ms->tmp_pgm->homedir);
+	ms->tmp_pgm->homedir = ft_strjoin("/sbin", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
+	//free(ms->tmp_pgm->homedir);
+	ms->tmp_pgm->homedir = ft_strjoin("/usr/local/munki", ms->tmp_pgm->argv[0]);
+	if (ms_existpath(ms->tmp_pgm->homedir))
+		return 1;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 17:47:14 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:22:22 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ void exec_child(t_info *ms, int fd[2], int old_fd[2])
 		close(old_fd[WRITE]);
 		dup2(old_fd[READ], STDIN_FILENO);
 		close(old_fd[READ]);
-	}
-	
+	}	
 	//REDIRECTION
-
-	if (ms_isbuiltin(ms->tmp_pgm->argv))
+	if (ms_isbuiltin(ms->tmp_pgm->argv) == 1)
 		ms_select_builtin(ms, ms->tmp_pgm);
 	else
 	{
 		signal(SIGINT, ms_signal_fork);
 		signal(SIGQUIT, ms_signal_fork);
-		execve(ms->tmp_pgm->homedir, ms->tmp_pgm->argv, NULL);
+		/***
+		 * execve: result has exited with code 0 (0x00000000) --> OK!!!
+		 ***/
+		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env_ptr_copy);
 	}
 }

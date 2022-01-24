@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 19:22:35 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:13:40 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include <sys/stat.h>			// stat, fstat
 # include <fcntl.h>				// O_RDONLY
 # include <signal.h>			// signal
+
+# include <sys/types.h>		// waitpid
+# include <sys/wait.h>		// waitpid
+
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -170,6 +174,7 @@ typedef struct s_info
 	int 		fd_new[2];	// pipex
 	int 		std_out;	// pipex
 	int			npgms;
+	char 		**env_ptr_copy; //	
 }				t_info;
 
 
