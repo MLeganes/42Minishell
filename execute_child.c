@@ -6,26 +6,25 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/24 11:22:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:46:51 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exec_child(t_info *ms, int fd[2], int old_fd[2])
-{
-	
+void exec_child(t_info *ms, int fd[2])
+{	
 	if (ms->tmp_pgm->next)
 	{ // if pipe, redirection
 		close(fd[READ]);
 		dup2(fd[WRITE], STDIN_FILENO);
 		close(fd[WRITE]);
 	}
-	if (old_fd[WRITE] != -1)
+	if (ms->fd_old[WRITE] != -1)
 	{  // no pipe, std out.
-		close(old_fd[WRITE]);
-		dup2(old_fd[READ], STDIN_FILENO);
-		close(old_fd[READ]);
+		close(ms->fd_old[WRITE]);
+		dup2(ms->fd_old[READ], STDIN_FILENO);
+		close(ms->fd_old[READ]);
 	}	
 	//REDIRECTION
 	if (ms_isbuiltin(ms->tmp_pgm->argv) == 1)

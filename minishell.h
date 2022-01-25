@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/24 12:13:40 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:51:59 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ typedef struct s_info
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
 	int 		fd_old[2];	// pipex
-	int 		fd_new[2];	// pipex
+	int 		fd[2];	// pipex
 	int 		std_out;	// pipex
 	int			npgms;
 	char 		**env_ptr_copy; //	
@@ -189,8 +189,8 @@ typedef struct s_info
 void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
-void	exec_parent(t_info *ms, int fd[2], int old_fd[2],int islast);
-void	exec_child(t_info *ms, int fd[2], int old_fd[2]);
+void	exec_parent(t_info *ms, int fd[2], int islast);
+void	exec_child(t_info *ms, int fd[2]);
 
 void	get_env(t_info *info, char **env);
 int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 16:27:30 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/24 20:15:43 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,10 @@ static void	ms_case_multiple(t_info *ms, int chartype)
 	if (chartype == CHAR_AMPERSAND)
 		ms->tmp_tkn->type = AMPERSAND;
 	else if (chartype == CHAR_PIPE)
+	{
 		ms->tmp_tkn->type = PIPE;
+		ms->npipes++;
+	}
 	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }

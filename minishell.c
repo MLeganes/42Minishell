@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/24 11:24:15 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/25 19:36:51 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,20 @@ void init_struct(t_info *info)
 
 int main(int argc, char **argv, char **env)
 {
-	t_info info;
-
 	(void)argv;
 	(void)argc;
-	(void)env;
-	//char *path;
-	
+	t_info info;
 	
 	get_env(&info, env);
-	info.env_ptr_copy = env;
-	// geting the f* path!!!!
-	//get_env_pgmpath(&info, "ls");
-	//get_env_path(&info);
-	
-	
+	info.env_ptr_copy = env;	
 	while (1)
 	{
 		init_struct(&info);
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		//info.cmdline = "ls -la";
-		info.cmdline = readline(info.prompt);
+		info.cmdline = "ls -la | wc";
+		//info.cmdline = readline(info.prompt);
 		
 		add_history(info.cmdline);
 		lexer(&info);
@@ -58,10 +49,6 @@ int main(int argc, char **argv, char **env)
 		execute(&info);
 		free_after_cmd(&info);
 		//system("leaks minishell");
-	}
-	
-	// free_end(&info);	
-	// printf("Env %s\n", env[0]);
-	
+	}	
 	return (0);
 }
