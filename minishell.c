@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/25 20:02:15 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:05:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, char **argv, char **env)
 	t_info info;
 	
 	get_env(&info, env);
+	ms_signal_activate();
 	info.env_ptr_copy = env;	
 	while (1)
 	{

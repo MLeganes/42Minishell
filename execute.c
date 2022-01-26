@@ -6,13 +6,11 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/26 22:11:30 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:20:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 static void exec_program(t_info *ms, int islast)
 {
@@ -37,45 +35,27 @@ static void exec_program(t_info *ms, int islast)
 		// 	exec_parent(ms, fd, islast);
 		// 	return ;
 		// }
+		ms_signal_desactivate();
 		ms->tmp_pgm->pid = fork();
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");			
 		else if (ms->tmp_pgm->pid == 0)
-			exec_child(ms, fdp, islast);
+			exec_child(ms, fdp);
 		else
-			exec_parent(ms, fdp, islast);	
+			exec_parent(ms, fdp, islast);
+		ms_signal_activate();
 		ms->idx++;	// Used to indicate there are more than 1 command to close the fd.
 	}
 }
 
-void init_fd(t_info *ms)
+static void update_fd(t_info *ms)
 {
 	dup2(ms->fd_bak[READ], STDIN_FILENO);
 	dup2(ms->fd_bak[WRITE], STDOUT_FILENO);
-	// dup2(ms->fd[READ], STDIN_FILENO);
-	// dup2(ms->fd[WRITE], STDOUT_FILENO);
-}
-
-static void	error_no(t_info *ms)
-{
-	int		ex;
-	int		status;
-
-	while (ms->idx > 0)
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-		{
-			ex = WEXITSTATUS(status);
-			(void)ex;
-		}
-		ms->idx--;
-	}
 }
 
 void	execute(t_info *ms)
 {
-	//5rd try!!
 	int			islast;
 
 	ms->idx = 0;
@@ -89,11 +69,10 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			init_fd(ms);
+			update_fd(ms);
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}
-	error_no(ms);
 }

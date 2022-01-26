@@ -6,29 +6,41 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/21 18:32:46 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:04:31 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ms_signal(int signal)
+static void ms_signal_act_ctrlc(int signal)
 {
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
 
-void ms_signal_fork(int signal)
+static void ms_signal_desact_ctrlc(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(1, "MS_SIGINT_AML", 13);
 		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 	}
-	else if (signal == SIGQUIT)
-		write(1, "MS_SIGQUIT", 10);
+}
+
+void ms_signal_activate(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ms_signal_act_ctrlc);
+}
+
+void ms_signal_desactivate(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ms_signal_desact_ctrlc);
 }

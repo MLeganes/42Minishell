@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/26 22:16:53 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:07:47 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
 void	exec_parent(t_info *ms, int fd[2], int islast);
-void	exec_child(t_info *ms, int fd[2], int islast);
+void	exec_child(t_info *ms, int fd[2]);
 
 void	get_env(t_info *info, char **env);
 int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
@@ -209,8 +209,8 @@ int		get_env_path(t_info *ms);					// (*) same func. check for one
 /*
  * SIGNAL
  */
-void	ms_signal(int signal);
-void	ms_signal_fork(int signal);
+void	ms_signal_activate(void);
+void	ms_signal_desactivate(void);
 
 /*
  * BUILTIN COMMANDS
