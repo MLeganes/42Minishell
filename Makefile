@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/21 17:36:34 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/24 13:47:45 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ clean:
 	@echo "\033[31mObjects Files \033[1;31m$(OBJS_LIST)\033[1;0m\033[31mremoved.\033[0m"
 
 fclean: clean
-	@make -C libft fclean	
+#	@make -C libft fclean	
 	@rm -f $(NAME)
 	@echo "\033[1;31m$(NAME)\033[1;0m\033[31m Removed.\033[0m"
 

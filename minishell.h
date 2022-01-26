@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/24 13:51:59 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/26 22:16:53 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,14 @@ typedef struct s_program
 	struct s_program	*next;
 }						t_program;
 
+typedef struct s_redir
+{
+	char			*name;
+	int				is_out;
+	int				is_app;
+	struct s_dedir	*next;
+}	t_redir;
+
 /***
  * state = LEXER to know what are you reading. 
  *   For ex. if you start reading " need to read until you  find another ", or '.
@@ -171,9 +179,11 @@ typedef struct s_info
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
 	int 		fd_old[2];	// pipex
+	int 		fd_bak[2];	// pipex
 	int 		fd[2];	// pipex
 	int 		std_out;	// pipex
 	int			npgms;
+	t_redir		*redir;
 	char 		**env_ptr_copy; //	
 }				t_info;
 
@@ -190,7 +200,7 @@ void	lexer(t_info *info);
 void	parser(t_info *ms);
 void	execute(t_info *ms);
 void	exec_parent(t_info *ms, int fd[2], int islast);
-void	exec_child(t_info *ms, int fd[2]);
+void	exec_child(t_info *ms, int fd[2], int islast);
 
 void	get_env(t_info *info, char **env);
 int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
