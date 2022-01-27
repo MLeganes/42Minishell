@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/27 00:22:16 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/27 19:28:55 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,20 @@ SRCS	=	minishell.c lexer.c free.c parser.c \
 			execute.c execute_parent.c execute_child.c \
 			signal.c \
 			ms_builtin.c \
- 
+
+CPPFLAGS	=-I/Users/amorcill/.brew/opt/readline/include
+LDFLAGS		=-L$(HOME)/.brew/opt/readline/lib -lreadline
+
+# Linker
 %.o: %.c
-	$(CC) $(FLAGS) -Ilibft -c $< -o $@
+	@echo "\033[1;32m$(NAME)\033[1;0m\033[32m linking...\033[0m"
+	@$(CC) $(FLAGS) -Ilibft $(CPPFLAGS) -c $< -o $@
 
 all: $(NAME)
-
+# Compiler
 $(NAME): libft/libft.a $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -Llibft -lreadline -lft -o $(NAME) 
+	@echo "\033[1;32m$(NAME)\033[1;0m\033[32m compiling...\033[0m"
+	@$(CC) $(FLAGS) $(OBJS)  -Llibft -lft $(LDFLAGS) -o $(NAME) 
 	@echo "\033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
 clean:
 	@rm -f *.o

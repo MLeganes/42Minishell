@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 00:07:47 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:58:50 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <unistd.h>			// systemcalls, execve
 # include <stdlib.h>			// exit, getenv
 # include <stdio.h>				// printf, fgets
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 # include <sys/stat.h>			// stat, fstat
 # include <fcntl.h>				// O_RDONLY
 # include <signal.h>			// signal

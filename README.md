@@ -84,3 +84,28 @@ And used it from any part of your program
 ## Run docker in project folder
 
 	docker run -ti -v $(PWD):/test memory-test:0.1 bash -c "cd /test/; make && valgrind --leak-check=full --show-leak-kinds=all ./minishell; rm -f ./minishell"
+
+# Brew
+
+Installing:
+
+	rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
+
+Notes:
+Failure while executing; `/Users/amorcill/.brew/bin/brew tap homebrew/core` exited with 1.
+==> Tapping homebrew/core
+Cloning into '/Users/amorcill/.brew/Library/Taps/homebrew/homebrew-core'...
+
+# Readline lib.
+
+Installing:
+
+	brew install readline
+
+For compilers to find readline you may need to set:
+	export LDFLAGS="-L/Users/amorcill/.brew/opt/readline/lib"
+	export CPPFLAGS="-I/Users/amorcill/.brew/opt/readline/include"
+
+
+	READLINE = 	-L$$HOME/.brew/opt/readline/lib -lreadline \
+				-I$$HOME/.brew/opt/readline/include \
