@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/28 11:26:48 by amorcill         ###   ########.fr        #
+#    Updated: 2022/01/28 11:35:15 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ SRCS	=	$Sminishell.c $Slexer.c $Sparser.c \
 			$S$Eexecute.c $S$Eexecute_parent.c $S$Eexecute_child.c \
 			$Ssignal.c  $Sfree.c \
 	
-CPPFLAGS	=-I$(HOME)/.brew/opt/readline/include
-LDFLAGS		=-L$(HOME)/.brew/opt/readline/lib -lreadline
+INCRL		=-I$(HOME)/.brew/opt/readline/include
+LIBRL		=-L$(HOME)/.brew/opt/readline/lib -lreadline
 
-LIBRARIES	=-Llibft -lft $(LDFLAGS)
-INCLUDES	=-I ./inc -Ilibft $(CPPFLAGS)
+LIBRARIES	=-Llibft -lft $(LIBRL)
+INCLUDES	=-I ./inc -Ilibft $(INCRL)
 
 all:		$(NAME)
 # Linking
