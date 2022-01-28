@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/28 13:48:24 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:58:45 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,15 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_redir
+{
+	t_type			type;
+	char			*name;
+	int				is_out;
+	int				is_app;
+	struct s_redir	*next;
+}	t_redir;
+
 /***
  *
  * Struct to keep the program (cmd) to execute.
@@ -147,14 +156,6 @@ typedef struct s_program
 	
 	struct s_program	*next;
 }						t_program;
-
-typedef struct s_redir
-{
-	char			*name;
-	int				is_out;
-	int				is_app;
-	struct s_redir	*next;
-}	t_redir;
 
 /***
  * state = LEXER to know what are you reading. 
@@ -198,6 +199,8 @@ typedef struct s_info
 
 void	lexer(t_info *info);
 void	parser(t_info *ms);
+void	parser_build_redirection(t_info *ms, t_program **pgm);
+
 void	execute(t_info *ms);
 void	exec_parent(t_info *ms, int fd[2], int islast);
 void	exec_child(t_info *ms, int fd[2]);
