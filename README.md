@@ -103,8 +103,8 @@ Installing:
 	brew install readline
 
 For compilers to find readline you may need to set:
-	export LDFLAGS="-L/Users/amorcill/.brew/opt/readline/lib"
-	export CPPFLAGS="-I/Users/amorcill/.brew/opt/readline/include"
+	export LDFLAGS="-L$(HOME).brew/opt/readline/lib"
+	export CPPFLAGS="-I$(HOME).brew/opt/readline/include"
 
 
 	READLINE = 	-L$$HOME/.brew/opt/readline/lib -lreadline \

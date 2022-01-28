@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 20:31:50 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:48:24 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct s_program
 	char 				**argv; 	// agrv[0] cmd, agrv[1]   Everything after the command, echo "hola" or expanded env.
 	int 				nargvs;	
 	char 				*homedir;
+	t_redir				*redir;		//redirections
 	
 	struct s_program	*next;
 }						t_program;
@@ -152,7 +153,7 @@ typedef struct s_redir
 	char			*name;
 	int				is_out;
 	int				is_app;
-	struct s_dedir	*next;
+	struct s_redir	*next;
 }	t_redir;
 
 /***
@@ -183,7 +184,6 @@ typedef struct s_info
 	int 		fd[2];	// pipex
 	int 		std_out;	// pipex
 	int			npgms;
-	t_redir		*redir;
 	char 		**env_ptr_copy; //	
 }				t_info;
 

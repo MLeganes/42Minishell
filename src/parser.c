@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:36:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 12:56:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:30:13 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_program *new_program()
 	new->nargvs = 0;
 	new->homedir = NULL;
 	new->next = NULL;
+	new->redir = NULL;
 	return (new);
 }
 
@@ -132,6 +133,25 @@ static void	ms_program_argv_add(t_program *pgm, char *data)
 	pgm->nargvs++;
 }
 
+void ms_redir_dgreat_new(t_info *ms, t_program *pgm)
+{
+	
+}
+
+void parser_selector_redirection(t_info *ms, t_program **pgm)
+{
+	if (ms->tmp_tkn->type == REDIR_DGREAT)
+	{
+		ms_redir_dgreat_new(ms, &pgm);
+	}
+	if (ms->tmp_tkn->type == REDIR_DLESS)
+	{
+		// Here doc
+	}
+	if (ms->tmp_tkn->type == REDIR_GREAT){}
+	if (ms->tmp_tkn->type == REDIR_LESS){}
+}
+
 static void	parser_build_program(t_info *ms)
 {
 	t_program	*pgm;
@@ -148,11 +168,9 @@ static void	parser_build_program(t_info *ms)
 			|| ms->tmp_tkn->type == REDIR_GREAT || ms->tmp_tkn->type == REDIR_LESS)
 		{
 			/***
-			 *  parser_build_redirection(...)
-			 *  to do something wiht redirrrrr!!!
-			 *  For Anna :)
-			 * 
+			 *  Redirection.
 			 ***/
+			parser_selector_redirection(ms, &pgm);
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
 		/***
