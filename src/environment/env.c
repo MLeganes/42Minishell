@@ -61,5 +61,5 @@ void get_env(t_info *ms, char **env)
 		i++;
 	}
 	ms->env_v = ms->tmp_env;
-	//print_env(ms);
+	print_env(ms);
 }

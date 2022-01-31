@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/28 19:38:51 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/31 17:44:33 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int main(int argc, char **argv, char **env)
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		//info.cmdline = "echo "hello ee" > file";
-		//info.cmdline = "ls -la | wc";
 		info.cmdline = readline(info.prompt);
+		//info.cmdline = "<< end cat > file";
+		//info.cmdline = "echo \"hello ee\" > file";
+		//info.cmdline = "ls -la | wc";
 		
 		add_history(info.cmdline);
 		lexer(&info);

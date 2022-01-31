@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/28 19:58:45 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/31 18:33:23 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # include <sys/types.h>		// waitpid
 # include <sys/wait.h>		// waitpid
+
+# include <errno.h>			// errno
 
 /* ************************************************************************** */
 /* USER INCLUDES															  */
@@ -126,15 +128,15 @@ typedef struct s_token
 
 typedef struct s_env
 {
-	char	*var;
-	char	*content;
+	char	*var;			// name
+	char	*content;		// value
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_redir
 {
 	t_type			type;
-	char			*name;
+	char			*file;
 	int				is_out;
 	int				is_app;
 	struct s_redir	*next;
@@ -182,7 +184,7 @@ typedef struct s_info
 	t_program	*tmp_pgm;
 	int 		fd_old[2];	// pipex
 	int 		fd_bak[2];	// pipex
-	int 		fd[2];	// pipex
+	int 		fd[2];		// pipex
 	int 		std_out;	// pipex
 	int			npgms;
 	char 		**env_ptr_copy; //	
@@ -196,25 +198,37 @@ typedef struct s_info
 /*
  * MINISHELL
  */
-
 void	lexer(t_info *info);
 void	parser(t_info *ms);
-void	parser_build_redirection(t_info *ms, t_program **pgm);
-
 void	execute(t_info *ms);
+
+/*
+ * PARSER: parser, program, redirection and heredoc.
+ */
+t_program	*new_program(void); // It will contain all command info, called here program.
+void 		ms_program_lstadd_last(t_program **lst, t_program *new);
+void		ms_program_argv_add(t_program *pgm, char *data);
+void		parser_build_redirection(t_info *ms, t_program **pgm);
+void		ms_redir_lstadd_last(t_program **pgm, t_redir *new);
+void		ms_redir_heredoc(t_info *ms, t_program **pgm);
+/*
+ * EXECUTION
+ */
 void	exec_parent(t_info *ms, int fd[2], int islast);
 void	exec_child(t_info *ms, int fd[2]);
-
+/*
+ * ENVIRONMENT
+ */
 void	get_env(t_info *info, char **env);
 int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
 int		get_env_path(t_info *ms);					// (*) same func. check for one
-
+int		ms_expand_get_len(char *s, int i);			// Used by here-doc
+char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret); // Used by here-doc
 /*
  * SIGNAL
  */
 void	ms_signal_activate(void);
 void	ms_signal_desactivate(void);
-
 /*
  * BUILTIN COMMANDS
  */
@@ -223,6 +237,9 @@ void	ms_select_builtin(t_info *ms, t_program *pgm);
 void	ms_pwd(t_info *ms, t_program *pgm);
 void	ms_cd(t_info *ms, t_program *pgm);
 void	ms_echo(t_info *ms, t_program *pgm);
+/*
+ * ERROR
+ */
 
 /*
  * FREE
