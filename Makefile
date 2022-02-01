@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/01 22:16:44 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/01 23:06:23 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,9 @@ OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c \
 			$S$Llexer.c \
 			$S$Pparser.c $S$Predirection.c $S$Pheredoc.c $S$Pprogram.c \
-			$S$Bms_cd.c $S$Bms_pwd.c $S$Bms_echo.c $S$Bms_builtin.c  \
+			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c  \
 			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \
-			$S$Eexecute.c $S$Eexecute_parent.c $S$Eexecute_child.c \
+			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
 			$Ssignal.c  $Sfree.c \
 
 INCRL		=-I$(HOME)/.brew/opt/readline/include

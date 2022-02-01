@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 22:11:32 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:05:09 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static int	ms_redir_out(t_redir *tmp)
 	return (1);
 }
 
-int	ms_redir_selector(t_info *ms, int inb)
+int	redir_selector(t_info *ms, int inb)
 {
 	t_redir	*tmp;
 	int		status;

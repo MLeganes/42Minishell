@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 22:11:17 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:05:09 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void exec_child(t_info *ms, int fd[2])
 		close(ms->fd_old[READ]);
 	}	
 	//REDIRECTION
-	redirstatus = ms_redir_selector(ms, 1);
-	if (ms_isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
-		ms_select_builtin(ms, ms->tmp_pgm);
+	redirstatus = redir_selector(ms, 1);
+	if (isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
+		builtin_selector(ms, ms->tmp_pgm);
 	else
 	{
 		/***

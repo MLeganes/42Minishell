@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 22:11:44 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:05:09 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,12 +211,7 @@ void		ms_program_argv_add(t_program *pgm, char *data);
 void		parser_build_redirection(t_info *ms, t_program **pgm);
 void		ms_redir_lstadd_last(t_program **pgm, t_redir *new);
 void		ms_redir_heredoc(t_info *ms, t_program **pgm);
-int			ms_redir_selector(t_info *ms, int inb);
-/*
- * EXECUTION
- */
-void	exec_parent(t_info *ms, int fd[2], int islast);
-void	exec_child(t_info *ms, int fd[2]);
+int			redir_selector(t_info *ms, int inb);
 /*
  * ENVIRONMENT
  */
@@ -232,13 +227,22 @@ char	*ms_get_path(char **env, char *command);
 void	ms_signal_activate(void);
 void	ms_signal_desactivate(void);
 /*
+ * EXECUTION
+ */
+void	exec_parent(t_info *ms, int fd[2], int islast);
+void	exec_child(t_info *ms, int fd[2]);
+/*
  * BUILTIN COMMANDS
  */
-int		ms_isbuiltin(char **argv);
-void	ms_select_builtin(t_info *ms, t_program *pgm);
-void	ms_pwd(t_info *ms, t_program *pgm);
-void	ms_cd(t_info *ms, t_program *pgm);
-void	ms_echo(t_info *ms, t_program *pgm);
+int		isbuiltin(char **argv);
+void	builtin_selector(t_info *ms, t_program *pgm);
+void	exec_echo(t_info *ms, t_program *pgm);
+void	exec_cd(t_info *ms, t_program *pgm);
+void	exec_pwd(t_info *ms, t_program *pgm);
+// void	exec_export(t_info *ms, t_program *pgm);
+// void	exec_unset(t_info *ms, t_program *pgm);
+// void	exec_env(t_info *ms, t_program *pgm);
+// void	exec_exit(t_info *ms, t_program *pgm);
 /*
  * ERROR
  */

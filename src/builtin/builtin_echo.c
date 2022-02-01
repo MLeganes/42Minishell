@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_echo.c                                          :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:45:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 19:41:42 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:44:23 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_echo(t_info *ms, t_program *pgm)
+void	exec_echo(t_info *ms, t_program *pgm)
 {
 	(void)ms;
 	int	flag;
@@ -33,9 +33,4 @@ static void	exec_echo(t_info *ms, t_program *pgm)
 	}
 	if (flag == 1)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-}
-
-void	ms_echo(t_info *ms, t_program *pgm)
-{
-	exec_echo(ms, pgm);
 }
