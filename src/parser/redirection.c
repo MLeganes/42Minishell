@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 18:21:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:11:32 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,62 @@ void parser_build_redirection(t_info *ms, t_program **pgm)
 		ms_redir_heredoc(ms, &(*pgm));
 	//increment to next, that was where file-name is. 
 	ms->tmp_tkn = ms->tmp_tkn->next;
+}
+
+static int	ms_redir_in(t_redir *tmp, int inb)
+{
+	int	fd;
+
+	fd = open(tmp->file, O_RDONLY);
+	if (fd < 0)
+	{
+		if (inb == 1)
+			printf("Redirection Error \n");	
+			//ft_error(1, "No such file or directory\n", inb);
+		printf("Redirection Error \n");	
+		//ft_error(1, "No such file or directory", inb);
+		return (0);
+	}
+	else
+	{
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		return (1);
+	}
+}
+
+static int	ms_redir_out(t_redir *tmp)
+{
+	int	fd;
+
+	if (tmp->is_app == 1)
+		fd = open(tmp->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+		return (0);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	return (1);
+}
+
+int	ms_redir_selector(t_info *ms, int inb)
+{
+	t_redir	*tmp;
+	int		status;
+
+	tmp = ms->tmp_pgm->redir;
+	status = 1;
+	while (tmp)
+	{
+		if (tmp->is_out == 0 && tmp->is_app == 0)
+			status = ms_redir_in(tmp, inb);
+		else if (tmp->is_out == 1)
+			ms_redir_out(tmp);
+		else
+			printf("Redirection Error \n");	
+			//ft_error(127, "Redirection is nonsense", 0);
+		tmp = tmp->next;
+	}
+	return (status);
 }

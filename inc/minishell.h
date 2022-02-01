@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 18:33:23 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:11:44 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ typedef struct s_program
 	pid_t				pid;
 	char 				**argv; 	// agrv[0] cmd, agrv[1]   Everything after the command, echo "hola" or expanded env.
 	int 				nargvs;	
-	char 				*homedir;
 	t_redir				*redir;		//redirections
 	
 	struct s_program	*next;
@@ -206,11 +205,13 @@ void	execute(t_info *ms);
  * PARSER: parser, program, redirection and heredoc.
  */
 t_program	*new_program(void); // It will contain all command info, called here program.
+void		ms_program_updatepath(t_info *ms);
 void 		ms_program_lstadd_last(t_program **lst, t_program *new);
 void		ms_program_argv_add(t_program *pgm, char *data);
 void		parser_build_redirection(t_info *ms, t_program **pgm);
 void		ms_redir_lstadd_last(t_program **pgm, t_redir *new);
 void		ms_redir_heredoc(t_info *ms, t_program **pgm);
+int			ms_redir_selector(t_info *ms, int inb);
 /*
  * EXECUTION
  */
@@ -220,10 +221,11 @@ void	exec_child(t_info *ms, int fd[2]);
  * ENVIRONMENT
  */
 void	get_env(t_info *info, char **env);
-int		get_env_pgmpath(t_info *ms, char *pgmname); // (*) same func. check for one
-int		get_env_path(t_info *ms);					// (*) same func. check for one
 int		ms_expand_get_len(char *s, int i);			// Used by here-doc
 char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret); // Used by here-doc
+
+// Anna new function.
+char	*ms_get_path(char **env, char *command);
 /*
  * SIGNAL
  */

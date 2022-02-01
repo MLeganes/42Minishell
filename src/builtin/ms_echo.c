@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:45:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 16:26:13 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/01/31 19:41:42 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_echo(t_info *ms, t_program *pgm)
 	int	i;
 
 	flag = 0;
-	i = 0;
+	i = 1;
 	while (ft_strncmp(pgm->argv[i], "-n", 2) == 0 && pgm->argv[i] != NULL)
 	{
 		i++;

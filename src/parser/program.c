@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 18:11:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:03:08 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,25 @@ t_program *new_program(void)
 	new->name = CMD_NONE; // no used
 	new->argv = NULL;
 	new->nargvs = 0;
-	new->homedir = NULL;
 	new->next = NULL;
 	new->redir = NULL;
 	return (new);
+}
+
+void ms_program_updatepath(t_info *ms)
+{
+	char	*path;
+	
+	path = ms_get_path(ms->env_ptr_copy, ms->tmp_pgm->argv[0]);
+	if (path != NULL)
+	{
+		free(ms->tmp_pgm->argv[0]);
+		ms->tmp_pgm->argv[0] = path;
+	}
+	else
+	{
+		printf("minishel: No such file or directory [program.c] ms_program_uppath\n");
+	}
 }
 
 static t_program *ms_program_lstlast(t_program *lst)

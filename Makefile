@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/01/31 19:36:52 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/01 22:16:44 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,14 @@ B		=	builtin/
 E 		=	exec/
 N 		=	environment/
 P		=	parser/
+L 		=	lexer/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
-SRCS	=	$Sminishell.c $Slexer.c \
+SRCS	=	$Sminishell.c \
+			$S$Llexer.c \
 			$S$Pparser.c $S$Predirection.c $S$Pheredoc.c $S$Pprogram.c \
-			$S$Bms_cd.c $S$Bms_pwd.c $S$Bms_echo.c $S$Bms_builtin.c \
-			$S$Nenv.c $S$Nenv_get.c $S$Nexpand.c \
+			$S$Bms_cd.c $S$Bms_pwd.c $S$Bms_echo.c $S$Bms_builtin.c  \
+			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \
 			$S$Eexecute.c $S$Eexecute_parent.c $S$Eexecute_child.c \
 			$Ssignal.c  $Sfree.c \
 
@@ -49,6 +51,7 @@ $O%.o:		$S%.c
 			@[ -d $(O)$(N) ] || mkdir -p $(O)$(N)
 			@[ -d $(O)$(E) ] || mkdir -p $(O)$(E)
 			@[ -d $(O)$(P) ] || mkdir -p $(O)$(P)
+			@[ -d $(O)$(L) ] || mkdir -p $(O)$(L)
 			@echo "\033[1;32m$(NAME)\033[1;0m\033[32m compiling...\033[0m"
 			@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 

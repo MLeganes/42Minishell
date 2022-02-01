@@ -6,33 +6,16 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 00:08:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:11:17 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ms_program_findpath(t_info *ms)
-{
-	int res;
-
-	res = 0;
-	res = get_env_path(ms);
-	if (res == 1)
-	{
-		free(ms->tmp_pgm->argv[0]);
-		ms->tmp_pgm->argv[0] = ms->tmp_pgm->homedir;
-		ms->tmp_pgm->homedir = NULL;
-	}
-	else
-	{
-		printf("minishel: No such file or directory [execute.c] ms_program_findpath\n");
-	}
-}
-
-
 void exec_child(t_info *ms, int fd[2])
 {	
+	int		redirstatus;
+
 	if (ms->tmp_pgm->next)
 	{
 		close(fd[READ]);
@@ -46,11 +29,11 @@ void exec_child(t_info *ms, int fd[2])
 		close(ms->fd_old[READ]);
 	}	
 	//REDIRECTION
-	if (ms_isbuiltin(ms->tmp_pgm->argv) == 1)
+	redirstatus = ms_redir_selector(ms, 1);
+	if (ms_isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
 		ms_select_builtin(ms, ms->tmp_pgm);
 	else
 	{
-		ms_program_findpath(ms);
 		/***
 		 * execve: result has exited with code 0 (0x00000000) --> OK!!!
 		 ***/

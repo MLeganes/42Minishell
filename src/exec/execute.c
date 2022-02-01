@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 00:20:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:24:51 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ static void exec_program(t_info *ms, int islast)
 	
 	if (ms_isbuiltin(ms->tmp_pgm->argv) && !ms->npipes)
 	{
-		// Redirection
-		// if (ms.redirection......)	/* testing code  */
-	// pid_t cpid, w;
-    // int wstatus;
-	/* end testing code  */		
-		ms_select_builtin(ms, ms->tmp_pgm);
+		if ( ms_redir_selector(ms, 0))
+			ms_select_builtin(ms, ms->tmp_pgm);	
 	}
 	else
 	{
@@ -44,7 +40,7 @@ static void exec_program(t_info *ms, int islast)
 		else
 			exec_parent(ms, fdp, islast);
 		ms_signal_activate();
-		ms->idx++;	// Used to indicate there are more than 1 command to close the fd.
+		ms->idx++;// Used to indicate there are more than 1 command to close the fd.
 	}
 }
 
@@ -70,6 +66,8 @@ void	execute(t_info *ms)
 		if (ms->tmp_pgm->argv)
 		{
 			update_fd(ms);
+			if (ms_isbuiltin(ms->tmp_pgm->argv) == 0)
+				ms_program_updatepath(ms);
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}

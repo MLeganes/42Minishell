@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 00:06:12 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:28:28 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void exec_parent(t_info *ms, int fd[2], int islast)
 	 specified by id has yet changed state; on  error,  -1  is  returned.
 	*/	
 	waitpid(ms->tmp_pgm->pid, &status, 0);
+	
 	ms->idx--;
 	if (WEXITSTATUS(status) == -1)
 		printf("minishel: Error [execute_parent.c] \n");
