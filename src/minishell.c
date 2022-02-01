@@ -31,10 +31,13 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)argc;
 	t_info info;
+	char *path;
 	
 	get_env(&info, env);
+	path = ms_get_path(env, "wc");
+	printf("\npath %s\n\n", path);
 	ms_signal_activate();
-	info.env_ptr_copy = env;	
+	info.env_ptr_copy = env;
 	while (1)
 	{
 		init_struct(&info);

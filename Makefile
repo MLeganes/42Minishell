@@ -25,7 +25,7 @@ OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c $Slexer.c $Sparser.c \
 			$S$Bms_cd.c $S$Bms_pwd.c $S$Bms_echo.c $S$Bms_builtin.c \
 			$S$Nenv.c $S$Nenv_get.c \
-			$S$Eexecute.c $S$Eexecute_parent.c $S$Eexecute_child.c \
+			$S$Eexecute.c $S$Eexecute_parent.c $S$Eexecute_child.c $S$Epath.c\
 			$Ssignal.c  $Sfree.c \
 			
 CPPFLAGS	=-I$(HOME)/.brew/opt/readline/include
