@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:45:24 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/02 17:28:04 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:04:49 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*print_type(t_type a)
 		return ("TOKEN");
 }
 
-void	print_qoutes(t_info *ms)
+void	print_quotes(t_info *ms)
 {
 	int		i;
 	t_token	*token;

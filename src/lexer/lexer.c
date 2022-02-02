@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 17:26:40 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:02:02 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,28 +220,6 @@ static void	mini_spliter(t_info *ms)
 		free_after_cmd(ms);
 	}
 }
-
-// static char	*print_type(t_type a)
-// {
-// 	if (a == REDIR_DLESS)
-// 		return ("REDIR_DLESS");
-// 	else if (a == REDIR_LESS)
-// 		return ("REDIR_LESS");
-// 	else if (a == REDIR_DGREAT)
-// 		return ("REDIR_DGREAT");
-// 	else if (a == REDIR_GREAT)
-// 		return ("REDIR_GREAT");
-// 	else if (a == PIPE)
-// 		return ("PIPE");
-// 	else if (a == AMPERSAND)
-// 		return ("AMPERSAND");
-// 	else if (a == IN_DQUOTE)
-// 		return ("IN_DQUOTE");
-// 	else if (a == IN_QUOTE)
-// 		return ("IN_QUOTE");
-// 	else
-// 		return ("TOKEN");
-// }
 
 void	lexer(t_info *ms)
 {

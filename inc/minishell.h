@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 17:25:15 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:04:10 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void	exec_pwd(t_info *ms, t_program *pgm);
  * PRINT
  */
 void	print_env(t_info *ms);
-void	print_qoutes(t_info *ms);
+void	print_quotes(t_info *ms);
 void	print_lexer(t_info *ms);
 
 /*

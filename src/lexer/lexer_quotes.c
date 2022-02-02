@@ -19,7 +19,7 @@ static char	*ms_append_char(char *str, char c)
 	return (tmp);
 }
 
-static int	ms_qoutes(char **tmp, char *str, int *i)
+static int	ms_quotes(char **tmp, char *str, int *i)
 {
 	(*i)++;
 	while (str[(*i)] != '\'')
@@ -70,7 +70,7 @@ static int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 	return (k);
 }
 
-static int	ms_d_qoutes(t_info *ms, char **tmp, char *str, int *i)
+static int	ms_d_quotes(t_info *ms, char **tmp, char *str, int *i)
 {
 // 	int	k;
 
@@ -111,11 +111,11 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'')
-			ms_qoutes(&tmp, str, &i);
+			ms_quotes(&tmp, str, &i);
 		else if (str[i] == '\"')
 		{
 			i++;
-			ms_d_qoutes(ms, &tmp, str, &i);
+			ms_d_quotes(ms, &tmp, str, &i);
 		}
 		else
 		{
@@ -147,7 +147,7 @@ void	quotes(t_info *info)
 {
 	// function to delete quotes and expand vars if $ AND "" if '' it's a literall string
 	ms_handle_quotes(info);
-	print_qoutes(info);
+	print_quotes(info);
 	// function to put the files after redirections in linked list 
 	// function to put args and cmd together
 }

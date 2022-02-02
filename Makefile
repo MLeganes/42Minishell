@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/02 17:19:36 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/02 18:04:01 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ P		=	parser/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c \
-			$S$Llexer.c $S$Llexer_qoutes.c \
+			$S$Llexer.c $S$Llexer_quotes.c \
 			$S$Pparser.c $S$Predirection.c $S$Pheredoc.c $S$Pprogram.c \
 			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c  \
 			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \

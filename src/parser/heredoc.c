@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 16:22:38 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:04:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 	int		j;
 	char	*new;
 
-	/* If delimiter has qoute, removed to print it!!! */
+	/* If delimiter has quote, removed to print it!!! */
 	if (ft_strchr(del, '"') || ft_strchr(del, '"'))
 		write(fd, line, ft_strlen(line));
 	else
