@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 18:35:26 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:26:40 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,65 +221,33 @@ static void	mini_spliter(t_info *ms)
 	}
 }
 
-static char	*print_type(t_type a)
-{
-	if (a == REDIR_DLESS)
-		return ("REDIR_DLESS");
-	else if (a == REDIR_LESS)
-		return ("REDIR_LESS");
-	else if (a == REDIR_DGREAT)
-		return ("REDIR_DGREAT");
-	else if (a == REDIR_GREAT)
-		return ("REDIR_GREAT");
-	else if (a == PIPE)
-		return ("PIPE");
-	else if (a == AMPERSAND)
-		return ("AMPERSAND");
-	else if (a == IN_DQUOTE)
-		return ("IN_DQUOTE");
-	else if (a == IN_QUOTE)
-		return ("IN_QUOTE");
-	else
-		return ("TOKEN");
-}
-
-void	ms_print(t_info *ms)
-{
-	int		i;
-	t_token	*token;
-
-	token = ms->list;
-	i = 0;
-	while (token->next != NULL)
-	{
-		printf(GREEN"%d: "RE, i);
-		printf("%-15s", token->data);
-		if (token->next != NULL)
-			token = token->next;
-		i++;
-	}
-	printf(GREEN"%d: "RE, i);
-	printf("%-15s", token->data);
-	printf("\n");
-	token = ms->list;
-	i = 0;
-	while (token->next != NULL)
-	{
-		printf(RED"%d: "RE, i);
-		printf("%-15s", print_type(token->type));
-		if (token->next != NULL)
-			token = token->next;
-		i++;
-	}
-	printf(RED"%d: "RE, i);
-	printf("%-15s", print_type(token->type));
-	printf("\n");
-}
+// static char	*print_type(t_type a)
+// {
+// 	if (a == REDIR_DLESS)
+// 		return ("REDIR_DLESS");
+// 	else if (a == REDIR_LESS)
+// 		return ("REDIR_LESS");
+// 	else if (a == REDIR_DGREAT)
+// 		return ("REDIR_DGREAT");
+// 	else if (a == REDIR_GREAT)
+// 		return ("REDIR_GREAT");
+// 	else if (a == PIPE)
+// 		return ("PIPE");
+// 	else if (a == AMPERSAND)
+// 		return ("AMPERSAND");
+// 	else if (a == IN_DQUOTE)
+// 		return ("IN_DQUOTE");
+// 	else if (a == IN_QUOTE)
+// 		return ("IN_QUOTE");
+// 	else
+// 		return ("TOKEN");
+// }
 
 void	lexer(t_info *ms)
 {
 	// like split but puts everything in a linked list 
 	//and returns a pointer to the first element
 	mini_spliter(ms);
-	//ms_print(ms);
+	quotes(ms);
+	//print_lexer(ms);
 }

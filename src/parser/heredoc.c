@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 18:28:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:22:38 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 		Permision for O_CREAT 00700 in octal for everybody, party!!! */
 	fd = open(file, O_RDWR | O_CREAT, 0777);
 	if (fd == -1)
-		printf("Error: no tmp file for heredoc.\n");	
+		printf("Error: no tmp file for heredoc.\n");
+	//signal_ctrlc_heredoc();
 	while (1)
 	{
 		line = readline(">");

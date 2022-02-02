@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 17:44:33 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:49:33 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void init_struct(t_info *info)
 {
-	info->prompt = "minishell >";
+	//info->prompt = "minishell >";
+	info->prompt = "\001\033[0;32m\002 ❯\e[1m_\e[0m \001\033[0m\002";
 	info->list = NULL;
 	info->cmdline = NULL;
 	info->tmp_tkn = NULL;
@@ -33,10 +34,10 @@ int main(int argc, char **argv, char **env)
 	t_info info;
 	
 	get_env(&info, env);
-	ms_signal_activate();
 	info.env_ptr_copy = env;	
 	while (1)
 	{
+		signal_init();
 		init_struct(&info);
 		/***
 		 *  Warnning: comment the free(ms->cmdline);

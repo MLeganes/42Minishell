@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 23:05:21 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:38:02 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static void exec_program(t_info *ms, int islast)
 		// 	exec_parent(ms, fd, islast);
 		// 	return ;
 		// }
-		ms_signal_desactivate();
+		
+		/* To check or DELETE, everything below*/
+		//ms_signal_desactivate();
+		
+		
 		ms->tmp_pgm->pid = fork();
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");			
@@ -39,7 +43,10 @@ static void exec_program(t_info *ms, int islast)
 			exec_child(ms, fdp);
 		else
 			exec_parent(ms, fdp, islast);
-		ms_signal_activate();
+		
+		/* To check or DELETE, everything below*/
+		//ms_signal_activate();
+		
 		ms->idx++;// Used to indicate there are more than 1 command to close the fd.
 	}
 }

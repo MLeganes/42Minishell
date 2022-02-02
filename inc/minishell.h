@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 23:05:09 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:25:15 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,11 @@ void	parser(t_info *ms);
 void	execute(t_info *ms);
 
 /*
+ * LEXER: lexer_quotes
+ */
+void		quotes(t_info *info);
+
+/*
  * PARSER: parser, program, redirection and heredoc.
  */
 t_program	*new_program(void); // It will contain all command info, called here program.
@@ -221,11 +226,14 @@ char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret); // Used by here-
 
 // Anna new function.
 char	*ms_get_path(char **env, char *command);
+
 /*
  * SIGNAL
  */
-void	ms_signal_activate(void);
-void	ms_signal_desactivate(void);
+void	signal_init(void);
+void	signal_dfl(void);
+void	signal_ctrlc_heredoc(void);
+
 /*
  * EXECUTION
  */
@@ -243,6 +251,14 @@ void	exec_pwd(t_info *ms, t_program *pgm);
 // void	exec_unset(t_info *ms, t_program *pgm);
 // void	exec_env(t_info *ms, t_program *pgm);
 // void	exec_exit(t_info *ms, t_program *pgm);
+
+/*
+ * PRINT
+ */
+void	print_env(t_info *ms);
+void	print_qoutes(t_info *ms);
+void	print_lexer(t_info *ms);
+
 /*
  * ERROR
  */

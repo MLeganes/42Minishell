@@ -26,29 +26,13 @@ t_env	*ms_new_env(char *var, char *content, t_env *next)
 	new->next = next;
 	return (new);
 }
-void	print_env(t_info *ms)
-{
-	int		i;
-	t_env	*token;
-
-	token = ms->env_v;
-	i = 0;
-	while (token != NULL)
-	{
-		printf(GREEN"%d: "RE, i);
-		printf("%-15s\t", token->var);
-		printf("%s", token->content);
-		printf("\n");
-		token = token->next;
-		i++;
-	}
-}
 
 void get_env(t_info *ms, char **env)
 {
 	int i;
 	int	j;
 
+	ms->env_ptr_copy = env;	/* Keep an array copy */
 	i = 0;
 	ms->env_v = NULL;
 	ms->tmp_env = ms->env_v;
@@ -61,5 +45,5 @@ void get_env(t_info *ms, char **env)
 		i++;
 	}
 	ms->env_v = ms->tmp_env;
-	print_env(ms);
+	//print_env(ms);
 }

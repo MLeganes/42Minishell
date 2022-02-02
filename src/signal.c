@@ -6,15 +6,15 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/27 18:48:10 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:13:45 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ms_signal_act_ctrlc(int signal)
+static void	signal_ctrlc(int sig)
 {
-	if (signal == SIGINT)
+	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -23,24 +23,28 @@ static void ms_signal_act_ctrlc(int signal)
 	}
 }
 
-static void ms_signal_desact_ctrlc(int signal)
+void	signal_init(void)
 {
-	if (signal == SIGINT)
+	signal(SIGQUIT, SIG_IGN);	
+	signal(SIGINT, signal_ctrlc);
+}
+
+static void signal_heredoc(int sig)
+{
+	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
+		close(STDIN_FILENO);
+		write(STDERR_FILENO, "\n", 1);
 	}
 }
 
-void ms_signal_activate(void)
+void	signal_ctrlc_heredoc(void)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ms_signal_act_ctrlc);
+	signal(SIGINT, signal_heredoc);
 }
 
-void ms_signal_desactivate(void)
+void	signal_dfl(void)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ms_signal_desact_ctrlc);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);	
 }
