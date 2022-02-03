@@ -47,6 +47,7 @@ static void free_argv(char **argv)
 	i = 0;
 	while (argv[i])
 	{
+		if(argv[i] != NULL)
 		free(argv[i]);
 		i++;
 		/* code */

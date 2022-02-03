@@ -41,8 +41,8 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 	// 	exec_echo(pgm);
 	// else if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "env", 3))
 	// 	exec_env(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 6 && !ft_strncmp(pgm->argv[0], "export", 6))
-	// 	exec_export(pgm);
+	else if (ft_strlen(pgm->argv[0]) == 6 && !ft_strncmp(pgm->argv[0], "export", 6))
+		exec_export(ms, pgm);
 	// else if (ft_strlen(pgm->argv[0]) == 5 && !ft_strncmp(pgm->argv[0], "unset", 5))
 	// 	exec_unset(pgm);
 	// else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "exit", 4))

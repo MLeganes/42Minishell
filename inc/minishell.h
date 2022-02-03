@@ -226,6 +226,7 @@ char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret); // Used by here-
 
 // Anna new function.
 char	*ms_get_path(char **env, char *command);
+t_env	*ms_new_env(char *var, char *content, t_env *next);
 
 /*
  * SIGNAL
@@ -247,7 +248,7 @@ void	builtin_selector(t_info *ms, t_program *pgm);
 void	exec_echo(t_info *ms, t_program *pgm);
 void	exec_cd(t_info *ms, t_program *pgm);
 void	exec_pwd(t_info *ms, t_program *pgm);
-// void	exec_export(t_info *ms, t_program *pgm);
+void	exec_export(t_info *ms, t_program *pgm);
 // void	exec_unset(t_info *ms, t_program *pgm);
 // void	exec_env(t_info *ms, t_program *pgm);
 // void	exec_exit(t_info *ms, t_program *pgm);
