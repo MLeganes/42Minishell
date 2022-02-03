@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 16:03:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:53:00 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void exec_parent(t_info *ms, int fd[2], int islast)
 	if (islast) 
 		close(fd[READ]);
 
-	signal_dfl();
+	//signal_dfl();
 	/* control  
 	 waitid(): returns 0 on success or if WNOHANG was specified and no child(ren) 
 	 specified by id has yet changed state; on  error,  -1  is  returned.

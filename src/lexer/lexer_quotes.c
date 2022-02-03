@@ -147,7 +147,7 @@ void	quotes(t_info *info)
 {
 	// function to delete quotes and expand vars if $ AND "" if '' it's a literall string
 	ms_handle_quotes(info);
-	print_quotes(info);
+	//print_quotes(info);
 	// function to put the files after redirections in linked list 
 	// function to put args and cmd together
 }
