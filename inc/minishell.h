@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 18:04:10 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:58:26 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ void	exec_echo(t_info *ms, t_program *pgm);
 void	exec_cd(t_info *ms, t_program *pgm);
 void	exec_pwd(t_info *ms, t_program *pgm);
 void	exec_export(t_info *ms, t_program *pgm);
+void	ms_print_export(t_env *env);
 // void	exec_unset(t_info *ms, t_program *pgm);
 // void	exec_env(t_info *ms, t_program *pgm);
 // void	exec_exit(t_info *ms, t_program *pgm);
