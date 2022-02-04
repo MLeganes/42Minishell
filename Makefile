@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/03 16:03:53 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/04 10:24:20 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ INCLUDES	=-I ./inc -Ilibft $(INCRL)
 all:		$(NAME)
 # Linking
 $(NAME):	libft/libft.a $(OBJS)
-			@echo "\033[1;32m$(NAME)\033[1;0m\033[32m linking..\033[0m"
+			@echo "\033[1;32m$(NAME)\033[1;0m\033[32m linking...\033[0m"
 			@$(CC) $(FLAGS) $(OBJS) $(LIBRARIES) -o $(NAME) 
 			@echo "\033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
 

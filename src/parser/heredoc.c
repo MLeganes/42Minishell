@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 18:04:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 10:23:04 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	//signal_ctrlc_heredoc();
 	while (1)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (!ft_strncmp(line, delim, ft_strlen(delim) + 1))
 			break ;
 		ms_heredoc_writeline(ms, line, fd, delim);

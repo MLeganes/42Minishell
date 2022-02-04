@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/03 20:40:03 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:48:12 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,23 @@ int main(int argc, char **argv, char **env)
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		//info.cmdline = "";
+		info.cmdline = "";
 		//info.cmdline = "<< end cat > file";
 		//info.cmdline = "echo \"hello ee\" > file";
 		//info.cmdline = "ls -la | wc";
 		
-		info.cmdline = readline(info.prompt);
+		//info.cmdline = readline(info.prompt);
 		if (info.cmdline == NULL)
 		{
 			write(1, "exit\n", 5);
 			//system("leaks minishell");
 			exit (0);
-		}
-		else if (ft_strlen(info.cmdline) > 0)
-		{
-			add_history(info.cmdline);
-			lexer(&info);
-			parser(&info);
-			execute(&info);
-			free_after_cmd(&info);
-			//system("leaks minishell");
-		}
+		}		
+		lexer(&info);
+		parser(&info);
+		execute(&info);
+		free_after_cmd(&info);
+		//system("leaks minishell");
 		//system("leaks minishell");
 		// Free a lots of things.
 	}	

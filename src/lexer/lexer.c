@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/03 20:24:37 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:59:16 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,11 @@ void	lexer(t_info *ms)
 {
 	// like split but puts everything in a linked list 
 	//and returns a pointer to the first element
-	mini_spliter(ms);
-	quotes(ms);
+	if (ft_strlen(ms->cmdline))
+	{
+		mini_spliter(ms);
+		quotes(ms);		
+		add_history(ms->cmdline);
+	}
 	//print_lexer(ms);
 }
