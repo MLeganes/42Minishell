@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/02 18:04:10 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:57:03 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/wait.h>		// waitpid
 
 # include <errno.h>			// errno
+# include <termios.h>			// termios
 
 /* ************************************************************************** */
 /* USER INCLUDES															  */
@@ -38,15 +39,17 @@
 /* ************************************************************************** */
 /* COLORS															  */
 /* ************************************************************************** */
-# define GREEN	"\033[32m"
+# define GREEN		"\033[32m"
 # define RED		"\033[35m"
-# define RE		"\033[0m"
+# define RE			"\033[0m"
+
+# define ERROR		-1
+# define READ		0 //STDIN_FILENO
+# define WRITE		1
+
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
-
-# define READ 0 //STDIN_FILENO
-# define WRITE 1
 
 /***
  * If the input for the simple command is just an immediate EOF.
@@ -104,6 +107,14 @@ typedef enum e_cmdname
 	CMD_NONE,
 	CMD_NO_FOUND,	
 }		t_cmdname;
+
+typedef struct	s_signal
+{
+	int				sig_int;
+	int				sig_quit;
+	int				exit_status;
+	pid_t			pid;
+}				t_signal;
 
 /***
  * 
@@ -234,6 +245,17 @@ void	signal_init(void);
 void	signal_dfl(void);
 void	signal_ctrlc_heredoc(void);
 
+
+/*  NEW SIGNAL */
+void	signal_init(void);
+//void	signal_quit(int sig);
+void	signal_ctrlc(int sig);
+void	signal_int(int sig);
+
+void	signal_child_quit(int sig);
+void	signal_child_int(int sig);
+
+
 /*
  * EXECUTION
  */
@@ -268,4 +290,6 @@ void	print_lexer(t_info *ms);
  */
 void	free_after_cmd(t_info *ms);
 void	free_end(t_info *ms);
+
+extern t_signal g_sig;
 #endif

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 19:03:08 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:04:00 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void ms_program_updatepath(t_info *ms)
 	else
 	{
 		printf("minishel: No such file or directory [program.c] ms_program_uppath\n");
+		
 	}
 }
 

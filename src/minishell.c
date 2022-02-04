@@ -6,11 +6,13 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 13:48:12 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:54:46 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_signal g_sig;
 
 void init_struct(t_info *info)
 {
@@ -33,28 +35,37 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	t_info info;
 	
+	/* CTRL + \ ignored */
+	signal(SIGQUIT, SIG_IGN);
+	
 	get_env(&info, env);
 	info.env_ptr_copy = env;	
 	while (1)
 	{
-		signal_init();
+		//signal_init();
 		init_struct(&info);
 		
 		/***
 		 *  Warnning: comment the free(ms->cmdline);
 		 ***/
-		info.cmdline = "";
+		
+		/* testing */
+		//info.cmdline = "";
 		//info.cmdline = "<< end cat > file";
 		//info.cmdline = "echo \"hello ee\" > file";
 		//info.cmdline = "ls -la | wc";
 		
-		//info.cmdline = readline(info.prompt);
+		//signal(SIGINT, signal_ctrlc);
+		signal(SIGINT, signal_ctrlc);
+		
+		info.cmdline = readline(info.prompt);
 		if (info.cmdline == NULL)
 		{
-			write(1, "exit\n", 5);
+			write(STDERR_FILENO, "exit\n", 5);
 			//system("leaks minishell");
 			exit (0);
 		}		
+		
 		lexer(&info);
 		parser(&info);
 		execute(&info);

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/03 16:53:13 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:33:17 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void exec_program(t_info *ms, int islast)
 		
 		
 		ms->tmp_pgm->pid = fork();
+		g_sig.pid = ms->tmp_pgm->pid;
+		
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");			
 		else if (ms->tmp_pgm->pid == 0)
