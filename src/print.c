@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:45:24 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/02 18:04:49 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:12:16 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,17 @@ void	print_lexer(t_info *ms)
 	printf("\n");
 }
 
-void	print_env(t_info *ms)
+void	exec_env(t_info *ms)
 {
-	int		i;
 	t_env	*token;
 
 	token = ms->env_v;
-	i = 0;
 	while (token != NULL)
 	{
-		printf(GREEN"%d: "RE, i);
-		printf("%-15s\t", token->var);
+		printf("%s", token->var);
+		printf("=");
 		printf("%s", token->content);
 		printf("\n");
 		token = token->next;
-		i++;
 	}
 }
