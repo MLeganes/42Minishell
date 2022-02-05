@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:45:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 22:44:23 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:57:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	exec_echo(t_info *ms, t_program *pgm)
 		ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
-	if (flag == 1)
+	if (flag != 1)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }

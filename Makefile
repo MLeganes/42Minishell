@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/04 10:24:20 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/05 20:38:59 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c \
 			$S$Llexer.c $S$Llexer_quotes.c \
 			$S$Pparser.c $S$Predirection.c $S$Pheredoc.c $S$Pprogram.c \
-			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c  \
+			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c \
+			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c  $S$Bbuiltin_export_print.c\
 			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
 			$Ssignal.c  $Sfree.c $Sprint.c \

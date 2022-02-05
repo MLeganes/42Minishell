@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:18:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 22:58:19 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 20:43:25 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 		exec_pwd(ms, pgm);
 	else if (ft_strlen(pgm->argv[0]) == 2 && !ft_strncmp(pgm->argv[0], "cd", 2))
 		exec_cd(ms, pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "echo", 4))
-	// 	exec_echo(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "env", 3))
-	// 	exec_env(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 6 && !ft_strncmp(pgm->argv[0], "export", 6))
-	// 	exec_export(pgm);
-	// else if (ft_strlen(pgm->argv[0]) == 5 && !ft_strncmp(pgm->argv[0], "unset", 5))
-	// 	exec_unset(pgm);
+	else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "echo", 4))
+		exec_echo(ms, pgm);
+	//else if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "env", 3))
+	//	exec_env(ms, pgm);
+	else if (ft_strlen(pgm->argv[0]) == 6 && !ft_strncmp(pgm->argv[0], "export", 6))
+		exec_export(ms, pgm);
+	else if (ft_strlen(pgm->argv[0]) == 5 && !ft_strncmp(pgm->argv[0], "unset", 5))
+		exec_unset(ms, pgm);
 	// else if (ft_strlen(pgm->argv[0]) == 4 && !ft_strncmp(pgm->argv[0], "exit", 4))
 	// 	exec_exit(pgm);
 	return ;
