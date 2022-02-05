@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 18:12:13 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 21:46:02 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  *  parser is deleteing the ms.list!!!
  * 
  ***/
-static void free_list(t_info *ms)
+void free_list(t_info *ms)
 {
 	t_token *actual;
 	t_token *next;

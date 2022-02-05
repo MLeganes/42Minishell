@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 20:58:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 21:46:46 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ void	execute(t_info *ms);
  * LEXER: lexer_quotes
  */
 void		quotes(t_info *info);
-
+void		free_list(t_info *ms);
 /*
  * PARSER: parser, program, redirection and heredoc.
  */

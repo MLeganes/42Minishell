@@ -63,7 +63,8 @@ static int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 		k++;
 	(*tmp) = ms_append_char((*tmp), '\0');
 	var = ft_substr(str, (*i) + 1, (k - 1));
-	ms->tmp_env = ms_find_env_var(ms, &var);
+	if ((ms->tmp_env = ms_find_env_var(ms, &var)) == NULL)
+		return (-1);
 	(*tmp) = ft_strjoin((*tmp), ms->tmp_env->content);
 	(*tmp) = ms_append_char((*tmp), '\0');
 	free(var);
@@ -72,16 +73,20 @@ static int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 
 static int	ms_d_quotes(t_info *ms, char **tmp, char *str, int *i)
 {
-// 	int	k;
+	int	k;
 
-// 	k = 0;
+	k = 0;
 	while (str[(*i)] != '\"' && str[(*i)] != '\0' && str[(*i)] != '$')
 	{
 		(*tmp) = ms_append_char((*tmp), str[(*i)]);
 		(*i)++;
 	}
 	if (str[(*i)] == '$')
-		(*i) += ms_exp_var(ms, tmp, str, i);
+	{
+		if ((k = ms_exp_var(ms, tmp, str, i)) == -1)
+			return (-1);
+		(*i) += k;
+	}
 	else
 	{
 		if (str[(*i)] == '\"')
@@ -102,11 +107,9 @@ static int	ms_d_quotes(t_info *ms, char **tmp, char *str, int *i)
 static char	*ms_del_quotes(t_info *ms, char *str)
 {
 	int		i;
-	//int		j;
 	char	*tmp;
 
 	i = 0;
-	//j = 0;
 	tmp = NULL;
 	while (str[i] != '\0')
 	{
@@ -115,7 +118,8 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 		else if (str[i] == '\"')
 		{
 			i++;
-			ms_d_quotes(ms, &tmp, str, &i);
+			if (ms_d_quotes(ms, &tmp, str, &i) == -1)
+				return (NULL);
 		}
 		else
 		{
@@ -130,16 +134,21 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 	return (tmp);
 }
 
-static void	ms_handle_quotes(t_info *ms)
+int	ms_handle_quotes(t_info *ms)
 {
 	ms->tmp_tkn = ms->list;
 	while (ms->tmp_tkn != NULL)
 	{
 		ms->tmp_tkn->data = ms_del_quotes(ms, ms->tmp_tkn->data);
 		if (ms->tmp_tkn->data == NULL)
-			return ;
+		{
+			free_list(ms);
+			printf("error: no such variable\n");
+			return (-1);
+		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
 	}
+	return (0);
 		//system ("leaks minishell");
 }
 
@@ -147,7 +156,7 @@ void	quotes(t_info *info)
 {
 	// function to delete quotes and expand vars if $ AND "" if '' it's a literall string
 	ms_handle_quotes(info);
-	print_quotes(info);
+	//print_quotes(info);
 	// function to put the files after redirections in linked list 
 	// function to put args and cmd together
 }
