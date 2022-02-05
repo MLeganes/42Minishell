@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 15:05:06 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:11:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,22 +233,8 @@ char	*ms_get_path(char **env, char *command);
 /*
  * SIGNAL
  */
-void	signal_init(void);
-void	signal_dfl(void);
-void	signal_ctrlc_heredoc(void);
-
-
-/*  NEW SIGNAL */
-void	signal_init(void);
-//void	signal_quit(int sig);
-void	signal_ctrlc(int sig);
-void	signal_int(int sig);
-
-void	signal_child_quit(int sig);
-void	signal_child_int(int sig);
-
-/* more new**/
 void	signalhandler_ctrlc(int sig);
+void	signalhandler_heredoc(int sig);
 
 /*
  * EXECUTION

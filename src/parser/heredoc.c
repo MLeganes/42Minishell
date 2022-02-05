@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 10:23:04 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:15:37 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 		i = 0;
 		while (line[i])
 		{
-			/* Maybe no need to do this in the here-doc*/
 			if (line[i] == '$')
 			{
 				j = ms_expand_get_len(line, i + 1);
@@ -93,14 +92,15 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	fd = open(file, O_RDWR | O_CREAT, 0777);
 	if (fd == -1)
 		printf("Error: no tmp file for heredoc.\n");
-	//signal_ctrlc_heredoc();
+
+	/* Signal INT Ctrl+C call handler to control here-doc */
+	signal(SIGINT, signalhandler_heredoc);
 	while (1)
 	{
 		line = readline("> ");
 		if (!ft_strncmp(line, delim, ft_strlen(delim) + 1))
 			break ;
 		ms_heredoc_writeline(ms, line, fd, delim);
-		//process_herestring(line, fd, delim);
 	}
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(file, 0, 0));
 }

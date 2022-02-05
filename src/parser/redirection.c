@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/01 23:05:09 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:17:52 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	ms_redir_in(t_redir *tmp, int inb)
 {
 	int	fd;
 
-	fd = open(tmp->file, O_RDONLY);
+	fd = open(tmp->file, O_RDONLY, 0);
 	if (fd < 0)
 	{
 		if (inb == 1)
