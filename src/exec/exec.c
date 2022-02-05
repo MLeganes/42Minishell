@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 14:48:31 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:06:01 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,23 @@ static void exec_program(t_info *ms, int islast)
 	else
 	{
 		if (pipe(fdp) == -1)
-			printf("Pipe Error \n");			
-		//printf("Pipe with fd(0): %d and fd[1]: %d\n", fd[0], fd[1]); 
-		// if (!strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes > 0)
-		// {
-		// 	exec_parent(ms, fd, islast);
-		// 	return ;
-		// }
-		
-		/* To check or DELETE, everything below*/
-		//ms_signal_desactivate();
-		
-		
+			printf("Pipe Error \n");
 		ms->tmp_pgm->pid = fork();
-		g_sig.pid = ms->tmp_pgm->pid;
-		
+			
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");			
 		else if (ms->tmp_pgm->pid == 0)
 		{
 			/* WORKING -- DONOT TOUCH */
+			/* Signal INT Ctrl+C default and Signal QUIT Ctrl+\ default */
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			exec_child(ms, fdp);
 		}
 		else
 			exec_parent(ms, fdp, islast);
-		
-		/* To check or DELETE, everything below*/
-		//ms_signal_activate();
-		
-		ms->idx++;// Used to indicate there are more than 1 command to close the fd.
+		/* Used to indicate there are more than 1 command to close the fd */
+		ms->idx++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 14:02:56 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:05:06 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,6 @@ typedef enum e_cmdname
 	CMD_NONE,
 	CMD_NO_FOUND,	
 }		t_cmdname;
-
-typedef struct	s_signal
-{
-	int				sig_int;
-	int				sig_quit;
-	int				exit_status;
-	pid_t			pid;
-}				t_signal;
 
 /***
  * 
@@ -293,5 +285,4 @@ void	print_lexer(t_info *ms);
 void	free_after_cmd(t_info *ms);
 void	free_end(t_info *ms);
 
-extern t_signal g_sig;
 #endif

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 13:58:27 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:00:52 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,23 @@ static void parent_waitpid(pid_t pid)
 	status =0;
 	waitpid(pid, &status, 0);
 	
-	/* error handler -- another way */
-	// if (g_sig.sig_int == 1 || g_sig.sig_quit == 1)
-	// 	status = g_sig.exit_status;
-	// else if ((status) == 32256 || (status) == 32512)
-	// 	status = ((status) / 256);
-
-	/* Commented, there is a signal for childs */
-	/* signal for childs */
-	
 	/* The WIFSIGNALED macro is always successful. */
 	/* If the child process for which status was returned by the wait or */
 	/* waitpid function exited because it raised a signal that caused it */
 	/* to exit, the WIFSIGNALED macro evaluates to TRUE and the WTERMSIG */
 	/* macro can be used to determine which signal was raised by the child*/
 	/* process. Otherwise, the WIFSIGNALED macro evaluates to FALSE. */
-	
 	/*
 		MAN SIGNAL
-		 No    Name         Default Action       Description
-     	1     SIGHUP       terminate process    terminal line hangup
-     	2     SIGINT       terminate process    interrupt program
-     	3     SIGQUIT      create core image    quit program
+		No    Name         Default Action       Description
+		1     SIGHUP       terminate process    terminal line hangup
+		2     SIGINT       terminate process    interrupt program
+		3     SIGQUIT      create core image    quit program
 	*/
-
-	
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == 3)
-		{
 			write(STDERR_FILENO, "Quit: 3\n", 8);
-		}
 		else if (WTERMSIG(status) == 2)
 			write(STDERR_FILENO, "\n", 1);
 		//print_error_signaled(WTERMSIG(status), name);
@@ -68,18 +54,6 @@ void exec_parent(t_info *ms, int fd[2], int islast)
 	close(fd[WRITE]);
 	if (islast) 
 		close(fd[READ]);
-
-	//signal_dfl();
-	/* control  
-	 waitid(): returns 0 on success or if WNOHANG was specified and no child(ren) 
-	 specified by id has yet changed state; on  error,  -1  is  returned.
-	*/
-
-	//waitpid(ms->tmp_pgm->pid, &status, 0);
 	parent_waitpid(ms->tmp_pgm->pid);
-	/* actudate the status in the env */
-	
-
 	ms->idx--;
-	
 }

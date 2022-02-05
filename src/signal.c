@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 14:19:38 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:05:27 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	signalhandler_ctrlc(int sig)
 	}
 }
 
+
+/*  TO DELETE  */
 // // static void signal_heredoc(int sig)
 // // {
 // // 	if (sig == SIGINT)
