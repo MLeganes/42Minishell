@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
+/*   Updated: 2022/02/05 20:59:01 by amorcill         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	ms_free_str(char **str)
+static void ms_free_str(char **str)
 {
 	free(*str);
 	*str = NULL;

@@ -15,7 +15,7 @@
 void init_struct(t_info *info)
 {
 	//info->prompt = "minishell >";
-	info->prompt = "\001\033[0;32m\002 ❯\e[1m_\e[0m \001\033[0m\002";
+	info->prompt = "\001\033[0;32m\002 ❯\e[1m\e[0m \001\033[0m\002";
 	info->list = NULL;
 	info->cmdline = NULL;
 	info->tmp_tkn = NULL;

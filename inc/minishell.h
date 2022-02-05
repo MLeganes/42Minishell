@@ -6,16 +6,16 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 20:34:15 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 20:58:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* ************************************************************************** */
-/* STD LIBC INCLUDES														  */
-/* ************************************************************************** */
+/***************************************************************************/
+/* STD LIBC INCLUDES													   */
+/***************************************************************************/
 # include <unistd.h>			// systemcalls, execve
 # include <stdlib.h>			// exit, getenv
 # include <stdio.h>				// printf, fgets
@@ -226,9 +226,11 @@ int			redir_selector(t_info *ms, int inb);
 void	get_env(t_info *info, char **env);
 int		ms_expand_get_len(char *s, int i);			// Used by here-doc
 char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret); // Used by here-doc
+t_env	*ms_find_env_var(t_info *ms, char **var);
 
 // Anna new function.
 char	*ms_get_path(char **env, char *command);
+t_env	*ms_new_env(char *var, char *content, t_env *next);
 
 /*
  * SIGNAL
