@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/05 22:19:39 by annarohmnn       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*ms_get_valid_path(char **paths, char *cmd)
@@ -39,16 +51,16 @@ char	*ms_get_path(char **env, char *command)
 			full_path = ms_get_valid_path(paths, command);
 			if (full_path != NULL)
 			{
-				//ft_free_array(paths);
+				free_argv(paths);
 				return (full_path);
 			}
 			else
 			{
-				//ft_free_array(paths);
+				free_argv(paths);
 				break ;
 			}
 		}
 		i++;
 	}
 	return (NULL);
-} 
+}

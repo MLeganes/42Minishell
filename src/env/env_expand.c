@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:33:43 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/31 18:29:14 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 22:20:25 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret)
 {
 	char	*line;
 	char	*tmp;
-	(void)ms;
 
+	(void)ms;
 	tmp = ft_substr(s, i + 1, ret);
-	//line = get_env_byname(ms, s);
 	line = getenv(tmp);
 	if (!line)
 		line = "";
@@ -52,4 +51,3 @@ char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret)
 	free(tmp);
 	return (line);
 }
-
