@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 19:57:03 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:02:56 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,8 @@ void	signal_int(int sig);
 void	signal_child_quit(int sig);
 void	signal_child_int(int sig);
 
+/* more new**/
+void	signalhandler_ctrlc(int sig);
 
 /*
  * EXECUTION

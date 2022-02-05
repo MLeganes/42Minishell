@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 16:33:17 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:48:31 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ static void exec_program(t_info *ms, int islast)
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");			
 		else if (ms->tmp_pgm->pid == 0)
+		{
+			/* WORKING -- DONOT TOUCH */
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			exec_child(ms, fdp);
+		}
 		else
 			exec_parent(ms, fdp, islast);
 		

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 19:54:46 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:20:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	t_info info;
 	
-	/* CTRL + \ ignored */
+	/* CTRL + \ ignored */	
 	signal(SIGQUIT, SIG_IGN);
 	
 	get_env(&info, env);
@@ -56,7 +56,13 @@ int main(int argc, char **argv, char **env)
 		//info.cmdline = "ls -la | wc";
 		
 		//signal(SIGINT, signal_ctrlc);
-		signal(SIGINT, signal_ctrlc);
+		//signal(SIGINT, signal_ctrlc);
+		
+
+		/*   last chance to do the fucking signals  */
+		/* WORKING -- DONOT TOUCH */
+		signal(SIGINT, signalhandler_ctrlc);
+		
 		
 		info.cmdline = readline(info.prompt);
 		if (info.cmdline == NULL)
@@ -64,11 +70,16 @@ int main(int argc, char **argv, char **env)
 			write(STDERR_FILENO, "exit\n", 5);
 			//system("leaks minishell");
 			exit (0);
-		}		
+		}
+		
+		/* WORKING -- DONOT TOUCH */
+		signal(SIGINT, SIG_IGN);
 		
 		lexer(&info);
 		parser(&info);
+		
 		execute(&info);
+		
 		free_after_cmd(&info);
 		//system("leaks minishell");
 		//system("leaks minishell");

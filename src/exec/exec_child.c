@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 19:42:51 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:15:14 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void exec_child(t_info *ms, int fd[2])
 		 ***/
 		//signal_dfl();
 		/* Signals */
-		signal(SIGINT, SIG_DFL);
+		//signal(SIGINT, SIG_DFL);
 		//signal(SIGQUIT, SIG_DFL);
-		signal(SIGQUIT, signal_child_quit);
-		signal(SIGQUIT, signal_child_int);
+		//signal(SIGQUIT, signal_child_quit);
+		//signal(SIGQUIT, signal_child_int);
 		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env_ptr_copy);
 	}
 }

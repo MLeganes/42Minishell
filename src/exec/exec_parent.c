@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 19:49:37 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:58:27 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,37 @@ static void parent_waitpid(pid_t pid)
 	// 	status = ((status) / 256);
 
 	/* Commented, there is a signal for childs */
-	// if (WIFSIGNALED(status))
-	// {
-	// 	if (WTERMSIG(status) == 3)
-	// 	{
-	// 		write(STDERR_FILENO, "Quit: 3\n", 8);
-	// 	}
-	// 	else if (WTERMSIG(status) == 2)
-	// 		write(STDERR_FILENO, "\n", 1);
-	// 	//print_error_signaled(WTERMSIG(status), name);
-	// 	status = 128 + WTERMSIG(status);
-	// }
-	// else if (WIFEXITED(status))
-	// 	status = WEXITSTATUS(status);
+	/* signal for childs */
+	
+	/* The WIFSIGNALED macro is always successful. */
+	/* If the child process for which status was returned by the wait or */
+	/* waitpid function exited because it raised a signal that caused it */
+	/* to exit, the WIFSIGNALED macro evaluates to TRUE and the WTERMSIG */
+	/* macro can be used to determine which signal was raised by the child*/
+	/* process. Otherwise, the WIFSIGNALED macro evaluates to FALSE. */
+	
+	/*
+		MAN SIGNAL
+		 No    Name         Default Action       Description
+     	1     SIGHUP       terminate process    terminal line hangup
+     	2     SIGINT       terminate process    interrupt program
+     	3     SIGQUIT      create core image    quit program
+	*/
+
+	
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == 3)
+		{
+			write(STDERR_FILENO, "Quit: 3\n", 8);
+		}
+		else if (WTERMSIG(status) == 2)
+			write(STDERR_FILENO, "\n", 1);
+		//print_error_signaled(WTERMSIG(status), name);
+		status = 128 + WTERMSIG(status);
+	}
+	else if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
 }
 
 void exec_parent(t_info *ms, int fd[2], int islast)
