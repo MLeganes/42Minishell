@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:37:19 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 14:08:54 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	signalhandler_ctrlc(int sig)
 	{
 		write(2, "\n", 1);
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

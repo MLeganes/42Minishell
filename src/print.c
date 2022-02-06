@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:45:24 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/06 12:38:26 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 13:58:23 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,10 @@ void	print_lexer(t_info *ms)
 			token = token->next;
 		i++;
 	}
-	printf(GREEN"%d: "RE, i);
-	printf("%-15s", token->data);
 	printf("\n");
 	token = ms->list;
 	i = 0;
-	while (token->next != NULL)
+	while (token != NULL)
 	{
 		printf(RED"%d: "RE, i);
 		printf("%-15s", print_type(token->type));
@@ -89,7 +87,5 @@ void	print_lexer(t_info *ms)
 			token = token->next;
 		i++;
 	}
-	printf(RED"%d: "RE, i);
-	printf("%-15s", print_type(token->type));
 	printf("\n");
 }
