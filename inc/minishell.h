@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:39:39 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 13:38:07 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,16 @@ void	execute(t_info *ms);
 /*
  * LEXER: lexer_quotes
  */
-void		quotes(t_info *info);
+int			quotes(t_info *info);
+int			ms_chartype(char c);
+t_token		*new_tok(int len);
+char		*ms_append_char(char *str, char c);
+void		ms_state_selector(t_info *ms, int chartype);
+void		ms_case_endtoken(t_info *ms);
+void		ms_case_multiple(t_info *ms, int chartype);
+void		ms_case_redirect(t_info *ms, int chartype);
+int			ms_exp_var(t_info *ms, char **tmp, char *str, int *i);
+void		ms_end_tmp(char **tmp, int *i);
 void		free_list(t_info *ms);
 /*
  * PARSER: parser, program, redirection and heredoc.

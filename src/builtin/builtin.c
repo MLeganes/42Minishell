@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:18:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:35:49 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 13:41:03 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 		exec_echo(ms, pgm);
 	else if (ft_strlen(pgm->argv[0]) == 3
 		&& !ft_strncmp(pgm->argv[0], "env", 3))
-		exec_env(ms, pgm);
+		exec_env(ms);
 	else if (ft_strlen(pgm->argv[0]) == 6
 		&& !ft_strncmp(pgm->argv[0], "export", 6))
 		exec_export(ms, pgm);
