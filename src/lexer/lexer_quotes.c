@@ -38,20 +38,6 @@ static int	ms_quotes(char **tmp, char *str, int *i)
 	return (0);
 }
 
-t_env	*ms_find_env_var(t_info *ms, char **var)
-{
-	ms->tmp_env = ms->env_v;
-	while (ms->tmp_env != NULL)
-	{
-		if (ft_strncmp((*var), ms->tmp_env->var, ft_strlen((*var))) == 0)
-		{
-			return (ms->tmp_env);
-		}
-		ms->tmp_env = ms->tmp_env->next;
-	}
-	return (NULL);
-}
-
 static int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 {
 	char	*var;

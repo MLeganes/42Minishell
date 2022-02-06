@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/04 19:04:00 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/06 12:25:24 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_program *new_program(void)
+t_program	*new_program(void)
 {
-	t_program *new;
-	
+	t_program	*new;
+
 	new = (t_program *)malloc(sizeof(t_program));
 	if (new == NULL)
 		return (NULL);
-	new->name = CMD_NONE; // no used
 	new->argv = NULL;
 	new->nargvs = 0;
 	new->next = NULL;
@@ -27,10 +26,10 @@ t_program *new_program(void)
 	return (new);
 }
 
-void ms_program_updatepath(t_info *ms)
+void	ms_program_updatepath(t_info *ms)
 {
 	char	*path;
-	
+
 	path = ms_get_path(ms->env_ptr_copy, ms->tmp_pgm->argv[0]);
 	if (path != NULL)
 	{
@@ -39,22 +38,21 @@ void ms_program_updatepath(t_info *ms)
 	}
 	else
 	{
-		printf("minishel: No such file or directory [program.c] ms_program_uppath\n");
-		
+		printf("minishel: No such file or directory\n");
 	}
 }
 
-static t_program *ms_program_lstlast(t_program *lst)
+static t_program	*ms_program_lstlast(t_program *lst)
 {
 	while (lst != NULL && lst->next != NULL)
 		lst = lst->next;
 	return (lst);
 }
 
-void ms_program_lstadd_last(t_program **lst, t_program *new)
+void	ms_program_lstadd_last(t_program **lst, t_program *new)
 {
-	t_program *last;
-	
+	t_program	*last;
+
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -71,7 +69,7 @@ void	ms_program_argv_add(t_program *pgm, char *data)
 	int		i;
 
 	i = 0;
-	if(!pgm->argv)
+	if (!pgm->argv)
 		new = malloc(sizeof(char *) * 2);
 	else
 		new = malloc(sizeof(char *) * (pgm->nargvs + 2));
@@ -82,7 +80,7 @@ void	ms_program_argv_add(t_program *pgm, char *data)
 	}
 	new[i] = ft_strdup(data);
 	i++;
-	new[i] = NULL;	
+	new[i] = NULL;
 	if (pgm->argv)
 		free(pgm->argv);
 	pgm->argv = new;

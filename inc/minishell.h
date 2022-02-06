@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 21:46:46 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 12:39:39 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,12 @@ typedef struct s_info
 	int 		error;
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
-	int 		fd_old[2];	// pipex
-	int 		fd_bak[2];	// pipex
-	int 		fd[2];		// pipex
-	int 		std_out;	// pipex
+	int 		fd_old[2];
+	int 		fd_bak[2];
+	int 		fd[2];
+	int 		std_out;
 	int			npgms;
-	char 		**env_ptr_copy; //	
+	char 		**env_ptr_copy;
 }				t_info;
 
 
@@ -254,9 +254,9 @@ void	exec_pwd(t_info *ms, t_program *pgm);
 void	exec_export(t_info *ms, t_program *pgm);
 void	export_print(t_env *env);
 void	exec_unset(t_info *ms, t_program *pgm);
-// void	exec_unset(t_info *ms, t_program *pgm);
-// void	exec_env(t_info *ms, t_program *pgm);
-// void	exec_exit(t_info *ms, t_program *pgm);
+void	exec_unset(t_info *ms, t_program *pgm);
+void	exec_env(t_info *ms);
+void	exec_exit(t_info *ms);
 
 /*
  * PRINT
@@ -274,5 +274,5 @@ void	print_lexer(t_info *ms);
  */
 void	free_after_cmd(t_info *ms);
 void	free_end(t_info *ms);
-
+void	free_argv(char **argv);
 #endif

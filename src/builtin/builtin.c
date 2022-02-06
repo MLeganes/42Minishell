@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:18:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 22:36:45 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 12:35:49 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 		exec_unset(ms, pgm);
 	else if (ft_strlen(pgm->argv[0]) == 4
 		&& !ft_strncmp(pgm->argv[0], "exit", 4))
-		exec_exit(pgm);
+		exec_exit(ms);
 	return ;
 }

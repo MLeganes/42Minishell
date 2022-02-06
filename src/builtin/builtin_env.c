@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:37:19 by annarohmnn       ###   ########.fr       */
+/*   Created: 2022/02/06 12:37:54 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/06 12:38:37 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signalhandler_ctrlc(int sig)
+void	exec_env(t_info *ms)
 {
-	if (sig == SIGINT)
-	{
-		write(2, "\n", 1);
-		rl_on_new_line();
-		//rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	t_env	*token;
 
-void	signalhandler_heredoc(int sig)
-{
-	if (sig == SIGINT)
+	token = ms->env_v;
+	while (token != NULL)
 	{
-		close(STDIN_FILENO);
-		write(STDERR_FILENO, "\n", 1);
+		printf("%s", token->var);
+		printf("=");
+		printf("%s", token->content);
+		printf("\n");
+		token = token->next;
 	}
 }

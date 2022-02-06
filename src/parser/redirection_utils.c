@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:37:19 by annarohmnn       ###   ########.fr       */
+/*   Created: 2022/02/06 12:31:51 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/06 12:32:13 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signalhandler_ctrlc(int sig)
+void	ms_redir_lstadd_last(t_program **pgm, t_redir *new)
 {
-	if (sig == SIGINT)
-	{
-		write(2, "\n", 1);
-		rl_on_new_line();
-		//rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	t_redir	*last;
 
-void	signalhandler_heredoc(int sig)
-{
-	if (sig == SIGINT)
+	if ((*pgm)->redir == NULL)
+		(*pgm)->redir = new;
+	else
 	{
-		close(STDIN_FILENO);
-		write(STDERR_FILENO, "\n", 1);
+		last = (*pgm)->redir;
+		while (last->next)
+		{
+			last = last->next;
+		}
+		if (last)
+			last->next = new;
 	}
 }

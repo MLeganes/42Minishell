@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 21:46:02 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/06 12:36:49 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void free_list(t_info *ms)
 	}
 }
 
-static void free_argv(char **argv)
+void free_argv(char **argv)
 {
 	int i;
 
@@ -50,7 +50,6 @@ static void free_argv(char **argv)
 		if(argv[i] != NULL)
 		free(argv[i]);
 		i++;
-		/* code */
 	}
 }
 
