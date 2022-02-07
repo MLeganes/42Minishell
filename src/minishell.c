@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 15:17:11 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:35:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
+	
+	/* Signal QUIT Ctrl+/ always ignore */
 	signal(SIGQUIT, SIG_IGN);
+	
 	get_env(&info, env);
-	info.env_ptr_copy = env;
+	
 	while (1)
 	{
 		init_struct(&info);
@@ -54,6 +57,7 @@ int	main(int argc, char **argv, char **env)
 		//info.cmdline = "ls -la | wc";		
 		//info.cmdline = "<<";		
 		info.cmdline = readline(info.prompt);
+		
 		if (info.cmdline == NULL)
 		{
 			write(STDERR_FILENO, "exit\n", 5);
@@ -62,19 +66,15 @@ int	main(int argc, char **argv, char **env)
 
 		/* Signal INT Ctrl+C ignored after readline to execute everything */
 		signal(SIGINT, SIG_IGN);			
-		//system("leaks minishell");
-		//system("leaks minishell");
-		// Free a lots of things.
 		if (lexer(&info) == 0)
 		{
 			parser(&info);
 			execute(&info);
 			free_after_cmd(&info);
-			printf("%i\n", g_exit_status);
 		}
-		system("leaks minishell");
+		//system("leaks minishell");
 	}	
+	// Free a lots of things.
 	return (0);
 }
-		//system("leaks minishell");
-		// Free a lots of things.
+	

@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 15:18:50 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:31:45 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,6 @@ static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 	free(line);
 }
 
-	/*	man open
-		Flags to open file: O_RDWR | O_CREAT
-		Permision for O_CREAT 00700 in octal for everybody, party!!! */
-	/* Signal INT Ctrl+C call handler to control here-doc line 96*/
 void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 {
 	char	*delim;

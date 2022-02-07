@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:07:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/05 22:23:23 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 15:35:58 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	get_env(t_info *ms, char **env)
 	i = 0;
 	ms->env_v = NULL;
 	ms->tmp_env = ms->env_v;
+	ms->env_ptr_copy = env;
 	while (env[i])
 	{
 		j = 0;
