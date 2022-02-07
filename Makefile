@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/05 20:51:19 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/07 12:19:30 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ $O%.o:		$S%.c
 clean:
 			@rm -rf $(O)
 			@rm -rf $(NAME)
+			@rm -rf .tmp*
 			@make -C libft clean
 			@echo "\033[31mObjects Files \033[1;31m$(OBJS_LIST)\033[1;0m\033[31mremoved.\033[0m"
 

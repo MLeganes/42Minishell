@@ -6,16 +6,18 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 15:05:46 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:05:38 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern int g_var;
+
 void init_struct(t_info *info)
 {
 	//info->prompt = "minishell >";
-	info->prompt = "\001\033[0;32m\002 ❯\e[1m\e[0m \001\033[0m\002";
+	info->prompt = "\001\033[0;32m\002 ❯\e[1m_\e[0m \001\033[0m\002";
 	info->list = NULL;
 	info->cmdline = NULL;
 	info->tmp_tkn = NULL;
@@ -52,6 +54,7 @@ int main(int argc, char **argv, char **env)
 		//info.cmdline = "<< end cat > file";
 		//info.cmdline = "echo \"hello ee\" > file";
 		//info.cmdline = "ls -la | wc";		
+		//info.cmdline = "<<";		
 		info.cmdline = readline(info.prompt);
 		if (info.cmdline == NULL)
 		{
@@ -61,10 +64,9 @@ int main(int argc, char **argv, char **env)
 		}
 
 		/* Signal INT Ctrl+C ignored after readline to execute everything */
-		signal(SIGINT, SIG_IGN);
-		
+		signal(SIGINT, SIG_IGN);			
 		lexer(&info);
-		parser(&info);
+		parser(&info);		
 		execute(&info);
 		free_after_cmd(&info);
 		//system("leaks minishell");

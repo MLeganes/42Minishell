@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 17:15:37 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 12:17:30 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,41 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	char 	*file;
 	char 	*line;
 	int 	fd;
-	
+	int 	exit;
+
+	if ( ms->tmp_tkn->next->data == NULL)
+	{
+		printf("Error: no tmp file for heredoc.\n");
+		return ;	
+	}
+		
 	delim = ms->tmp_tkn->next->data; // Next token contain the delimiter.
 	file = ms_get_tmp_file();
 	/*	man open
 		Flags to open file: O_RDWR | O_CREAT
 		Permision for O_CREAT 00700 in octal for everybody, party!!! */
-	fd = open(file, O_RDWR | O_CREAT, 0777);
+	fd = open(file, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 		printf("Error: no tmp file for heredoc.\n");
 
 	/* Signal INT Ctrl+C call handler to control here-doc */
-	signal(SIGINT, signalhandler_heredoc);
-	while (1)
+	/* NO WORKING CTRL+C */
+	//signal(SIGINT, signalhandler_heredoc);
+	
+	exit = 1;	
+	while (exit)
 	{
 		line = readline("> ");
-		if (!ft_strncmp(line, delim, ft_strlen(delim) + 1))
-			break ;
-		ms_heredoc_writeline(ms, line, fd, delim);
+		if (line == NULL) /* Signal Ctrl+D EOF*/
+		{
+			write(STDERR_FILENO, "\n", 1);			
+			exit = 0;			
+		}
+		else if (!ft_strncmp(line, delim, ft_strlen(delim) + 1))
+			exit = 0;
+		else
+			ms_heredoc_writeline(ms, line, fd, delim);
 	}
+	close(fd);
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(file, 0, 0));
 }
