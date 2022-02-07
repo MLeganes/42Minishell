@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/07 20:43:35 by annarohmnn       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ms_quotes(char **tmp, char *str, int *i)
@@ -84,7 +96,7 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 		}
 	}
 	if (tmp != NULL)
-			ms_end_tmp(&tmp, &i);
+		ms_end_tmp(&tmp, &i);
 	if (str != NULL)
 		free(str);
 	return (tmp);

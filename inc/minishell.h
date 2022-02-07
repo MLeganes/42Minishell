@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 14:10:24 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:09:53 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ typedef struct s_info
 int			lexer(t_info *info);
 void		parser(t_info *ms);
 void		execute(t_info *ms);
-
+int			expansion(t_info *ms);
 /*
  * LEXER: lexer_quotes
  */
