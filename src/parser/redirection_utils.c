@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 22:33:33 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/05 22:35:29 by annarohmnn       ###   ########.fr       */
+/*   Created: 2022/02/06 12:31:51 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/06 12:32:13 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_cd(t_info *ms, t_program *pgm)
+void	ms_redir_lstadd_last(t_program **pgm, t_redir *new)
 {
-	int	res;
+	t_redir	*last;
 
-	(void)ms;
-	res = 0;
-	if (pgm->argv[1])
-		res = chdir(pgm->argv[1]);
-	if (res == -1)
-		printf("minishel: No such file or directory\n");
+	if ((*pgm)->redir == NULL)
+		(*pgm)->redir = new;
+	else
+	{
+		last = (*pgm)->redir;
+		while (last->next)
+		{
+			last = last->next;
+		}
+		if (last)
+			last->next = new;
+	}
 }

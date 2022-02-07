@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/07 12:19:30 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/07 15:17:31 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,10 @@ P		=	parser/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c \
-			$S$Llexer.c $S$Llexer_quotes.c \
-			$S$Pparser.c $S$Predirection.c $S$Pheredoc.c $S$Pprogram.c \
+			$S$Llexer.c $S$Llexer_utils.c $S$Llexer_utils2.c $S$Llexer_quotes.c $S$Llexer_quotes_utils.c\
+			$S$Pparser.c $S$Predirection.c $S$Predirection_utils.c $S$Pheredoc.c $S$Pprogram.c \
 			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c \
-			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c  $S$Bbuiltin_export_print.c\
+			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c $S$Bbuiltin_env.c $S$Bbuiltin_exit.c $S$Bbuiltin_export_print.c\
 			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
 			$Ssignal.c  $Sfree.c $Sprint.c \

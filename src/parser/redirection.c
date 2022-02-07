@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 17:17:52 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/06 12:32:10 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static t_redir *new_redirection(t_info *ms, int is_app, int is_out)
+// Exit cleaning everything, line 21
+static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 {
-	t_redir *new;
-	
+	t_redir	*new;
+
 	new = (t_redir *)malloc(sizeof(t_redir));
 	if (new == NULL)
-		return (NULL); // Exit cleaning everything
+		return (NULL);
 	new->type = ms->tmp_tkn->type;
 	if (ms->tmp_tkn->next && ms->tmp_tkn->next->data)
-		new->file = ms->tmp_tkn->next->data; // Next token contain the file.
+		new->file = ms->tmp_tkn->next->data;
 	else
 		printf("Error: Incomplete command, no file.\n");
 	new->is_app = is_app;
@@ -30,28 +30,10 @@ static t_redir *new_redirection(t_info *ms, int is_app, int is_out)
 	return (new);
 }
 
-void ms_redir_lstadd_last(t_program **pgm, t_redir *new)
+void	parser_build_redirection(t_info *ms, t_program **pgm)
 {
-	t_redir *last;
+	t_redir	*redir;
 
-	if ((*pgm)->redir == NULL)
-		(*pgm)->redir = new;
-	else
-	{
-		last = (*pgm)->redir;
-		while (last->next)
-		{
-			last = last->next;
-		}
-		if ( last)
-			last->next = new;
-	}
-}
-
-void parser_build_redirection(t_info *ms, t_program **pgm)
-{
-	t_redir *redir;
-	
 	if (ms->tmp_tkn->type == REDIR_GREAT)
 	{
 		redir = new_redirection(ms, 0, 1);
@@ -69,7 +51,6 @@ void parser_build_redirection(t_info *ms, t_program **pgm)
 	}
 	else if (ms->tmp_tkn->type == REDIR_DLESS)
 		ms_redir_heredoc(ms, &(*pgm));
-	//increment to next, that was where file-name is. 
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }
 
@@ -81,10 +62,8 @@ static int	ms_redir_in(t_redir *tmp, int inb)
 	if (fd < 0)
 	{
 		if (inb == 1)
-			printf("Redirection Error \n");	
-			//ft_error(1, "No such file or directory\n", inb);
-		printf("Redirection Error \n");	
-		//ft_error(1, "No such file or directory", inb);
+			printf("Redirection Error \n");
+		printf("Redirection Error \n");
 		return (0);
 	}
 	else
@@ -124,8 +103,7 @@ int	redir_selector(t_info *ms, int inb)
 		else if (tmp->is_out == 1)
 			ms_redir_out(tmp);
 		else
-			printf("Redirection Error \n");	
-			//ft_error(127, "Redirection is nonsense", 0);
+			printf("Redirection Error \n");
 		tmp = tmp->next;
 	}
 	return (status);

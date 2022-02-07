@@ -6,19 +6,19 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 12:17:30 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:18:50 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static t_redir *new_redirection_heredoc(char *file, int is_app, int is_out)
+// Exit cleaning everything, line 21
+static t_redir	*new_redirection_heredoc(char *file, int is_app, int is_out)
 {
-	t_redir *new;
-	
+	t_redir	*new;
+
 	new = (t_redir *)malloc(sizeof(t_redir));
 	if (new == NULL)
-		return (NULL); // Exit cleaning everything
+		return (NULL);
 	new->type = REDIR_DLESS;
 	new->file = file;
 	new->is_app = is_app;
@@ -47,13 +47,13 @@ static char	*ms_get_tmp_file(void)
 	return (NULL);
 }
 
+	/* If delimiter has quote, removed to print it!!! line 56*/
 static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 {
 	int		i;
 	int		j;
 	char	*new;
 
-	/* If delimiter has quote, removed to print it!!! */
 	if (ft_strchr(del, '"') || ft_strchr(del, '"'))
 		write(fd, line, ft_strlen(line));
 	else
@@ -77,6 +77,10 @@ static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 	free(line);
 }
 
+	/*	man open
+		Flags to open file: O_RDWR | O_CREAT
+		Permision for O_CREAT 00700 in octal for everybody, party!!! */
+	/* Signal INT Ctrl+C call handler to control here-doc line 96*/
 void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 {
 	char	*delim;

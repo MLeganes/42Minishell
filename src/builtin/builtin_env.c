@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 22:33:33 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/05 22:35:29 by annarohmnn       ###   ########.fr       */
+/*   Created: 2022/02/06 12:37:54 by annarohmnn        #+#    #+#             */
+/*   Updated: 2022/02/06 12:38:37 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_cd(t_info *ms, t_program *pgm)
+void	exec_env(t_info *ms)
 {
-	int	res;
+	t_env	*token;
 
-	(void)ms;
-	res = 0;
-	if (pgm->argv[1])
-		res = chdir(pgm->argv[1]);
-	if (res == -1)
-		printf("minishel: No such file or directory\n");
+	token = ms->env_v;
+	while (token != NULL)
+	{
+		printf("%s", token->var);
+		printf("=");
+		printf("%s", token->content);
+		printf("\n");
+		token = token->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/01/20 18:12:13 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/06 14:08:14 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,49 @@
  *  parser is deleteing the ms.list!!!
  * 
  ***/
-static void free_list(t_info *ms)
+void	free_list(t_info *ms)
 {
-	t_token *actual;
-	t_token *next;
-	
+	t_token	*actual;
+	t_token	*next;
+
 	if (ms->list != NULL)
 	{
 		actual = ms->list;
-		while ( actual != NULL)
+		while (actual != NULL)
 		{
 			next = actual->next;
 			if (actual->data)
 				free(actual->data);
-			// if (actual->expansion)
-			// 	free(actual->expansion);
 			if (actual != NULL)
-			 	free(actual);
+				free(actual);
 			actual = next;
 		}
 		ms->list = NULL;
 	}
 }
 
-static void free_argv(char **argv)
+void	free_argv(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (argv[i])
 	{
-		if(argv[i] != NULL)
-		free(argv[i]);
+		if (argv[i] != NULL)
+			free(argv[i]);
 		i++;
-		/* code */
 	}
 }
 
-static void free_pgmlist(t_info *ms)
+static void	free_pgmlist(t_info *ms)
 {
-	t_program *actual;
-	t_program *next;
-	
+	t_program	*actual;
+	t_program	*next;
+
 	if (ms->pgmlist != NULL)
 	{
 		actual = ms->pgmlist;
-		while ( actual != NULL)
+		while (actual != NULL)
 		{
 			next = actual->next;
 			if (actual->argv)
@@ -70,14 +67,14 @@ static void free_pgmlist(t_info *ms)
 				free_argv(actual->argv);
 			}
 			if (actual != NULL)
-			 	free(actual);
+				free(actual);
 			actual = next;
 		}
 		ms->pgmlist = NULL;
 	}
 }
 
-void free_after_cmd(t_info *ms)
+void	free_after_cmd(t_info *ms)
 {
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
@@ -91,10 +88,8 @@ void free_after_cmd(t_info *ms)
 	ms->tmp_tkn = NULL;
 }
 
-void free_end(t_info *ms)
+void	free_end(t_info *ms)
 {	
 	(void)ms;
-	// free env!!!!
-	
 }
-
+// free env!!!!

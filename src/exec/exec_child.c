@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 15:01:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/06 12:04:46 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exec_child(t_info *ms, int fd[2])
+void	exec_child(t_info *ms, int fd[2])
 {	
 	int		redirstatus;
-	
+
 	if (ms->tmp_pgm->next)
 	{
 		close(fd[READ]);
@@ -28,7 +28,6 @@ void exec_child(t_info *ms, int fd[2])
 		dup2(ms->fd_old[READ], STDIN_FILENO);
 		close(ms->fd_old[READ]);
 	}
-	/* REDIRECTION */
 	redirstatus = redir_selector(ms, 1);
 	if (isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
 		builtin_selector(ms, ms->tmp_pgm);
