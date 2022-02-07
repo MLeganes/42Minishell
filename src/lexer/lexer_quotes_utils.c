@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/07 20:31:30 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 22:00:54 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 		free(var);
 		return (-1);
 	}
-	printf("tmp1=%s\n", (*tmp));
 	(*tmp) = ft_strjoin((*tmp), ms->tmp_env->content);
-	printf("tmp2=%s\n", (*tmp));
 	(*tmp) = ms_append_char((*tmp), '\0');
 	free(var);
 	return (k);
