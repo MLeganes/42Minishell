@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:07:44 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 15:58:06 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	parent_waitpid(pid_t pid)
 	}
 	else if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
+	g_exit_status = status;
 }
 
 void	exec_parent(t_info *ms, int fd[2], int islast)
