@@ -83,7 +83,8 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 			i++;
 		}
 	}
-	ms_end_tmp(&tmp, &i);
+	if (tmp != NULL)
+			ms_end_tmp(&tmp, &i);
 	if (str != NULL)
 		free(str);
 	return (tmp);
