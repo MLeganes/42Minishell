@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 14:10:24 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/07 21:22:28 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void		execute(t_info *ms);
  * LEXER: lexer_quotes
  */
 int			quotes(t_info *info);
+int			expansion(t_info *ms);
 int			ms_chartype(char c);
 t_token		*new_tok(int len);
 char		*ms_append_char(char *str, char c);
@@ -211,7 +212,6 @@ void		ms_case_multiple(t_info *ms, int chartype);
 void		ms_case_redirect(t_info *ms, int chartype);
 int			ms_exp_var(t_info *ms, char **tmp, char *str, int *i);
 void		ms_end_tmp(char **tmp, int *i);
-void		free_list(t_info *ms);
 /*
  * PARSER: parser, program, redirection and heredoc.
  */
@@ -278,4 +278,5 @@ void		print_lexer(t_info *ms);
 void		free_after_cmd(t_info *ms);
 void		free_end(t_info *ms);
 void		free_argv(char **argv);
+void		free_list(t_info *ms);
 #endif
