@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 14:17:55 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 14:10:24 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
-
+int	g_exit_status;
 /***
  * If the input for the simple command is just an immediate EOF.
  ***/
@@ -194,7 +194,7 @@ typedef struct s_info
 /*
  * MINISHELL
  */
-void		lexer(t_info *info);
+int			lexer(t_info *info);
 void		parser(t_info *ms);
 void		execute(t_info *ms);
 

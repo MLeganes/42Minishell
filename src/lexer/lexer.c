@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 13:36:13 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 13:39:36 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ms_end_tok(t_info *ms)
 	}
 }
 
-static void	mini_spliter(t_info *ms)
+static int	mini_spliter(t_info *ms)
 {
 	int	chartype;
 
@@ -62,16 +62,22 @@ static void	mini_spliter(t_info *ms)
 	if (ms->cmdline[ms->idx] == '\0' && ms->state != STATE_GENERAL)
 	{
 		printf("Error: Incomplete command.\n");
-		free_after_cmd(ms);
+		return (ERROR);
 	}
+	return (0);
 }
 
-void	lexer(t_info *ms)
+int	lexer(t_info *ms)
 {
 	if (ft_strlen(ms->cmdline))
 	{
-		mini_spliter(ms);
-		quotes(ms);
-		add_history(ms->cmdline);
+		if (mini_spliter(ms) != ERROR)
+		{
+			quotes(ms);
+			add_history(ms->cmdline);
+		}
+		else
+			return (ERROR);
 	}
+	return (0);
 }

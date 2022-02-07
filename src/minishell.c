@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 14:03:47 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/07 14:13:53 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ int	main(int argc, char **argv, char **env)
 			exit (0);
 		}
 		signal(SIGINT, SIG_IGN);
-		lexer(&info);
-		parser(&info);
-		execute(&info);
-		free_after_cmd(&info);
+		if (lexer(&info) == 0)
+		{
+			parser(&info);
+			execute(&info);
+			free_after_cmd(&info);
+			printf("%i\n", g_exit_status);
+		}
+		system("leaks minishell");
 	}	
 	return (0);
 }
-		//system("leaks minishell");
 		//system("leaks minishell");
 		// Free a lots of things.
