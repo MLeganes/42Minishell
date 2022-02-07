@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 21:22:28 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/07 21:52:13 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ typedef struct s_info
 int			lexer(t_info *info);
 void		parser(t_info *ms);
 void		execute(t_info *ms);
-
+int			expansion(t_info *ms);
 /*
  * LEXER: lexer_quotes
  */
