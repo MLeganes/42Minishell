@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:33:33 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/05 22:35:29 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/08 15:05:16 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ void	exec_cd(t_info *ms, t_program *pgm)
 	if (pgm->argv[1])
 		res = chdir(pgm->argv[1]);
 	if (res == -1)
-		printf("minishel: No such file or directory\n");
+	{
+		perror("minishell: cd");
+	}
 }

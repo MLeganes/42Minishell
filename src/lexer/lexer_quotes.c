@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/07 20:43:35 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/08 15:02:50 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
+	tmp = ft_strdup("");
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'')
@@ -107,6 +107,7 @@ int	quotes(t_info *ms)
 	ms->tmp_tkn = ms->list;
 	while (ms->tmp_tkn != NULL)
 	{
+	
 		ms->tmp_tkn->data = ms_del_quotes(ms, ms->tmp_tkn->data);
 		if (ms->tmp_tkn->data == NULL)
 		{
@@ -115,6 +116,7 @@ int	quotes(t_info *ms)
 			return (-1);
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
+		//print_quotes(ms);
 	}
 	return (0);
 }

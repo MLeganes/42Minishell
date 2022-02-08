@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 16:09:24 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:23:18 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	lexer(t_info *ms)
 		{
 			quotes(ms);
 			expansion(ms);
-			add_history(ms->cmdline);
 		}
 		else
 			return (ERROR);
