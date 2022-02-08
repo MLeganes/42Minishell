@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:59:43 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/06 14:04:16 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/08 15:41:23 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 //free everything before exit!
 //Or maybe no exit, just print promt 
 //exit (EXIT_FAILURE);
-void	error_exit(t_info ms)
+void	error_exit(char *arg, char *msg)
 {
-	printf("Error ocurred while executing bash!\n");
+	ft_putstr_fd("minishell: error:", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
