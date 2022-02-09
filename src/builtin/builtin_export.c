@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/09 13:59:36 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:36:05 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	ms_insert_var(t_env *env, char **args)
 
 	i = 1;
 	ret = 0;
+	len = 0;
 	while (args[i])
 	{
 		if (args[i][0] == '=')
@@ -76,6 +77,7 @@ static int	ms_insert_var(t_env *env, char **args)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(" is not a valid identifier\n", 2);
+			//error_exit(args[i], " is not a valid identifier\n");
 			ret = 1;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:33:57 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/09 15:49:11 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:32:20 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 void	exec_pwd(t_info *ms, t_program *pgm)
 {
 	char	*cwd;
+	char	*p;
+	t_env	*pwd;
 
 	(void)ms;
 	(void)pgm;
+	p = ft_strdup("PWD");
 	cwd = getcwd(NULL, 0);
+	pwd = ms_find_env_var(ms, &p);
+	if (pwd != NULL)
+		pwd->content = cwd;
 	if (cwd == NULL)
 		error_exit("error", " No such file or directory");
 	ft_putstr_fd(cwd, STDOUT_FILENO);

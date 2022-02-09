@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void ms_exit_status(char **args, int ret)
+void	ms_exit_status(char **args, int ret)
 {
 	ret = ft_atoi(args[1]);
 	if (ret > 255)
