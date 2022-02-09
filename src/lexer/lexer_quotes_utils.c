@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/08 15:01:35 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:09:44 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 	if (ms->tmp_env == NULL)
 	{
 		free(var);
+		ft_putstr_fd("\n", 2);
 		return (-1);
 	}
 	(*tmp) = ft_strjoin((*tmp), ms->tmp_env->content);

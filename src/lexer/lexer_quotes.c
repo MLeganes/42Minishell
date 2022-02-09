@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/08 15:02:50 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:33:13 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ int	quotes(t_info *ms)
 		ms->tmp_tkn->data = ms_del_quotes(ms, ms->tmp_tkn->data);
 		if (ms->tmp_tkn->data == NULL)
 		{
-			free_list(ms);
+			error_exit(" error", " variable not found");
+			/* free_list(ms);
 			printf("error: no such variable\n");
-			return (-1);
+			return (-1); */
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
 		//print_quotes(ms);

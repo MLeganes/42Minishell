@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 22:33:17 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/09 09:51:51 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ void	exec_unset(t_info *ms, t_program *pgm)
 	while (pgm->argv[i])
 	{
 		j = 0;
-		while (pgm->argv[i][j] != '=')
+		if (ft_strcmp(pgm->argv[i], "") == 0)
+		{
+			error_exit("unset", "No such file or directory");
+			return ;
+		}
+		while (pgm->argv[i][j] != '=' && pgm->argv[i][j] != '\0')
 			j++;
 		var = ft_substr(pgm->argv[i], 0, (j - 1));
 		if (ms_find_env_var(ms, &var) != NULL)
@@ -62,7 +67,7 @@ void	exec_unset(t_info *ms, t_program *pgm)
 			ms_del_env_var(&ms->env_v, var);
 		}
 		else
-			printf("\t");
+			error_exit(" unset", " No such file or directory");
 		i++;
 	}
 	return ;
