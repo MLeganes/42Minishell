@@ -27,7 +27,7 @@ int	exec_exit(t_program *pgm)
 	i = 0;
 	if (pgm->argv[1] == NULL)
 		exit(g_exit_status);
-	while (pgm->argv[1][i] != '\0')
+	while ((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0')
 	{
 		if (ft_isdigit(pgm->argv[1][i]) != 1)
 		{
@@ -39,7 +39,8 @@ int	exec_exit(t_program *pgm)
 	}
 	if (pgm->argv[2] != NULL)
 	{
-		printf("exit\nminishell: exit: too many arguments\n");
+		ft_putstr_fd("exit\n", 2);
+		error_exit(pgm->argv[0], "too many arguments");
 		g_exit_status = 1;
 		return (1);
 	}
