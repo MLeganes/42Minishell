@@ -6,7 +6,7 @@
 #    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/07 16:07:12 by arohmann         ###   ########.fr        #
+#    Updated: 2022/02/09 13:44:39 by arohmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ L 		=	lexer/
 P		=	parser/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
-SRCS	=	$Sminishell.c \
+SRCS	=	$Sminishell.c $Serror.c\
 			$S$Lexpansion.c $S$Llexer.c $S$Llexer_utils.c $S$Llexer_utils2.c $S$Llexer_quotes.c $S$Llexer_quotes_utils.c\
 			$S$Pparser.c $S$Predirection.c $S$Predirection_utils.c $S$Pheredoc.c $S$Pprogram.c \
 			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c \

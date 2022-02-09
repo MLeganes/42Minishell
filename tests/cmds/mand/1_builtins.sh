@@ -3,63 +3,63 @@
 # **************************************************************************** #
 
 ### ECHO ###
-# echo
+echo
 
-# echo ''
+echo ''
 
-# echo ""
+echo ""
 
-# echo '' ""
+echo '' ""
 
-# echo echo
+echo echo
 
-# echo test1
+echo test1
 
-# echo 'test1'
+echo 'test1'
 
-# echo "echo hallo"
+echo "echo hallo"
 
-# echo echo"1"
+echo echo"1"
 
-# echo "test1 test2"
+echo "test1 test2"
 
-# echo "test1  test2" test3
+echo "test1  test2" test3
 
-# echo " test1 test2 " 'test3 '
+echo " test1 test2 " 'test3 '
 
-# echo test1		test2
+echo test1		test2
 
-# echo -n test1
+echo -n test1
 
-# echo -n "test1 test2"
+echo -n "test1 test2"
 
-# echo -n "test1 test2" test3
+echo -n "test1 test2" test3
 
-# echo -n " test1 test2 " 'test3 '
+echo -n " test1 test2 " 'test3 '
 
-# echo -n test1		test2
+echo -n test1		test2
 
-# echo test1 -n
+echo test1 -n
 
-# echo "test1 -n"
+echo "test1 -n"
 
-# echo -n -n test1
+echo -n -n test1
 
-# echo -n -n -n -n -n test1
+echo -n -n -n -n -n test1
 
-# echo "-n test1 -n test2"
+echo "-n test1 -n test2"
 
-# echo "test1 -n test2"
+echo "test1 -n test2"
 
-# echo ~42
+echo ~42
 
-# eCho
+eCho
 
-# eChO
+eChO
 
-# eCHO
+eCHO
 
-# ECHO
+ECHO
 
 ### CD ###
 # pwd
@@ -159,201 +159,201 @@ pwd
 cd "1$HOME"
 pwd
 
-# ### ENV ###
-# env | grep DOESNT_EXIST
+### ENV ###
+env | grep DOESNT_EXIST
 
-# env | grep HOME
+env | grep HOME
 
-# env | grep USER
+env | grep USER
 
-# env | wc -l
+env | wc -l
 
-# ### PWD ###
-# pwd
+### PWD ###
+pwd
 
-# "pwd"
+"pwd"
 
-# pw"d"
+pw"d"
 
-# pwd test42
+pwd test42
 
-# pwd 42 42 42
+pwd 42 42 42
 
-# pwd pwd
+pwd pwd
 
-# pwd pwd pwd
+pwd pwd pwd
 
-# ### EXPORT ###
-# /bin/echo $HALLO42
-# env | grep HALLO42
-# export HALLO42=42
-# /bin/echo $HALLO42
-# env | grep HALLO42
+### EXPORT ###
+/bin/echo $HALLO42
+env | grep HALLO42
+export HALLO42=42
+/bin/echo $HALLO42
+env | grep HALLO42
 
-# /bin/echo $HOME
-# env | grep HOME
-# export HOME=42
-# /bin/echo $HOME
-# env | grep HOME
+/bin/echo $HOME
+env | grep HOME
+export HOME=42
+/bin/echo $HOME
+env | grep HOME
 
-# export =============123
+export =============123
 
-# export =
+export =
 
-# export =42
+export =42
 
-# export ''=''
+export ''=''
 
-# export ""=""
+export ""=""
 
-# export export
+export export
 
-# export echo
+export echo
 
-# export cd
+export cd
 
-# export test
+export test
 
-# export TEST
+export TEST
 
-# export TES_T=123
-# /bin/echo $TES_T
-# env | grep TES_T
+export TES_T=123
+/bin/echo $TES_T
+env | grep TES_T
 
-# export HELLO42=T=""
-# /bin/echo $HELLO42
-# env | grep HELLO42
-# env | grep HELLO42=T=
+export HELLO42=T=""
+/bin/echo $HELLO42
+env | grep HELLO42
+env | grep HELLO42=T=
 
-# echo $?
-# export ?=hallo
-# echo $?
+echo $?
+export ?=hallo
+echo $?
 
-# /bin/echo $test
-# export test=42 | echo 99
-# /bin/echo $test
+/bin/echo $test
+export test=42 | echo 99
+/bin/echo $test
 
-# /bin/echo $mini_test
-# env | grep mini_test
-# export mini_test=
-# /bin/echo $mini_test
-# env | grep mini_test
+/bin/echo $mini_test
+env | grep mini_test
+export mini_test=
+/bin/echo $mini_test
+env | grep mini_test
 
-# ### UNSET ###
-# unset ""
+### UNSET ###
+unset ""
 
-# unset =
+unset =
 
-# unset "="
+unset "="
 
-# unset ""=
+unset ""=
 
-# unset =""
+unset =""
 
-# unset ==
+unset ==
 
-# unset ?
+unset ?
 
-# unset "?"
+unset "?"
 
-# unset $
+unset $
 
-# unset "$"
+unset "$"
 
-# unset $""
+unset $""
 
-# /bin/echo $HOME
-# unset $HOME
-# /bin/echo $HOME
+/bin/echo $HOME
+unset $HOME
+/bin/echo $HOME
 
-# /bin/echo $HOME
-# unset HOME
-# /bin/echo $HOME
+/bin/echo $HOME
+unset HOME
+/bin/echo $HOME
 
-# /bin/echo $HOME
-# unset HOME
-# unset HOME
-# unset HOME
-# /bin/echo $HOME
+/bin/echo $HOME
+unset HOME
+unset HOME
+unset HOME
+/bin/echo $HOME
 
-# /bin/echo $HOME
-# unset HOME
-# unset HOME
-# unset HOME
-# unset HOME
-# /bin/echo $HOME
+/bin/echo $HOME
+unset HOME
+unset HOME
+unset HOME
+unset HOME
+/bin/echo $HOME
 
-# ###  EXIT ###
-# exit
+###  EXIT ###
+exit
 
-# exit ""
+exit ""
 
-# exit 0
+exit 0
 
-# exit 10
+exit 10
 
-# exit 42
+exit 42
 
-# exit 1
+exit 1
 
-# exit +++++
+exit +++++
 
-# exit ++++++
+exit ++++++
 
-# exit +1
+exit +1
 
-# exit ++1
+exit ++1
 
-# exit ++12560
+exit ++12560
 
-# exit -----
+exit -----
 
-# exit ------
+exit ------
 
-# exit -1
+exit -1
 
-# exit --1
+exit --1
 
-# exit -12560
+exit -12560
 
-# exit --12560
+exit --12560
 
-# exit 255
+exit 255
 
-# exit 1 2
+exit 1 2
 
-# exit 1 2 3
+exit 1 2 3
 
-# exit A
+exit A
 
-# exit A 2 3
+exit A 2 3
 
-# exit "A"
+exit "A"
 
-# exit "+++"
+exit "+++"
 
-# exit ++++3193912939
+exit ++++3193912939
 
-# exit 01
+exit 01
 
-# exit 001
+exit 001
 
-# exit 0001
+exit 0001
 
-# exit +++000
+exit +++000
 
-# exit ++++000
+exit ++++000
 
-# exit ---000
+exit ---000
 
-# exit ----000
+exit ----000
 
-# exit "something"
+exit "something"
 
-# exit x
+exit x
 
-# exit echo
+exit echo
 
-# exit cd ..
+exit cd ..
 
-# exit exit
+exit exit

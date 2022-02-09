@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:25:24 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/09 15:18:41 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ms_program_updatepath(t_info *ms)
 	}
 	else
 	{
-		printf("minishel: No such file or directory\n");
+		error_exit("error", " No such file or directory");
+		//printf("minishel: No such file or directory\n");
 	}
 }
 

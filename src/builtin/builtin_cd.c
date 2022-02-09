@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:33:33 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/08 15:05:16 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:04:29 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	exec_cd(t_info *ms, t_program *pgm)
 	(void)ms;
 	res = 0;
 	if (pgm->argv[1])
+	{
 		res = chdir(pgm->argv[1]);
+	}
 	if (res == -1)
 	{
 		perror("minishell: cd");

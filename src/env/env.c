@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:07:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/08 12:53:41 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:45:23 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	get_env(t_info *ms, char **env)
 				ms->tmp_env);
 		i++;
 	}
-	ms->tmp_env = ms_new_env("?", ft_itoa(g_exit_status), ms->tmp_env);
+	//ms->tmp_env = ms_new_env("?", ft_itoa(g_exit_status), ms->tmp_env);
 	ms->env_v = ms->tmp_env;
 }

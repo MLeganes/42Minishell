@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/05 20:54:42 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/09 13:59:36 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ static int	ms_insert_var(t_env *env, char **args)
 	ret = 0;
 	while (args[i])
 	{
+		if (args[i][0] == '=')
+		{
+			error_exit(args[i], " is not a valid identifier");
+			break ;
+		}
 		len = ms_check_var(args[i]);
 		if (args[i][len] != '=' || args[i][0] == '?' || len <= 0)
 		{
