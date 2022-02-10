@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/09 10:11:24 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/10 19:24:29 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	signalhandler_ctrlc(int sig)
 	}
 }
 
-/* Signal INT Ctrl+C call handler to control here-doc */
-/* NO WORKING CTRL+C */
 void	signalhandler_heredoc(int sig)
 {
 	if (sig == SIGINT)

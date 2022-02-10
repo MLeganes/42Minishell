@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/10 10:24:04 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/10 19:22:14 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int	lexer(t_info *ms)
 	{
 		if (mini_spliter(ms) != ERROR)
 		{
+			if (expansion(ms) == -1)
+				return (ERROR);
 			if (quotes(ms) == -1)
 				return ERROR;
-			expansion(ms);
 		}
 		else
 			return (ERROR);

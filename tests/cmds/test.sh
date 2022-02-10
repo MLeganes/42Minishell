@@ -1,7 +1,3 @@
-/bin/echo $HOME
-
-unset HOME
-unset HOME
-unset HOME
-
-/bin/echo $HOME
+pwd
+cd $PWD/tests
+pwd

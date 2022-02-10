@@ -98,9 +98,9 @@ pwd
 # cd '/////' 2>/dev/null
 # pwd
 
-# pwd
-# cd "$PWD/file_tests"
-# pwd
+pwd
+cd "$PWD/tests"
+pwd
 
 pwd
 cd "doesntexist"

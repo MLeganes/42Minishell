@@ -30,7 +30,7 @@ int	exec_exit(t_program *pgm)
 	i = 0;
 	if (pgm->argv[1] == NULL)
 		exit(g_exit_status);
-	while ((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0')
+	while (((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0' ) && (pgm->argv[1][0] != '-' || pgm->argv[1][0] != '+'))
 	{
 		if (ft_isdigit(pgm->argv[1][i]) != 1)
 		{

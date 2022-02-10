@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/09 16:33:00 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:52:21 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,17 @@ static int	ms_quotes(char **tmp, char *str, int *i)
 	return (0);
 }
 
-static int	ms_dq_no_exp(t_info *ms, char **tmp, char *str, int *i)
+static int	ms_dq_no_exp(char **tmp, char *str, int *i)
 {
 	if (str[(*i)] == '\"')
 		(*i)++;
-	while (str[(*i)] != '\0' && str[(*i)] != '$')
+	while (str[(*i)] != '\0')
 	{
 		(*tmp) = ms_append_char((*tmp), str[(*i)]);
 		(*i)++;
 	}
 	if (str[(*i)] == '\0')
 		(*tmp) = ms_append_char((*tmp), '\0');
-	if (str[(*i)] == '$')
-	{
-		if (ms_exp_var(ms, tmp, str, i) == -1)
-			return (-1);
-	}
 	return (0);
 }
 
@@ -68,7 +63,7 @@ static int	ms_d_quotes(t_info *ms, char **tmp, char *str, int *i)
 		(*i) += k;
 	}
 	else
-		ms_dq_no_exp(ms, tmp, str, i);
+		ms_dq_no_exp(tmp, str, i);
 	return (0);
 }
 
@@ -107,17 +102,13 @@ int	quotes(t_info *ms)
 	ms->tmp_tkn = ms->list;
 	while (ms->tmp_tkn != NULL)
 	{
-	
 		ms->tmp_tkn->data = ms_del_quotes(ms, ms->tmp_tkn->data);
 		if (ms->tmp_tkn->data == NULL)
 		{
 			error_exit(" error", " variable not found");
-/* 			free_list(ms);
-			printf("error: no such variable\n"); */
 			return (-1);
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
-		//print_quotes(ms);
 	}
 	return (0);
 }
