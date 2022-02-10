@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/09 15:18:41 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:52:40 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ void	ms_program_updatepath(t_info *ms)
 	path = ms_get_path(ms->env_ptr_copy, ms->tmp_pgm->argv[0]);
 	if (path != NULL)
 	{
-		free(ms->tmp_pgm->argv[0]);
-		ms->tmp_pgm->argv[0] = path;
+		if (ms->tmp_pgm->argv[0][0] != '/')
+		{
+			free(ms->tmp_pgm->argv[0]);
+			ms->tmp_pgm->argv[0] = path;
+		}
 	}
 	else
 	{
-		error_exit("error", " No such file or directory");
-		//printf("minishel: No such file or directory\n");
+		error_exit(" error", " No such file or directory");
 	}
 }
 

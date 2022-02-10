@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/09 15:44:39 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:24:04 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	mini_spliter(t_info *ms)
 	}
 	if (ms->cmdline[ms->idx] == '\0' && ms->state != STATE_GENERAL)
 	{
-		printf("Error: Incomplete command.\n");
+		error_exit("error", " unclosed quotes!");
 		return (ERROR);
 	}
 	return (0);
