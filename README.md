@@ -111,9 +111,14 @@ For compilers to find readline you may need to set:
 				-I$$HOME/.brew/opt/readline/include \
 
 
-[o] cat no args (behaves like bash)
-[x] exit with +num or -num
-[x] redir: if file does not exist we create it (we should not create the file)
-[x] unset does not work anymore
-[x] cat no args
-[x] cat no args
+# Checklist
+
+[]  To be done.
+[X] Done. 
+
+- [X] cat no args (behaves like bash)
+- [ ] exit with +num or -num
+- [ ] redir: if file does not exist we create it (we should not create the file)
+- [ ] unset does not work anymore
+- [ ] cat no args
+- [ ] ...
