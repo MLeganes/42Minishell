@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 17:33:39 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/11 21:00:24 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 		else
 			ms_heredoc_writeline(ms, line, fd, delim);
 	}
-	fd = open(file, O_RDONLY);
+	//fd = open(file, O_RDONLY);
 	unlink(file);
-	dup2(fd, STDIN_FILENO);
+	//dup2(fd, STDIN_FILENO);
 	close(fd);
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(file, 0, 0));
 }

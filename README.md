@@ -113,12 +113,12 @@ For compilers to find readline you may need to set:
 
 # Checklist
 
-[]  To be done.
-[X] Done. 
+[ ] To be done. [X] Done. 
 
 - [X] cat no args (behaves like bash)
 - [ ] exit with +num or -num
 - [ ] redir: if file does not exist we create it (we should not create the file)
 - [ ] unset does not work anymore
 - [ ] cat no args
-- [ ] ...
+- [ ] cat | ls (Ang)
+- [ ] << end cat > file (Ang) No working, Redirection Error 
