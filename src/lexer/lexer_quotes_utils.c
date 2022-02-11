@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/10 11:08:54 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 13:20:11 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 
 	k = 0;
 	var = NULL;
-	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0'/*  && str[(*i) + k] != ' ' */) 
+	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0' && str[(*i) + k] != ' ' ) 
 		k++;
 /* 	if (str[(*i) + k] == ' ')
 		printf("hi\n"); */

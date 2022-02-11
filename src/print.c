@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:45:24 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/06 13:58:23 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 12:38:51 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ void	print_lexer(t_info *ms)
 
 	token = ms->list;
 	i = 0;
-	while (token->next != NULL)
+	while (token != NULL)
 	{
 		printf(GREEN"%d: "RE, i);
 		printf("%-15s", token->data);
-		if (token->next != NULL)
-			token = token->next;
+		token = token->next;
 		i++;
 	}
 	printf("\n");
@@ -83,8 +82,7 @@ void	print_lexer(t_info *ms)
 	{
 		printf(RED"%d: "RE, i);
 		printf("%-15s", print_type(token->type));
-		if (token->next != NULL)
-			token = token->next;
+		token = token->next;
 		i++;
 	}
 	printf("\n");

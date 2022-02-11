@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 15:52:00 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/11 13:17:14 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	exec_child(t_info *ms, int fd[2])
 	if (isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
 		builtin_selector(ms, ms->tmp_pgm);
 	else
-		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env_ptr_copy);
+		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms_env_to_arr(ms->env_v));
 	exit(EXIT_FAILURE);
 }

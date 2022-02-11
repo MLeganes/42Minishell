@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/10 19:22:14 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 12:56:15 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ int	lexer(t_info *ms)
 	{
 		if (mini_spliter(ms) != ERROR)
 		{
+			//print_lexer(ms);
 			if (expansion(ms) == -1)
 				return (ERROR);
 			if (quotes(ms) == -1)
 				return ERROR;
+			//print_quotes(ms);
 		}
 		else
 			return (ERROR);
