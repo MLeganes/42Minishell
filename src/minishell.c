@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/08 20:55:07 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 16:37:01 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*minishell_gnl_free_line(char *line)
 void init_struct(t_info *info)
 {
 	//info->prompt = "minishell >";
-	info->prompt = "\001\033[0;32m\002 ❯\e[1m_\e[0m \001\033[0m\002";
+	info->prompt = "\001\033[0;32m\002❯\e[1m_\e[0m \001\033[0m\002";
 	info->list = NULL;
 	info->cmdline = NULL;
 	info->tmp_tkn = NULL;
@@ -95,26 +95,12 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)argc;
 	
-	/* Signal QUIT Ctrl+/ always ignore */
 	signal(SIGQUIT, SIG_IGN);
-	
 	get_env(&info, env);
-	
 	while (1)
 	{
 		init_struct(&info);
-		/* Signal INT Ctrl+C apply handler */
 		signal(SIGINT, signalhandler_ctrlc);
-		
-		/* testing minishell with debugger */
-		/***
-		 *  Warnning: comment the free(ms->cmdline);
-		 ***/
-		//info.cmdline = "";
-		//info.cmdline = "<< end cat > file";
-		//info.cmdline = "echo \"hello ee\" > file";
-		//info.cmdline = "ls -la | wc";		
-		//info.cmdline = "<<";		
 		if (isatty(STDIN_FILENO))
 			info.cmdline = readline(info.prompt);
 		else
@@ -126,9 +112,7 @@ int	main(int argc, char **argv, char **env)
 				write(STDERR_FILENO, "exit\n", 5);
 			exit (g_exit_status);
 		}
-
-		/* Signal INT Ctrl+C ignored after readline to execute everything */
-		signal(SIGINT, SIG_IGN);			
+		signal(SIGINT, SIG_IGN);
 		if (lexer(&info) == 0)
 		{
 			parser(&info);

@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/07 15:58:06 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:30:02 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@
 	2     SIGINT       terminate process    interrupt program
 	3     SIGQUIT      create core image    quit program
 */
-static void	parent_waitpid(pid_t pid)
+void	parent_waitpid(pid_t pid)
 {
 	int	status;
 
+	(void)pid;
 	status = 0;
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
@@ -53,6 +54,6 @@ void	exec_parent(t_info *ms, int fd[2], int islast)
 	close(fd[WRITE]);
 	if (islast)
 		close(fd[READ]);
-	parent_waitpid(ms->tmp_pgm->pid);
+	//parent_waitpid(ms->tmp_pgm->pid);
 	ms->idx--;
 }

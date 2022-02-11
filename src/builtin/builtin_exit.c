@@ -30,16 +30,17 @@ int	exec_exit(t_program *pgm)
 	i = 0;
 	if (pgm->argv[1] == NULL)
 		exit(g_exit_status);
-	while (((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0' ) && (pgm->argv[1][0] != '-' || pgm->argv[1][0] != '+'))
+	while (((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0' ))
 	{
-		if (ft_isdigit(pgm->argv[1][i]) != 1)
+		if ((pgm->argv[1][0] != '+' || pgm->argv[1][0] != '-') && ft_isdigit(pgm->argv[1][i]) != 1)
 		{
 			ft_putstr_fd("exit\n", 2);
-			error_exit(pgm->argv[0], "numeric argument required");
+			error_exit(pgm->argv[0], " numeric argument required");
 			exit(255);
 		}
 		i++;
 	}
+	ms_exit_status(pgm->argv, 0);
 	if (pgm->argv[2] != NULL)
 	{
 
@@ -48,6 +49,5 @@ int	exec_exit(t_program *pgm)
 		g_exit_status = 1;
 		return (1);
 	}
-	ms_exit_status(pgm->argv, 0);
 	return (0);
 }

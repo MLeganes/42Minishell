@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:07:21 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 18:33:26 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,10 @@ static void	exec_program(t_info *ms, int islast)
 	}
 }
 
-static void	update_fd(t_info *ms)
-{
-	if (ms->idx > 0)
-	{
-		dup2(ms->fd_bak[READ], STDIN_FILENO);
-		dup2(ms->fd_bak[WRITE], STDOUT_FILENO);
-	}
-}
-
 void	execute(t_info *ms)
 {
 	int	islast;
+	int	pid;
 
 	ms->idx = 0;
 	ms->tmp_pgm = ms->pgmlist;
@@ -64,12 +56,14 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			update_fd(ms);
 			if (isbuiltin(ms->tmp_pgm->argv) == 0)
 				ms_program_updatepath(ms);
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}
+		pid = ms->tmp_pgm->pid;
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}
+	parent_waitpid(pid);
+	while (wait(0) > 0);
 }

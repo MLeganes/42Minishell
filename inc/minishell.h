@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 13:16:56 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:31:52 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef enum e_chartype{
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_NULL = '\0',
+	CHAR_VAR = '$',
 }			t_chartype;
 
 // State of the lexer, when it is checking the char by char.
@@ -184,7 +185,6 @@ typedef struct s_info
 	int			fd[2];
 	int			std_out;
 	int			npgms;
-	char		**env_ptr_copy;
 }	t_info;
 
 /* ************************************************************************** */
@@ -245,6 +245,7 @@ void		signalhandler_heredoc(int sig);
  */
 void		exec_parent(t_info *ms, int fd[2], int islast);
 void		exec_child(t_info *ms, int fd[2]);
+void	parent_waitpid(pid_t pid);
 /*
  * BUILTIN COMMANDS
  */

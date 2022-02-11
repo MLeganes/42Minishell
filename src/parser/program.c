@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/10 10:52:40 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/11 17:19:06 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ms_program_updatepath(t_info *ms)
 {
 	char	*path;
 
-	path = ms_get_path(ms->env_ptr_copy, ms->tmp_pgm->argv[0]);
+	path = ms_get_path(ms_env_to_arr(ms->env_v), ms->tmp_pgm->argv[0]);
 	if (path != NULL)
 	{
 		if (ms->tmp_pgm->argv[0][0] != '/')
@@ -41,7 +41,7 @@ void	ms_program_updatepath(t_info *ms)
 	}
 	else
 	{
-		error_exit(" error", " No such file or directory");
+		error_exit( ms->tmp_pgm->argv[0], " command not found");
 	}
 }
 
