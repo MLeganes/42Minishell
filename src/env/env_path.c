@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/10 10:45:09 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/12 20:36:57 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ms_get_valid_path(char **paths, char *cmd)
 	i = 0;
 	while (paths[i])
 	{
-		if (cmd[0] == '/' && (stat(cmd, &stat_buffer)== EXIT_SUCCESS))
+		if (cmd[0] == '/' && (stat(cmd, &stat_buffer) == EXIT_SUCCESS))
 			return (cmd);
 		full_path = ft_strjoin(paths[i], command);
 		if (stat(full_path, &stat_buffer) == EXIT_SUCCESS)
