@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:32:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/06 13:36:31 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/12 20:04:52 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_token	*new_tok(int len)
 	new->expansion = NULL;
 	new->next = NULL;
 	new->len = 0;
+	new->in_dq = 0;
+	new->in_q = 0;
 	new->cmdname = CMD_NO_FOUND;
 	return (new);
 }

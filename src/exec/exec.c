@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:37:40 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 20:07:34 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	exec_program(t_info *ms, int islast)
 void	execute(t_info *ms)
 {
 	int	islast;
-	int	pid;
 
 	ms->idx = 0;
 	ms->tmp_pgm = ms->pgmlist;
@@ -66,7 +65,6 @@ void	execute(t_info *ms)
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}
-		pid = ms->tmp_pgm->pid;
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}
 	parent_waitpid(ms);

@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 19:53:11 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 20:10:08 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 {
 	t_heredoc	hd;
 
+	hd.del_qu = 0;
 	hd.fd_stdin = dup(STDIN_FILENO);
 	if ( ms->tmp_tkn->next->data == NULL)
 	{
