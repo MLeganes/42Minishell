@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:16:53 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:58:33 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 			info.cmdline = readline(info.prompt);
 		else
 			info.cmdline = minishell_get_next_line(0);
+		
 		if (info.cmdline == NULL)
 		{
 			if (isatty(STDIN_FILENO))
@@ -112,10 +113,12 @@ int	main(int argc, char **argv, char **env)
 		signal(SIGINT, SIG_IGN);
 		if (lexer(&info) == 0)
 		{
-			parser(&info);
-			execute(&info);
-			add_history(info.cmdline);
-			free_after_cmd(&info);
+			if (parser(&info) != ERROR)
+			{
+				execute(&info);
+				free_after_cmd(&info);
+			}
+			
 		//system("leaks minishell");
 		}
 		//system("leaks minishell");

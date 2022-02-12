@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/06 12:32:10 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/12 18:47:47 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 	return (new);
 }
 
-void	parser_build_redirection(t_info *ms, t_program **pgm)
+int	parser_build_redirection(t_info *ms, t_program **pgm)
 {
 	t_redir	*redir;
 
@@ -50,8 +50,12 @@ void	parser_build_redirection(t_info *ms, t_program **pgm)
 		ms_redir_lstadd_last(&(*pgm), redir);
 	}
 	else if (ms->tmp_tkn->type == REDIR_DLESS)
-		ms_redir_heredoc(ms, &(*pgm));
+	{	
+		if (ms_redir_heredoc(ms, &(*pgm)) == ERROR)
+			return (ERROR);
+	}
 	ms->tmp_tkn = ms->tmp_tkn->next;
+	return (0);
 }
 
 static int	ms_redir_in(t_redir *tmp, int inb)

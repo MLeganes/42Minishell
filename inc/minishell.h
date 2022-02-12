@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:20:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:52:14 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ typedef struct s_info
  * MINISHELL
  */
 int			lexer(t_info *info);
-void		parser(t_info *ms);
+int			parser(t_info *ms);
 void		execute(t_info *ms);
 int			expansion(t_info *ms);
 /*
@@ -217,9 +217,9 @@ t_program	*new_program(void);
 void		ms_program_updatepath(t_info *ms);
 void		ms_program_lstadd_last(t_program **lst, t_program *new);
 void		ms_program_argv_add(t_program *pgm, char *data);
-void		parser_build_redirection(t_info *ms, t_program **pgm);
+int			parser_build_redirection(t_info *ms, t_program **pgm);
 void		ms_redir_lstadd_last(t_program **pgm, t_redir *new);
-void		ms_redir_heredoc(t_info *ms, t_program **pgm);
+int			ms_redir_heredoc(t_info *ms, t_program **pgm);
 int			redir_selector(t_info *ms, int inb);
 /*
  * ENVIRONMENT

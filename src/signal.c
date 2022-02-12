@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 17:35:57 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:55:28 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,5 @@ void	signalhandler_ctrlc(int sig)
 void	signalhandler_heredoc(int sig)
 {
 	if (sig == SIGINT)
-	{
 		close(STDIN_FILENO);
-		write(STDERR_FILENO, "\n", 1);
-	}
 }

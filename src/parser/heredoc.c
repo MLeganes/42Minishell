@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 11:02:00 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:50:18 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,20 @@ static void	ms_heredoc_writeline(t_info *ms, char *line, int fd, char *del)
 	free(line);
 }
 
-void	ms_redir_heredoc(t_info *ms, t_program **pgm)
+int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 {
 	char	*delim;
 	char 	*file;
 	char 	*line;
 	int 	fd;
+	int 	fd_stdin;
 	int 	exit;
 
+	fd_stdin = dup(STDIN_FILENO);
 	if ( ms->tmp_tkn->next->data == NULL)
 	{
 		printf("Error: no tmp file for heredoc.\n");
-		return ;
+		return (ERROR);
 	}
 	delim = ms->tmp_tkn->next->data;
 	file = ms_get_tmp_file();
@@ -96,6 +98,7 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	if (fd == -1)
 		printf("Error: no tmp file for heredoc.\n");
 	exit = 1;	
+		signal(SIGINT, signalhandler_heredoc);
 	while (exit)
 	{
 		line = readline("> ");
@@ -109,10 +112,18 @@ void	ms_redir_heredoc(t_info *ms, t_program **pgm)
 		else
 			ms_heredoc_writeline(ms, line, fd, delim);
 	}
+	if (write(0, "", 0) == -1)
+	{
+		dup2(fd_stdin, STDIN_FILENO);
+		close(fd_stdin);
+		return (ERROR);
+	}
+		close(fd_stdin);
 	
 	/* We can not delete the file here, we need it!!! */
 	//unlink(file);
 	
 	close(fd);
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(file, 0, 0));
+	return (0);
 }
