@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:20:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:27:24 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	execute(t_info *ms)
 		}
 		pid = ms->tmp_pgm->pid;
 		ms->tmp_pgm = ms->tmp_pgm->next;
+		ms->idx--;
 	}
 	parent_waitpid(ms);
 }

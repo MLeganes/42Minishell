@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:19:59 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:31:10 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	exec_parent(t_info *ms, int fd[2], int islast)
 {
 	if (ms->idx > 0)
 		close(ms->fd_old[READ]);
+	close(ms->fd_old[WRITE]);
 	ms->fd_old[READ] = fd[READ];
 	ms->fd_old[WRITE] = fd[WRITE];
 	close(fd[WRITE]);
