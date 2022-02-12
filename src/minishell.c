@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 16:37:01 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:16:53 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static char	*minishell_gnl_free_line(char *line)
 
 void init_struct(t_info *info)
 {
-	//info->prompt = "minishell >";
 	info->prompt = "\001\033[0;32m\002❯\e[1m_\e[0m \001\033[0m\002";
 	info->list = NULL;
 	info->cmdline = NULL;
@@ -94,7 +93,6 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
-	
 	signal(SIGQUIT, SIG_IGN);
 	get_env(&info, env);
 	while (1)
@@ -105,7 +103,6 @@ int	main(int argc, char **argv, char **env)
 			info.cmdline = readline(info.prompt);
 		else
 			info.cmdline = minishell_get_next_line(0);
-		
 		if (info.cmdline == NULL)
 		{
 			if (isatty(STDIN_FILENO))

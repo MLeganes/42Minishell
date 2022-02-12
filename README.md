@@ -115,10 +115,10 @@ For compilers to find readline you may need to set:
 
 [ ] To be done. [X] Done. 
 
-- [X] cat no args (behaves like bash)
 - [ ] exit with +num or -num
 - [ ] redir: if file does not exist we create it (we should not create the file)
 - [ ] unset does not work anymore
 - [ ] cat no args
-- [ ] cat | ls (Ang) << I work today on this!
+- [X] cat no args (behaves like bash)
+- [X] cat | ls 
 - [X] << end cat > file 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 16:31:52 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:20:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,6 @@ typedef struct s_info
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
 	int			fd_old[2];
-	int			fd_bak[2];
-	int			fd[2];
 	int			std_out;
 	int			npgms;
 }	t_info;
@@ -245,7 +243,7 @@ void		signalhandler_heredoc(int sig);
  */
 void		exec_parent(t_info *ms, int fd[2], int islast);
 void		exec_child(t_info *ms, int fd[2]);
-void	parent_waitpid(pid_t pid);
+void		parent_waitpid(t_info *ms);
 /*
  * BUILTIN COMMANDS
  */

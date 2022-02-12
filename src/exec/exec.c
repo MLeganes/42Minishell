@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 21:08:15 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:20:22 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ static void	exec_program(t_info *ms, int islast)
 	{
 		if (pipe(fdp) == -1)
 			printf("Pipe Error \n");
+		if (ft_strlen(ms->tmp_pgm->argv[0]) == 4 && !ft_strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes)
+		{
+			exec_parent(ms, fdp, islast);
+			return ;
+		}
 		ms->tmp_pgm->pid = fork();
 		if (ms->tmp_pgm->pid < 0)
 			printf("Error in fork pid");
@@ -37,16 +42,6 @@ static void	exec_program(t_info *ms, int islast)
 		else
 			exec_parent(ms, fdp, islast);
 		ms->idx++;
-	}
-}
-
-/* Anna: I am testing, do not delete for now!!! */
-static void	update_fd(t_info *ms)
-{
-	if (ms->idx > 0)
-	{
-		dup2(ms->fd_bak[READ], STDIN_FILENO);
-		dup2(ms->fd_bak[WRITE], STDOUT_FILENO);
 	}
 }
 
@@ -66,7 +61,7 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			update_fd(ms);
+			// update_fd(ms);
 			if (isbuiltin(ms->tmp_pgm->argv) == 0)
 				ms_program_updatepath(ms);
 			if (ms->tmp_pgm->argv[0])
@@ -75,6 +70,5 @@ void	execute(t_info *ms)
 		pid = ms->tmp_pgm->pid;
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}
-	parent_waitpid(pid);
-	while (wait(0) > 0);
+	parent_waitpid(ms);
 }

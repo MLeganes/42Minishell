@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 18:30:02 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:19:59 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,27 @@
 	2     SIGINT       terminate process    interrupt program
 	3     SIGQUIT      create core image    quit program
 */
-void	parent_waitpid(pid_t pid)
+void	parent_waitpid(t_info *ms)
 {
 	int	status;
-
-	(void)pid;
+	
 	status = 0;
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status))
+	while (ms->idx > 0)
 	{
-		if (WTERMSIG(status) == 3)
-			write(STDERR_FILENO, "Quit: 3\n", 8);
-		else if (WTERMSIG(status) == 2)
-			write(STDERR_FILENO, "\n", 1);
-		status = 128 + WTERMSIG(status);
+		wait(0);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == 3)
+				write(STDERR_FILENO, "Quit: 3\n", 8);
+			else if (WTERMSIG(status) == 2)
+				write(STDERR_FILENO, "\n", 1);
+			status = 128 + WTERMSIG(status);
+		}
+		else if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		g_exit_status = status;
+		ms->idx--;
 	}
-	else if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	g_exit_status = status;
 }
 
 void	exec_parent(t_info *ms, int fd[2], int islast)
@@ -54,6 +57,4 @@ void	exec_parent(t_info *ms, int fd[2], int islast)
 	close(fd[WRITE]);
 	if (islast)
 		close(fd[READ]);
-	//parent_waitpid(ms->tmp_pgm->pid);
-	ms->idx--;
 }
