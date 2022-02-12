@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 18:52:14 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:38:58 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,17 @@ typedef struct s_program
 	t_redir				*redir;
 	struct s_program	*next;
 }	t_program;
+
+typedef struct s_heredoc
+{
+	char	*delim;
+	char 	*file;
+	char 	*line;
+	int 	fd;
+	int 	fd_stdin;
+	int 	exit;
+	int		del_qu;
+}	t_heredoc;
 
 /***
  * state = LEXER to know what are you reading. 

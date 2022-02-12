@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 18:59:44 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:33:07 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ms_state_dquote(t_info *ms, int chartype)
 {
 	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
 	ms->tmp_tkn->len++;
+	ms->tmp_tkn->in_dq = 1;
 	if (chartype == CHAR_DQUOTE)
 		ms->state = STATE_GENERAL;
 }
@@ -24,6 +25,7 @@ static void	ms_state_quote(t_info *ms, int chartype)
 {
 	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
 	ms->tmp_tkn->len++;
+	ms->tmp_tkn->in_q = 1;
 	if (chartype == CHAR_QUOTE)
 		ms->state = STATE_GENERAL;
 }
