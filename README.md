@@ -119,5 +119,5 @@ For compilers to find readline you may need to set:
 - [ ] how to check if $PATH is checked from left to right (dir1:dir2)
 - [ ] redir: if file does not exist we create it (we should not create the file)
 - [X] unset does not work anymore
-- [ ] cat | ls (Ang) << I work today on this!
+- [X] cat | ls (Ang) << I work today on this!
 - [X] << end cat > file 
