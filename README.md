@@ -120,5 +120,5 @@ For compilers to find readline you may need to set:
 - [ ] redir: if file does not exist we create it (we should not create the file)
 - [ ] unset does not work anymore
 - [ ] cat no args
-- [ ] cat | ls (Ang)
-- [ ] << end cat > file (Ang) No working, Redirection Error 
+- [ ] cat | ls (Ang) << I work today on this!
+- [X] << end cat > file 
