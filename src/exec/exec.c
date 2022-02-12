@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:27:24 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:37:40 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			// update_fd(ms);
 			if (isbuiltin(ms->tmp_pgm->argv) == 0)
 				ms_program_updatepath(ms);
 			if (ms->tmp_pgm->argv[0])
@@ -69,7 +68,6 @@ void	execute(t_info *ms)
 		}
 		pid = ms->tmp_pgm->pid;
 		ms->tmp_pgm = ms->tmp_pgm->next;
-		ms->idx--;
 	}
 	parent_waitpid(ms);
 }
