@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/11 17:24:12 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:48:03 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	ms_del_env_var(t_env **env, char *var)
 				prev->next = current->next;
 			else
 				*env = current->next;
-			ms_free_str(&current->var);
 			ms_free_str(&current->content);
 			free(current);
 			current = NULL;
@@ -59,9 +58,9 @@ void	exec_unset(t_info *ms, t_program *pgm)
 			error_exit("unset", "No such file or directory");
 			return ;
 		}
-		while (pgm->argv[i][j] != '=' && pgm->argv[i][j] != '\0')
+		while (pgm->argv[i][j] != '\0')
 			j++;
-		var = ft_substr(pgm->argv[i], 0, (j - 1));
+		var = ft_substr(pgm->argv[i], 0, j);
 		if (ms_find_env_var(ms, &var) != NULL)
 		{
 			ms_del_env_var(&ms->env_v, var);

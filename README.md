@@ -116,7 +116,8 @@ For compilers to find readline you may need to set:
 [ ] To be done. [X] Done. 
 
 - [ ] exit with +num or -num
+- [ ] how to check if $PATH is checked from left to right (dir1:dir2)
 - [ ] redir: if file does not exist we create it (we should not create the file)
-- [ ] unset does not work anymore
+- [X] unset does not work anymore
 - [ ] cat | ls (Ang) << I work today on this!
 - [X] << end cat > file 
