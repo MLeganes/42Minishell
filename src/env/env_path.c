@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/12 20:36:57 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:10:25 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ static char	*ms_get_valid_path(char **paths, char *cmd)
 		full_path = ft_strjoin(paths[i], command);
 		if (stat(full_path, &stat_buffer) == EXIT_SUCCESS)
 		{
-			free(command);
+			if (command)
+				free(command);
 			return (full_path);
 		}
-		free(full_path);
+		if (full_path)
+			free(full_path);
 		i++;
 	}
-	free(command);
+	if (command)
+		free(command);
 	return (NULL);
 }
 

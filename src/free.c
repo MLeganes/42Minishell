@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/10 19:17:25 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/13 21:11:17 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,15 @@ void	free_argv(char **argv)
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	if (argv != NULL)
 	{
-		if (argv[i] != NULL)
-			free(argv[i]);
-		i++;
+		while (argv[i])
+		{
+			if (argv[i] != NULL)
+				free(argv[i]);
+			i++;
+		}
+		free(argv);
 	}
 }
 

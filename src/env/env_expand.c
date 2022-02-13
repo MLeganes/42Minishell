@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:33:43 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/05 22:20:25 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/13 21:09:21 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ char	*ms_expand_get_value(t_info *ms, char *s, int i, int ret)
 		line = "";
 	if (!ft_strncmp(tmp, "_", 2))
 	{
-		free(tmp);
+		if (tmp)
+			free(tmp);
 		tmp = line;
 		line = ft_strrchr(line, '/');
 		line++;
 	}
 	else if (s[i + 1] == '?')
 		line = ft_itoa(errno);
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	return (line);
 }

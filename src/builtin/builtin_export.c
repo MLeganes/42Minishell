@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/12 20:32:49 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:29:44 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ void	exec_export(t_info *ms, t_program *pgm)
 	if (pgm->argv[1] != NULL)
 		ms_insert_var(ms->tmp_env, pgm->argv);
 	else
-		export_print(ms->env_v);
+		export_print(ms, ms->env_v);
 	return ;
 }

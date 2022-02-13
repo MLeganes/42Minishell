@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:48:03 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:35:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ms_free_str(char **str)
-{
-	free(*str);
-	*str = NULL;
-}
 
 static void	ms_del_env_var(t_env **env, char *var)
 {
@@ -33,9 +27,21 @@ static void	ms_del_env_var(t_env **env, char *var)
 				prev->next = current->next;
 			else
 				*env = current->next;
-			ms_free_str(&current->content);
+			if (current->content)
+			{
+				free(current->content);
+				current->content = NULL;
+			}
+			if (current->var)
+			{
+				free(current->var);
+				current->var = NULL;
+			}
+			if (current)
+			{
 			free(current);
 			current = NULL;
+			}
 			break ;
 		}
 		prev = current;
@@ -69,5 +75,7 @@ void	exec_unset(t_info *ms, t_program *pgm)
 			error_exit(" unset", " No such file or directory");
 		i++;
 	}
+	if (var)
+		free(var);
 	return ;
 }

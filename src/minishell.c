@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 18:58:33 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:17:48 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	signal(SIGQUIT, SIG_IGN);
 	get_env(&info, env);
-	while (1)
+	info.env = env;
+ 	while (1)
 	{
 		init_struct(&info);
 		signal(SIGINT, signalhandler_ctrlc);
@@ -103,7 +104,6 @@ int	main(int argc, char **argv, char **env)
 			info.cmdline = readline(info.prompt);
 		else
 			info.cmdline = minishell_get_next_line(0);
-		
 		if (info.cmdline == NULL)
 		{
 			if (isatty(STDIN_FILENO))
@@ -119,10 +119,10 @@ int	main(int argc, char **argv, char **env)
 				free_after_cmd(&info);
 			}
 			
-		//system("leaks minishell");
 		}
-		//system("leaks minishell");
+		system("leaks minishell");
 	}	
+	system("leaks minishell");
 	// Free a lots of things.
 	return (0);
 }

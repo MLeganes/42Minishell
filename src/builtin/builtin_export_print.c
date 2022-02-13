@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_print.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:47:36 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/12 20:29:34 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:31:04 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ char	*ms_join_export(t_env *data)
 
 	s1 = ft_strjoin(data->var, "=\"");
 	s2 = ft_strjoin(s1, data->content);
-	free(s1);
+	if (s1)
+		free(s1);
 	s1 = ft_strjoin(s2, "\"");
-	free(s2);
+	if (s2)
+		free(s2);
 	return (s1);
 }
 
@@ -66,7 +68,7 @@ char	**ms_env_to_arr(t_env *env)
 /*
 ** sorts a 2D array according to ascii values
 */
-void	ms_sort_tab(char **tab)
+/* void	ms_sort_tab(char **tab)
 {
 	int		i;
 	int		j;
@@ -90,25 +92,21 @@ void	ms_sort_tab(char **tab)
 		}
 		i++;
 	}
-}
+} */
 
 /*
 ** calls sorting function and prints all vars
 */
-void	export_print(t_env *env)
+void	export_print(t_info *ms, t_env *env)
 {
-	char	**envp;
-	int		i;
-
-	envp = ms_env_to_arr(env);
-	i = 0;
-	ms_sort_tab(envp);
-	while (envp[i])
+	(void)ms;
+	//ms_sort_tab(envp);
+	while (env != NULL)
 	{
-		printf("declare -x %s\n", envp[i]);
-		free(envp[i]);
-		i++;
+		printf("declare -x %s", env->var);
+		printf("=");
+		printf("%s\n", env->content);
+		env = env->next;
 	}
-	free(envp);
 	return ;
 }

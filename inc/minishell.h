@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 19:38:58 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:58:40 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ typedef struct s_redir
  ***/
 typedef struct s_program
 {
-	t_cmdname			name;
 	pid_t				pid;
 	char				**argv;
 	int					nargvs;
@@ -181,6 +180,7 @@ typedef struct s_info
 	t_state		state;
 	t_env		*env_v;
 	t_env		*tmp_env;
+	char		**env;
 	char		*cmdline;
 	char		*prompt;
 	t_token		*list;
@@ -264,7 +264,7 @@ void		exec_echo(t_info *ms, t_program *pgm);
 void		exec_cd(t_info *ms, t_program *pgm);
 void		exec_pwd(t_info *ms, t_program *pgm);
 void		exec_export(t_info *ms, t_program *pgm);
-void		export_print(t_env *env);
+void		export_print(t_info *ms, t_env *env);
 void		exec_unset(t_info *ms, t_program *pgm);
 void		exec_unset(t_info *ms, t_program *pgm);
 void		exec_env(t_info *ms);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 20:10:08 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:43:32 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static char	*ms_get_tmp_file(void)
 		{
 			return (file);
 		}
-		free(file);
+		if (file)
+			free(file);
 		i++;
 	}
 	return (NULL);
@@ -74,7 +75,8 @@ static void	ms_heredoc_writeline(t_info *ms, t_heredoc *hd)
 		}
 	}
 	write(hd->fd, "\n", 1);
-	free(hd->line);
+	if (hd->line)
+		free(hd->line);
 }
 
 int	ms_redir_heredoc(t_info *ms, t_program **pgm)
