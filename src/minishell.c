@@ -113,15 +113,12 @@ int	main(int argc, char **argv, char **env)
 		if (lexer(&info) == 0)
 		{
 			if (parser(&info) != ERROR)
-			{
 				execute(&info);
-			}
-			
 		}
 		free_after_cmd(&info);
-		system("leaks minishell");
+		//system("leaks minishell");
 	}	
-	system("leaks minishell");
+	//system("leaks minishell");
 	free_end(&info);
 	return (0);
 }

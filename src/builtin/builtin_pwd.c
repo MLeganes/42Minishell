@@ -23,6 +23,7 @@ void	exec_pwd(t_info *ms, t_program *pgm)
 	p = ft_strdup("PWD");
 	cwd = getcwd(NULL, 0);
 	pwd = ms_find_env_var(ms, &p);
+	free(pwd->content);
 	if (pwd != NULL)
 		pwd->content = cwd;
 	if (cwd == NULL)
@@ -31,4 +32,5 @@ void	exec_pwd(t_info *ms, t_program *pgm)
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	if (cwd)
 		free(cwd);
+	free(p);
 }

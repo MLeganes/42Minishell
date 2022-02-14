@@ -67,13 +67,14 @@ void	free_argv(char **argv)
 	i = 0;
 	if (argv != NULL)
 	{
-		while (argv[i])
+		while (argv[i] && ft_strlen(argv[i]) > 0)
 		{
 			if (argv[i] != NULL && ft_strlen(argv[i]) > 0)
 				free(argv[i]);
 			i++;
 		}
-		free(argv);
+		if (argv)
+			free(argv);
 	}
 }
 static void free_redir(t_redir *rd)
@@ -151,7 +152,6 @@ void	free_end(t_info *ms)
 		free(ms->cmdline);
 	free_list(ms);
 	free_env(ms);
-	free_argv(ms->env);
 	free_pgmlist_end(ms);
 	if (ms->tmp_pgm)
 		free(ms->tmp_pgm);
