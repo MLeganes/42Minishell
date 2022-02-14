@@ -24,9 +24,15 @@ void	free_list(t_info *ms)
 		{
 			next = actual->next;
 			if (actual->data)
+			{
 				free(actual->data);
+				actual->data = NULL;
+			}
 			if (actual != NULL)
+			{
 				free(actual);
+				actual = NULL;
+			}
 			actual = next;
 		}
 		ms->list = NULL;
@@ -138,12 +144,12 @@ void	free_after_cmd(t_info *ms)
 		free(ms->cmdline);
 	free_list(ms);
 	free_pgmlist_end(ms);
-	if (ms->tmp_pgm)
-		free(ms->tmp_pgm);
-	ms->tmp_pgm = NULL;
-	if (ms->tmp_tkn)
-		free(ms->tmp_tkn);
-	ms->tmp_tkn = NULL;
+	// if (ms->tmp_pgm)
+	// 	free(ms->tmp_pgm);
+	//ms->tmp_pgm = NULL;
+	// if (ms->tmp_tkn)
+	// 	free(ms->tmp_tkn);
+	//ms->tmp_tkn = NULL;
 }
 
 void	free_end(t_info *ms)
@@ -153,8 +159,6 @@ void	free_end(t_info *ms)
 	free_list(ms);
 	free_env(ms);
 	free_pgmlist_end(ms);
-	if (ms->tmp_pgm)
-		free(ms->tmp_pgm);
 	ms->tmp_pgm = NULL;
 	if (ms->tmp_tkn)
 		free(ms->tmp_tkn);

@@ -21,20 +21,20 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*strjoin;
 
 	if (s1 == NULL && s2 == NULL)
-		return (NULL);		
+		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	strjoin = malloc(len1 + len2 + 1);
 	if (!strjoin)
 		return (0);
 	index = 0;
-	while (s1[index] != '\0')
+	while (s1 != NULL && s1[index] != '\0')
 	{
 		strjoin[index] = s1[index];
 		index++;
 	}
 	i = 0;
-	while (s2[i] != '\0')
+	while (s2 != NULL && s2[i] != '\0')
 		strjoin[index++] = s2[i++];
 	strjoin[index] = '\0';
 	return (strjoin);

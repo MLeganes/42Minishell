@@ -3,30 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/10 19:21:04 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/14 19:28:23 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ms_loop_var(t_info *ms, char *str)
+static char	*ms_loop_var(t_info *ms, char *str, int *err)
 {
 	int		i;
 	int		k;
 	char	*tmp;
 
 	i = 0;
-	tmp = ft_strdup("");
+	tmp = NULL;
 	while (str[i] != '\0')
 	{
 		if (str[i] == '$')
 		{
 			k = ms_exp_var(ms, &tmp, str, &i);
 			if (k == -1)
+			{
+				*err = -1;
 				return (NULL);
+			}
 			i += k;
 		}
 		else
@@ -44,14 +47,17 @@ static char	*ms_loop_var(t_info *ms, char *str)
 
 int	expansion(t_info *ms)
 {
+	int err;
+
+	err = 1;
 	ms->tmp_tkn = ms->list;
 	while (ms->tmp_tkn != NULL)
 	{
 		if (ft_strchr(ms->tmp_tkn->data, '$') != 0
 			&& ft_strchr(ms->tmp_tkn->data, '\'') == 0
 			&& ft_strchr(ms->tmp_tkn->data, '"') == 0)
-			ms->tmp_tkn->data = ms_loop_var(ms, ms->tmp_tkn->data);
-		if (ms->tmp_tkn->data == NULL)
+			ms->tmp_tkn->data = ms_loop_var(ms, ms->tmp_tkn->data, &err);
+		if (err == -1)
 		{
 			error_exit("error", " no such variable");
 			return (-1);
