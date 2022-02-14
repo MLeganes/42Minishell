@@ -32,6 +32,6 @@ void	exec_child(t_info *ms, int fd[2])
 	if (isbuiltin(ms->tmp_pgm->argv) == 1 && redirstatus)
 		builtin_selector(ms, ms->tmp_pgm);
 	else
-		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms_env_to_arr(ms->env_v));
+		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env);
 	exit(EXIT_FAILURE);
 }

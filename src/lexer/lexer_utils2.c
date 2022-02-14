@@ -23,7 +23,6 @@ t_token	*new_tok(int len)
 	if (new->data == NULL)
 		return (NULL);
 	new->type = NONE;
-	new->expansion = NULL;
 	new->next = NULL;
 	new->len = 0;
 	new->in_dq = 0;

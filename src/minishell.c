@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 13:49:38 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:17:52 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int g_var;
-
+int g_exit_status;
 
 static char	*minishell_gnl_free_line(char *line);
 static char	*str_append_chr(char *str, char append);
@@ -108,6 +106,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			if (isatty(STDIN_FILENO))
 				write(STDERR_FILENO, "exit\n", 5);
+			free_end(&info);
 			exit (g_exit_status);
 		}
 		signal(SIGINT, SIG_IGN);
@@ -123,7 +122,7 @@ int	main(int argc, char **argv, char **env)
 		system("leaks minishell");
 	}	
 	system("leaks minishell");
-	// Free a lots of things.
+	free_end(&info);
 	return (0);
 }
 	

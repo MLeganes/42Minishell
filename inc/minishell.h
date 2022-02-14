@@ -47,7 +47,7 @@
 /* ************************************************************************** */
 /* STRUCT DEFS															  	  */
 /* ************************************************************************** */
-int	g_exit_status;
+extern int	g_exit_status;
 /***
  * If the input for the simple command is just an immediate EOF.
  ***/
@@ -122,7 +122,6 @@ typedef struct s_token
 	t_cmdname		cmdname;
 	int				in_q;
 	int				in_dq;
-	char			*expansion;
 	struct s_token	*next;
 }	t_token;
 

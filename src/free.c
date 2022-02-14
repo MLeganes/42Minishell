@@ -33,6 +33,33 @@ void	free_list(t_info *ms)
 	}
 }
 
+void	free_env(t_info *ms)
+{
+	t_env	*actual;
+	t_env	*next;
+
+	if (ms->env_v != NULL)
+	{
+		actual = ms->env_v;
+		while (actual != NULL)
+		{
+			next = actual->next;
+			if (actual->var)
+				free(actual->var);
+			if (actual->content)
+				free(actual->content);
+			if (actual != NULL)
+			{
+				free(actual);
+				actual = NULL;
+			}
+			actual = next;
+		}
+		ms->env_v = NULL;
+		ms->tmp_env = NULL;
+	}
+}
+
 void	free_argv(char **argv)
 {
 	int	i;
@@ -42,15 +69,40 @@ void	free_argv(char **argv)
 	{
 		while (argv[i])
 		{
-			if (argv[i] != NULL)
+			if (argv[i] != NULL && argv[i][0] != '\0')
 				free(argv[i]);
 			i++;
 		}
 		free(argv);
 	}
 }
+static void free_redir(t_redir *rd)
+{
+	t_redir	*actual;
+	t_redir	*next;
 
-/* static void	free_pgmlist(t_info *ms)
+	if (rd != NULL)
+	{
+		actual = rd;
+		while (actual != NULL)
+		{
+			next = actual->next;
+			if (actual->file)
+			{
+				//close(actual->fd);
+				unlink(actual->file);
+				//free(actual->file);
+				actual->file = NULL;
+			}
+			if (actual)
+				free(actual);
+			actual = next;
+		}
+		rd = NULL;
+	}
+}
+
+static void	free_pgmlist(t_info *ms)
 {
 	t_program	*actual;
 	t_program	*next;
@@ -69,7 +121,7 @@ void	free_argv(char **argv)
 		}
 		ms->pgmlist = NULL;
 	}
-} */
+}
 
 static void	free_pgmlist_end(t_info *ms)
 {
@@ -88,9 +140,7 @@ static void	free_pgmlist_end(t_info *ms)
 			}
 			if (actual->redir)
 			{
-				if(actual->redir->file)
-					free(actual->redir->file);
-				free(actual->redir);
+				free_redir(actual->redir);
 			}
 			if (actual != NULL)
 				free(actual);
@@ -105,7 +155,7 @@ void	free_after_cmd(t_info *ms)
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
 	free_list(ms);
-	free_pgmlist_end(ms);
+	free_pgmlist(ms);
 	if (ms->tmp_pgm)
 		free(ms->tmp_pgm);
 	ms->tmp_pgm = NULL;
@@ -116,5 +166,16 @@ void	free_after_cmd(t_info *ms)
 
 void	free_end(t_info *ms)
 {	
+	if (ms->cmdline != NULL)
+		free(ms->cmdline);
+	free_list(ms);
+	free_env(ms);
+	free_argv(ms->env);
 	free_pgmlist_end(ms);
+	if (ms->tmp_pgm)
+		free(ms->tmp_pgm);
+	ms->tmp_pgm = NULL;
+	if (ms->tmp_tkn)
+		free(ms->tmp_tkn);
+	ms->tmp_tkn = NULL;
 }
