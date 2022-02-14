@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 21:43:32 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:48:51 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ static t_redir	*new_redirection_heredoc(char *file, int is_app, int is_out)
 static char	*ms_get_tmp_file(void)
 {
 	char		*file;
+	char		*tmp_n;
 	struct stat	buf;
 	int			i;
 
 	i = 1;
 	while (i < INT_MAX)
 	{
-		file = ft_strjoin(".tmp", ft_itoa(i));
+		tmp_n = ft_itoa(i);
+		file = ft_strjoin(".tmp", tmp_n);
+		if (tmp_n)
+			free(tmp_n);
 		if (stat(file, &buf) == -1)
 		{
 			return (file);
@@ -107,7 +111,10 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 			hd.exit = 0;
 		}
 		else if (!ft_strncmp(hd.line, hd.delim, ft_strlen(hd.delim) + 1))
+		{
+			free(hd.line);
 			hd.exit = 0;
+		}
 		else
 			ms_heredoc_writeline(ms, &hd);
 	}

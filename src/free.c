@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 21:11:17 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:47:09 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,28 @@ void	free_argv(char **argv)
 	}
 }
 
-static void	free_pgmlist(t_info *ms)
+/* static void	free_pgmlist(t_info *ms)
+{
+	t_program	*actual;
+	t_program	*next;
+
+	if (ms->pgmlist != NULL)
+	{
+		actual = ms->pgmlist;
+		while (actual != NULL)
+		{
+			next = actual->next;
+			if (actual->argv)
+				free_argv(actual->argv);
+			if (actual != NULL)
+				free(actual);
+			actual = next;
+		}
+		ms->pgmlist = NULL;
+	}
+} */
+
+static void	free_pgmlist_end(t_info *ms)
 {
 	t_program	*actual;
 	t_program	*next;
@@ -65,6 +86,12 @@ static void	free_pgmlist(t_info *ms)
 			{
 				free_argv(actual->argv);
 			}
+			if (actual->redir)
+			{
+				if(actual->redir->file)
+					free(actual->redir->file);
+				free(actual->redir);
+			}
 			if (actual != NULL)
 				free(actual);
 			actual = next;
@@ -78,7 +105,7 @@ void	free_after_cmd(t_info *ms)
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
 	free_list(ms);
-	free_pgmlist(ms);
+	free_pgmlist_end(ms);
 	if (ms->tmp_pgm)
 		free(ms->tmp_pgm);
 	ms->tmp_pgm = NULL;
@@ -89,5 +116,5 @@ void	free_after_cmd(t_info *ms)
 
 void	free_end(t_info *ms)
 {	
-	(void)ms;
+	free_pgmlist_end(ms);
 }

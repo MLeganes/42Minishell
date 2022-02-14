@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 21:14:47 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:50:44 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,18 @@ t_program	*new_program(void)
 void	ms_program_updatepath(t_info *ms)
 {
 	char	*path;
-	//char		**p;
 
-	//p = ms_env_to_arr(ms->env_v);
 	path = ms_get_path(ms->env , ms->tmp_pgm->argv[0]);
 	if (path != NULL)
 	{
-		if (ms->tmp_pgm->argv[0][0] != '/')
-		{
-			if (ms->tmp_pgm->argv[0])
-				free(ms->tmp_pgm->argv[0]);
-			ms->tmp_pgm->argv[0] = path;
-		}
-		else
-		{
-			if (path)
-				free(path);
-		}
+		if (ms->tmp_pgm->argv[0])
+			free(ms->tmp_pgm->argv[0]);
+		ms->tmp_pgm->argv[0] = path;
 	}
 	else
 	{
 		error_exit( ms->tmp_pgm->argv[0], " command not found");
 	}
-	//free(p);
-	system("leaks minishell");
 }
 
 static t_program	*ms_program_lstlast(t_program *lst)

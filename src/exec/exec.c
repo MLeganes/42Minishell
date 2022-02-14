@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 20:23:31 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:50:22 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			if (isbuiltin(ms->tmp_pgm->argv) == 0)
+			if (isbuiltin(ms->tmp_pgm->argv) == 0 && (ms->tmp_pgm->argv[0][0] != '/'))
 				ms_program_updatepath(ms);			
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
