@@ -69,7 +69,7 @@ void	free_argv(char **argv)
 	{
 		while (argv[i])
 		{
-			if (argv[i] != NULL && argv[i][0] != '\0')
+			if (argv[i] != NULL && ft_strlen(argv[i]) > 0)
 				free(argv[i]);
 			i++;
 		}
@@ -89,9 +89,11 @@ static void free_redir(t_redir *rd)
 			next = actual->next;
 			if (actual->file)
 			{
-				//close(actual->fd);
-				unlink(actual->file);
-				//free(actual->file);
+				if (actual->type == REDIR_DLESS)
+				{
+					unlink(actual->file);
+					free(actual->file);
+				}
 				actual->file = NULL;
 			}
 			if (actual)
@@ -99,27 +101,6 @@ static void free_redir(t_redir *rd)
 			actual = next;
 		}
 		rd = NULL;
-	}
-}
-
-static void	free_pgmlist(t_info *ms)
-{
-	t_program	*actual;
-	t_program	*next;
-
-	if (ms->pgmlist != NULL)
-	{
-		actual = ms->pgmlist;
-		while (actual != NULL)
-		{
-			next = actual->next;
-			if (actual->argv)
-				free_argv(actual->argv);
-			if (actual != NULL)
-				free(actual);
-			actual = next;
-		}
-		ms->pgmlist = NULL;
 	}
 }
 
@@ -155,7 +136,7 @@ void	free_after_cmd(t_info *ms)
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
 	free_list(ms);
-	free_pgmlist(ms);
+	free_pgmlist_end(ms);
 	if (ms->tmp_pgm)
 		free(ms->tmp_pgm);
 	ms->tmp_pgm = NULL;
