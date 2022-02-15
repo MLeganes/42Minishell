@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/15 19:40:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:32:42 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parent_waitpid(t_info *ms)
 		else
 		{
 			g_exit_status = 127;
-			error_exit("wait", strerror(errno));
+			error_exit("cmd ", strerror(errno));
 		}
 		if (WIFSIGNALED(status))
 		{
@@ -47,7 +47,6 @@ void	parent_waitpid(t_info *ms)
 			else if (WTERMSIG(status) == 2)
 				write(STDERR_FILENO, "\n", 1);
 			g_exit_status = 128 + WTERMSIG(status);
-			printf("333 This is the child status: %d error: %d \n", status, errno);
 		}
 		ms->idx--;
 	}
