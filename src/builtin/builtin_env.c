@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:37:54 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/06 12:38:37 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/15 19:47:34 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	exec_env(t_info *ms)
 	t_env	*token;
 
 	token = ms->env_v;
+	if (token == NULL)
+	{
+		error_exit(" env", "environtment not set");
+		g_exit_status = 2;
+		return ;
+	}
 	while (token != NULL)
 	{
 		printf("%s", token->var);

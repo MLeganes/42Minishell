@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 17:38:08 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 19:40:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,27 @@
 void	parent_waitpid(t_info *ms)
 {
 	int	status;
-	
+
 	status = 0;
 	while (ms->idx > 0)
 	{
-		wait(0);
+		wait(&status);
+		if (WIFEXITED(status) == true)
+			g_exit_status =  WEXITSTATUS(status);
+		else
+		{
+			g_exit_status = 127;
+			error_exit("wait", strerror(errno));
+		}
 		if (WIFSIGNALED(status))
 		{
 			if (WTERMSIG(status) == 3)
 				write(STDERR_FILENO, "Quit: 3\n", 8);
 			else if (WTERMSIG(status) == 2)
 				write(STDERR_FILENO, "\n", 1);
-			status = 128 + WTERMSIG(status);
+			g_exit_status = 128 + WTERMSIG(status);
+			printf("333 This is the child status: %d error: %d \n", status, errno);
 		}
-		else if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		g_exit_status = status;
 		ms->idx--;
 	}
 }
