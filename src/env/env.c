@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:07:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/11 16:34:37 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:38:47 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,34 @@ t_env	*ms_find_env_var(t_info *ms, char **var)
 	return (NULL);
 }
 
-void	get_env(t_info *ms, char **env)
+void	get_env(t_info *ms)
 {
 	int	i;
 	int	j;
-
+	extern char	**environ;
+	ms->env = environ;
 	i = 0;
 	ms->env_v = NULL;
 	ms->tmp_env = ms->env_v;
-	while (env[i])
+	while (environ[i])
 	{
 		j = 0;
-		while (is_var_delim(env[i][j]) == false && is_end(env[i][j]) == false)
+		while (is_var_delim(environ[i][j]) == false && is_end(environ[i][j]) == false)
 			j++;
-		ms->tmp_env = ms_new_env(ft_substr(env[i], 0, j),
-				ft_substr(env[i], j + 1, ft_strlen(env[i]) - j - 1),
+		ms->tmp_env = ms_new_env(ft_substr(environ[i], 0, j),
+				ft_substr(environ[i], j + 1, ft_strlen(environ[i]) - j - 1),
 				ms->tmp_env);
 		i++;
 	}
+	// while (env[i])
+	// {
+	// 	j = 0;
+	// 	while (is_var_delim(env[i][j]) == false && is_end(env[i][j]) == false)
+	// 		j++;
+	// 	ms->tmp_env = ms_new_env(ft_substr(env[i], 0, j),
+	// 			ft_substr(env[i], j + 1, ft_strlen(env[i]) - j - 1),
+	// 			ms->tmp_env);
+	// 	i++;
+	// }
 	ms->env_v = ms->tmp_env;
 }

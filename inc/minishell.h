@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/15 13:45:05 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:37:36 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ int			redir_selector(t_info *ms, int inb);
 /*
  * ENVIRONMENT
  */
-void		get_env(t_info *info, char **env);
+void		get_env(t_info *info);
 int			ms_expand_get_len(char *s, int i);
 char		*ms_expand_get_value(t_info *ms, char *s, int i, int ret);
 t_env		*ms_find_env_var(t_info *ms, char **var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 16:17:52 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:37:53 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,13 @@ void init_struct(t_info *info)
 	info->npgms = 0;
 }
 
-int	main(int argc, char **argv, char **env)
+int	main()
 {
 	t_info	info;
-
-	(void)argv;
-	(void)argc;
+		
 	signal(SIGQUIT, SIG_IGN);
-	get_env(&info, env);
-	info.env = env;
+	get_env(&info);
+
  	while (1)
 	{
 		init_struct(&info);
@@ -116,9 +114,9 @@ int	main(int argc, char **argv, char **env)
 				execute(&info);
 		}
 		free_after_cmd(&info);
-		//system("leaks minishell");
+		system("leaks minishell");
 	}	
-	//system("leaks minishell");
+	system("leaks minishell");
 	free_end(&info);
 	return (0);
 }
