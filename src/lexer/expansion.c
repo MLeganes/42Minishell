@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/14 19:28:23 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/15 19:34:30 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static char	*ms_loop_var(t_info *ms, char *str, int *err)
 			if (k == -1)
 			{
 				*err = -1;
+				if (tmp)
+					free(tmp);
+				if (str)
+					free(str);
 				return (NULL);
 			}
 			i += k;

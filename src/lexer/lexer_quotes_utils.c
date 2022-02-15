@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/15 14:03:44 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/15 19:33:55 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 {
 	char	*var;
+	char	*nbr;
+	char	*copy;
 	int		k;
 
 	k = 0;
@@ -24,10 +26,19 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 	if (str[(*i) + k] != '\0')
 		(*tmp) = ms_append_char((*tmp), '\0');
 	var = ft_substr(str, (*i) + 1, (k - 1));
+	copy = *tmp;
 	if (ft_strcmp(var, "?") == 0)
-		(*tmp) = ft_strjoin((*tmp), ft_itoa(g_exit_status));
+	{
+		nbr = ft_itoa(g_exit_status);
+		(*tmp) = ft_strjoin(copy, nbr);
+		if (nbr)
+			free(nbr);
+		if (copy)
+			free(copy);
+	}
 	else
 	{
+		copy = *tmp;
 		ms->tmp_env = ms_find_env_var(ms, &var);
 		if (ms->tmp_env == NULL)
 		{
@@ -36,7 +47,9 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 			ft_putstr_fd("\n", 2);
 			return (-1);
 		}
-		(*tmp) = ft_strjoin((*tmp), ms->tmp_env->content);
+		(*tmp) = ft_strjoin(copy, ms->tmp_env->content);
+		if (copy)
+			free(copy);
 	}
 	if (var)
 		free(var);
