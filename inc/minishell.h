@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 20:58:40 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:45:05 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct s_heredoc
 typedef struct s_info
 {
 	int			idx;
+	int			err;
 	t_state		state;
 	t_env		*env_v;
 	t_env		*tmp_env;
@@ -262,7 +263,7 @@ void		builtin_selector(t_info *ms, t_program *pgm);
 void		exec_echo(t_info *ms, t_program *pgm);
 void		exec_cd(t_info *ms, t_program *pgm);
 void		exec_pwd(t_info *ms, t_program *pgm);
-void		exec_export(t_info *ms, t_program *pgm);
+int			exec_export(t_info *ms, t_program *pgm);
 void		export_print(t_info *ms, t_env *env);
 void		exec_unset(t_info *ms, t_program *pgm);
 void		exec_unset(t_info *ms, t_program *pgm);

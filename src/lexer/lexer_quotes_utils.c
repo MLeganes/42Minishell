@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/13 21:12:44 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:03:44 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 
 	k = 0;
 	var = NULL;
-	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0' && str[(*i) + k] != ' ' ) 
+	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0' && str[(*i) + k] != ' ' && str[(*i) + k] != '/') 
 		k++;
-/* 	if (str[(*i) + k] == ' ')
-		printf("hi\n"); */
 	if (str[(*i) + k] != '\0')
 		(*tmp) = ms_append_char((*tmp), '\0');
 	var = ft_substr(str, (*i) + 1, (k - 1));

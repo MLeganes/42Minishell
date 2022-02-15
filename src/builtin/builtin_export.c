@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/13 21:29:44 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:59:08 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,15 @@ static int	ms_insert_var(t_env *env, char **args)
 /*
 ** if export is called with args they are added, else vars are printed
 */
-void	exec_export(t_info *ms, t_program *pgm)
+int	exec_export(t_info *ms, t_program *pgm)
 {
 	ms->tmp_env = ms->env_v;
 	if (pgm->argv[1] != NULL)
-		ms_insert_var(ms->tmp_env, pgm->argv);
+	{
+		if (ms_insert_var(ms->tmp_env, pgm->argv) == 1)
+		 return (ERROR);
+	}
 	else
 		export_print(ms, ms->env_v);
-	return ;
+	return (0);
 }
