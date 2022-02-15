@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/13 21:35:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:44:20 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	exec_unset(t_info *ms, t_program *pgm)
 			ms_del_env_var(&ms->env_v, var);
 		}
 		else
-			error_exit(" unset", " No such file or directory");
+			return ;
 		i++;
 	}
 	if (var)
