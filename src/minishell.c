@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/15 16:37:53 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:25:31 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int g_exit_status;
+int	g_exit_status;
 
 static char	*minishell_gnl_free_line(char *line);
 static char	*str_append_chr(char *str, char append);
@@ -71,7 +71,7 @@ static char	*minishell_gnl_free_line(char *line)
 	return (NULL);
 }
 
-void init_struct(t_info *info)
+void	init_struct(t_info *info)
 {
 	info->prompt = "\001\033[0;32m\002❯\e[1m_\e[0m \001\033[0m\002";
 	info->list = NULL;
@@ -85,14 +85,13 @@ void init_struct(t_info *info)
 	info->npgms = 0;
 }
 
-int	main()
+int	main(void)
 {
 	t_info	info;
-		
+
 	signal(SIGQUIT, SIG_IGN);
 	get_env(&info);
-
- 	while (1)
+	while (1)
 	{
 		init_struct(&info);
 		signal(SIGINT, signalhandler_ctrlc);
@@ -114,10 +113,7 @@ int	main()
 				execute(&info);
 		}
 		free_after_cmd(&info);
-		system("leaks minishell");
-	}	
-	system("leaks minishell");
+	}
 	free_end(&info);
 	return (0);
 }
-	

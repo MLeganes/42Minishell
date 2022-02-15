@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/15 13:39:57 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:17:45 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	lexer(t_info *ms)
 			if (expansion(ms) == -1)
 				return (ERROR);
 			if (quotes(ms) == -1)
-				return ERROR;
+				return (ERROR);
 		}
 		else
 			return (ERROR);

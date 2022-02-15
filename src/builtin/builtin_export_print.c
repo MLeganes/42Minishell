@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_print.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:47:36 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/14 15:46:21 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/15 23:08:35 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ms_env_to_arr(t_env *env)
 	int		i;
 	char	**arr;
 
-	arr = (char **)malloc(sizeof(char *) * ms_lstlen(env) + 1);
+	arr = (char **)malloc(sizeof(char *) * (ms_lstlen(env) + 1));
 	if (arr == NULL)
 		return (NULL);
 	i = 0;
@@ -66,47 +66,18 @@ char	**ms_env_to_arr(t_env *env)
 }
 
 /*
-** sorts a 2D array according to ascii values
-*/
-/* void	ms_sort_tab(char **tab)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		j = 0;
-		while (tab[j + 1])
-		{
-			if (ft_strcmp(tab[j], tab[i]) > 0)
-			{
-				tmp = tab[j];
-				tab[j] = tab[i];
-				tab[i] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-} */
-
-/*
 ** calls sorting function and prints all vars
 */
 void	export_print(t_info *ms, t_env *env)
 {
 	(void)ms;
-	//ms_sort_tab(envp);
 	while (env != NULL)
 	{
 		printf("declare -x %s", env->var);
 		printf("=");
 		printf("%s\n", env->content);
 		env = env->next;
+		g_exit_status = 0;
 	}
 	return ;
 }

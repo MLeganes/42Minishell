@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 15:56:51 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/16 00:21:04 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 
 	hd.del_qu = 0;
 	hd.fd_stdin = dup(STDIN_FILENO);
-	if ( ms->tmp_tkn->next->data == NULL)
+	if (ms->tmp_tkn->next->data == NULL)
 	{
 		printf("Error: no tmp file for heredoc.\n");
 		return (ERROR);
@@ -101,7 +101,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	if (hd.fd == -1)
 		printf("Error: no tmp file for heredoc.\n");
 	hd.exit = 1;
-		signal(SIGINT, signalhandler_heredoc);
+	signal(SIGINT, signalhandler_heredoc);
 	while (hd.exit)
 	{
 		hd.line = readline("> ");

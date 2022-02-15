@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:53:44 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/08 14:12:02 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:16:41 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ms_state_selector(t_info *ms, int chartype)
 		ms_case_escapes(ms);
 	else if (chartype == CHAR_GENERAL)
 		ms_case_general(ms);
-	else if (chartype == CHAR_WHITESPACE || chartype == CHAR_TAB || chartype == CHAR_NEWLINE)
+	else if (chartype == CHAR_WHITESPACE || chartype == CHAR_TAB
+		|| chartype == CHAR_NEWLINE)
 	{
 		if (ms->tmp_tkn->len > 0)
 			ms_case_endtoken(ms);

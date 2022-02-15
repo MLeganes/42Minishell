@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/15 15:25:04 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:28:55 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,22 @@ void	ms_add_new_var(t_env *env, char *arg)
 	env->next = tmp;
 }
 
+static void	ms_var_handler(t_info *ms, char **args, int len, int i)
+{
+	if (ms->tmp_env->content != NULL)
+		free(ms->tmp_env->content);
+	ms->tmp_env->content = ft_substr(args[i], (len + 1),
+			(ft_strlen(args[i]) - len));
+}
+
 /*
 ** checks if args are valid, if not error is printed
 */
 static int	ms_insert_var(t_info *ms, t_env *env, char **args)
 {
-	int	i;
-	int	len;
-	int	ret;
+	int		i;
+	int		len;
+	int		ret;
 	char	*var;
 
 	i = 1;
@@ -74,19 +82,13 @@ static int	ms_insert_var(t_info *ms, t_env *env, char **args)
 		}
 		len = ms_check_var(args[i]);
 		var = ft_substr(args[i], 0, len);
+		ms->tmp_env = ms_find_env_var(ms, &var);
 		if (args[i][len] != '=' || args[i][0] == '?' || len <= 0)
-		{
-			error_exit(args[i], " is not a valid identifier");
 			ret = 1;
-		}
-		else if (((ms->tmp_env = ms_find_env_var(ms, &var))) == NULL)
+		else if (ms->tmp_env == NULL)
 			ms_add_new_var(env, args[i]);
 		else
-		{
-			if (ms->tmp_env->content != NULL)
-				free(ms->tmp_env->content);
-			ms->tmp_env->content = ft_substr(args[i], (len + 1), (ft_strlen(args[i]) - len));
-		}
+			ms_var_handler(ms, args, len, i);
 		if (var)
 			free(var);
 		i++;
@@ -103,7 +105,7 @@ int	exec_export(t_info *ms, t_program *pgm)
 	if (pgm->argv[1] != NULL)
 	{
 		if (ms_insert_var(ms, ms->tmp_env, pgm->argv) == 1)
-		 return (ERROR);
+			return (ERROR);
 	}
 	else
 		export_print(ms, ms->env_v);

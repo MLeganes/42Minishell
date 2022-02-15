@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/15 16:37:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:26:40 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,11 @@ typedef struct s_program
 typedef struct s_heredoc
 {
 	char	*delim;
-	char 	*file;
-	char 	*line;
-	int 	fd;
-	int 	fd_stdin;
-	int 	exit;
+	char	*file;
+	char	*line;
+	int		fd;
+	int		fd_stdin;
+	int		exit;
 	int		del_qu;
 }	t_heredoc;
 
@@ -225,7 +225,7 @@ void		ms_end_tmp(char **tmp, int *i);
  * PARSER: parser, program, redirection and heredoc.
  */
 t_program	*new_program(void);
-void		ms_program_updatepath(t_info *ms);
+int			ms_program_updatepath(t_info *ms);
 void		ms_program_lstadd_last(t_program **lst, t_program *new);
 void		ms_program_argv_add(t_program *pgm, char *data);
 int			parser_build_redirection(t_info *ms, t_program **pgm);

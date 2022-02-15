@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 13:50:22 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:13:34 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	exec_program(t_info *ms, int islast)
 	{
 		if (pipe(fdp) == -1)
 			printf("Pipe Error \n");
-		if (ft_strlen(ms->tmp_pgm->argv[0]) == 4 && !ft_strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes)
+		if (ft_strlen(ms->tmp_pgm->argv[0]) == 4
+			&& !ft_strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes)
 		{
 			exec_parent(ms, fdp, islast);
 			return ;
@@ -60,8 +61,12 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			if (isbuiltin(ms->tmp_pgm->argv) == 0 && (ms->tmp_pgm->argv[0][0] != '/'))
-				ms_program_updatepath(ms);			
+			if (isbuiltin(ms->tmp_pgm->argv) == 0
+				&& (ft_strchr(ms->tmp_pgm->argv[0], '/') == NULL))
+			{
+				if (ms_program_updatepath(ms) == ERROR)
+					return ;
+			}
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}

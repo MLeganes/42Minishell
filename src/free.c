@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 20:46:05 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 00:23:32 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	free_argv(char **argv)
 			free(argv);
 	}
 }
-static void free_redir(t_redir *rd)
+
+static void	free_redir(t_redir *rd)
 {
 	t_redir	*actual;
 	t_redir	*next;
@@ -144,12 +145,6 @@ void	free_after_cmd(t_info *ms)
 		free(ms->cmdline);
 	free_list(ms);
 	free_pgmlist_end(ms);
-	// if (ms->tmp_pgm)
-	// 	free(ms->tmp_pgm);
-	//ms->tmp_pgm = NULL;
-	// if (ms->tmp_tkn)
-	// 	free(ms->tmp_tkn);
-	//ms->tmp_tkn = NULL;
 }
 
 void	free_end(t_info *ms)

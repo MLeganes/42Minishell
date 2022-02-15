@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:33:57 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/15 19:49:00 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/15 22:06:25 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	exec_pwd(t_info *ms, t_program *pgm)
 		perror("Minishel: pwd");
 		g_exit_status = 2;
 	}
-	else{
+	else
+	{
 		ft_putstr_fd(cwd, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		g_exit_status = 0;
