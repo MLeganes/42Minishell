@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:21:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/14 13:47:09 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:46:05 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void	free_after_cmd(t_info *ms)
 
 void	free_end(t_info *ms)
 {	
+	rl_clear_history();
 	if (ms->cmdline != NULL)
 		free(ms->cmdline);
 	free_list(ms);

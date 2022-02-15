@@ -112,8 +112,12 @@ For compilers to find readline you may need to set:
 
 
 # Checklist
-
 [ ] To be done. [X] Done. 
+
+- [ ] echo $? # after command not found is WRONG. It should be 127.
+- [ ] echo $? # After this command: '/bin/ls filethatdoesntexis' it should be 2.
+
+- [ ] export: Export environment variables, create new ones, and replace old ones 				NO WORKING
 
 - [ ] exit with +num or -num
 - [ ] how to check if $PATH is checked from left to right (dir1:dir2)
