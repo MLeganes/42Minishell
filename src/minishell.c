@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 15:55:21 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:07:27 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ static void	init_struct(t_info *info)
 	info->npipes = 0;
 	info->pgmlist = NULL;
 	info->npgms = 0;
+}
+
+static void minishell(t_info *ms)
+{
+	if (lexer(ms) == 0)
+	{
+		if (parser(ms) != ERROR)
+			execute(ms);
+	}
 }
 
 int	main(void)
@@ -50,11 +59,7 @@ int	main(void)
 			exit (g_exit_status);
 		}
 		signal(SIGINT, SIG_IGN);
-		if (lexer(&info) == 0)
-		{
-			if (parser(&info) != ERROR)
-				execute(&info);
-		}
+		minishell(&info);
 		free_after_cmd(&info);
 	}
 	free_end(&info);
