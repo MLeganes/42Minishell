@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 16:30:20 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:32:49 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ void		free_list(t_info *ms);
 /*
  * GET NEXT LINE
  */
-char	*minishell_get_next_line(int fd);
+char		*minishell_get_next_line(int fd);
 /*
  * ERROR
  */
