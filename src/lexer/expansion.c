@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 14:02:14 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:17:18 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ static char	*ms_loop_var(t_info *ms, char *str, int *err)
 		{
 			k = ms_exp_var(ms, &tmp, str, &i);
 			if (k == -1)
-			{
-				*err = -1;
-				free_str(tmp);
-				free_str(str);
-				return (NULL);
-			}
+				return (ms_error_return(tmp, str, err, 1));
 			i += k;
 		}
 		else

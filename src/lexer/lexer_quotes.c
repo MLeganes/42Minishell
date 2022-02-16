@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:05:54 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:14:43 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*ms_del_quotes(t_info *ms, char *str)
 		{
 			i++;
 			if (ms_d_quotes(ms, &tmp, str, &i) == -1)
-				return (ms_error_return(tmp, str));
+				return (ms_error_return(tmp, str, NULL, 0));
 		}
 		else
 		{

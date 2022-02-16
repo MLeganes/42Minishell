@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 12:43:22 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:16:51 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ void		ms_case_multiple(t_info *ms, int chartype);
 void		ms_case_redirect(t_info *ms, int chartype);
 int			ms_exp_var(t_info *ms, char **tmp, char *str, int *i);
 void		ms_end_tmp(char **tmp, int *i);
+char		*ms_error_return(char *tmp, char *str, int *err, int b);
 /*
  * PARSER: parser, program, redirection and heredoc.
  */
@@ -287,6 +288,7 @@ void		print_lexer(t_info *ms);
 void		error_exit(char *arg, char *msg);
 void		free_list(t_info *ms);
 void		free_env(t_info *ms);
+void		free_str(char *str);
 /*
  * FREE
  */

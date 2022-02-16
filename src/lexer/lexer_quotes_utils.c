@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:08:22 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:13:41 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ char	*ms_append_char(char *str, char c)
 	return (tmp);
 }
 
-char	*ms_error_return(char *tmp, char *str)
+char	*ms_error_return(char *tmp, char *str, int *err, int b)
 {
+	if (b == 1)
+		*err = -1;
 	free_str(tmp);
 	free_str(str);
 	return (NULL);
