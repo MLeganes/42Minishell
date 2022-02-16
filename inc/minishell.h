@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:26:40 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 09:31:12 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,8 @@ void		print_lexer(t_info *ms);
  * ERROR
  */
 void		error_exit(char *arg, char *msg);
+void		free_list(t_info *ms);
+void		free_env(t_info *ms);
 /*
  * FREE
  */
