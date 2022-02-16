@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 09:31:12 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 09:57:37 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,8 @@ char		*ms_expand_get_value(t_info *ms, char *s, int i, int ret);
 t_env		*ms_find_env_var(t_info *ms, char **var);
 char		**ms_env_to_arr(t_env *env);
 char		*ms_get_path(char **env, char *command);
-t_env		*ms_new_env(char *var, char *content, t_env *next);
+t_env		*ms_new_env(char *var, char *content);
+void		env_addback(t_env **lst, t_env *new);
 
 /*
  * SIGNAL

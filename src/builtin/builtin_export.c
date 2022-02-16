@@ -6,7 +6,7 @@
 /*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 00:28:55 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 10:02:31 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ void	ms_add_new_var(t_env *env, char *arg)
 		i++;
 	var = ft_substr(arg, 0, i);
 	content = ft_substr(arg, i + 1, ft_strlen(arg));
-	tmp = ms_new_env(var, content, NULL);
-	while (env != NULL && env->next != NULL)
-	{
-		env = env->next;
-	}
-	env->next = tmp;
+	tmp = ms_new_env(var, content);
+	env_addback(&env, tmp);
 }
 
 static void	ms_var_handler(t_info *ms, char **args, int len, int i)

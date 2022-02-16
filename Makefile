@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
+#    By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/09 16:35:24 by arohmann         ###   ########.fr        #
+#    Updated: 2022/02/16 09:54:50 by annarohmnn       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS	=	$Sminishell.c $Serror.c\
 			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c $S$Bbuiltin_env.c $S$Bbuiltin_exit.c $S$Bbuiltin_export_print.c\
 			$S$Nenv.c $S$Nenv_expand.c $S$Nenv_path.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
-			$Ssignal.c  $Sfree.c $Sprint.c \
+			$Ssignal.c $Sfree2.c $Sfree.c $Sprint.c \
 
 INCRL		=-I$(HOME)/.brew/opt/readline/include
 LIBRL		=-L$(HOME)/.brew/opt/readline/lib -lreadline
