@@ -52,8 +52,6 @@ int	ms_chartype(char c)
 		return (CHAR_AMPERSAND);
 	else if (c == ' ')
 		return (CHAR_WHITESPACE);
-	else if (c == '\\')
-		return (CHAR_ESCAPESEQUENCE);
 	else if (c == '\t')
 		return (CHAR_TAB);
 	else if (c == '\n')
