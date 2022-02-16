@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:13:34 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 15:30:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,8 @@ static void	exec_program(t_info *ms, int islast)
 			exec_parent(ms, fdp, islast);
 			return ;
 		}
-		ms->tmp_pgm->pid = fork();
-		if (ms->tmp_pgm->pid < 0)
-			printf("Error in fork pid");
-		else if (ms->tmp_pgm->pid == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+		if (fork() == 0)
 			exec_child(ms, fdp);
-		}
 		else
 			exec_parent(ms, fdp, islast);
 		ms->idx++;
