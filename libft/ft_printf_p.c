@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 10:09:16 by amorcill          #+#    #+#             */
-/*   Updated: 2021/11/25 14:08:33 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 11:47:48 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_puthex(unsigned long n, int lower, int reset)
 
 int	ft_printf_p(unsigned long ptr)
 {
-	if (ptr == 0 )
+	if (ptr == 0)
 		return (write(1, "0x0", 3));
 	write(1, "0x", 2);
 	return (ft_puthex(ptr, 1, 1));
