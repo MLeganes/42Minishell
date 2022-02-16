@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 14:16:51 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:58:18 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,10 @@ int			exec_exit(t_program *pgm);
 void		print_env(t_info *ms);
 void		print_quotes(t_info *ms);
 void		print_lexer(t_info *ms);
+/*
+ * GET NEXT LINE
+ */
+char	*minishell_get_next_line(int fd);
 
 /*
  * ERROR
