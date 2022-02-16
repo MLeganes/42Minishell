@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 09:57:37 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 12:43:22 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_heredoc
 	int		fd_stdin;
 	int		exit;
 	int		del_qu;
+	int		ret;
 }	t_heredoc;
 
 /***
@@ -224,14 +225,16 @@ void		ms_end_tmp(char **tmp, int *i);
 /*
  * PARSER: parser, program, redirection and heredoc.
  */
+int			parser_build_redirection(t_info *ms, t_program **pgm);
+
+int			redir_selector(t_info *ms, int inb);
 t_program	*new_program(void);
 int			ms_program_updatepath(t_info *ms);
 void		ms_program_lstadd_last(t_program **lst, t_program *new);
 void		ms_program_argv_add(t_program *pgm, char *data);
-int			parser_build_redirection(t_info *ms, t_program **pgm);
 void		ms_redir_lstadd_last(t_program **pgm, t_redir *new);
 int			ms_redir_heredoc(t_info *ms, t_program **pgm);
-int			redir_selector(t_info *ms, int inb);
+void		ms_redir_heredoc_init(t_heredoc *hd, t_info *ms);
 /*
  * ENVIRONMENT
  */

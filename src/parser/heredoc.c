@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:21:04 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 13:23:12 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,55 +27,28 @@ static t_redir	*new_redirection_heredoc(char *file, int is_app, int is_out)
 	return (new);
 }
 
-static char	*ms_get_tmp_file(void)
-{
-	char		*file;
-	char		*tmp_n;
-	struct stat	buf;
-	int			i;
-
-	i = 1;
-	while (i < INT_MAX)
-	{
-		tmp_n = ft_itoa(i);
-		file = ft_strjoin(".tmp", tmp_n);
-		if (tmp_n)
-			free(tmp_n);
-		if (stat(file, &buf) == -1)
-		{
-			return (file);
-		}
-		if (file)
-			free(file);
-		i++;
-	}
-	return (NULL);
-}
-
-	/* If delimiter has quote, removed to print it!!! line 56*/
 static void	ms_heredoc_writeline(t_info *ms, t_heredoc *hd)
 {
-	int		i;
-	int		j;
+	int		ij[2];
 	char	*new;
 
 	if (hd->del_qu == 1 || hd->del_qu == 2)
 		write(hd->fd, hd->line, ft_strlen(hd->line));
 	if (hd->del_qu == 0)
 	{
-		i = 0;
-		while (hd->line[i])
+		ij[0] = 0;
+		while (hd->line[ij[0]])
 		{
-			if (hd->line[i] == '$')
+			if (hd->line[ij[0]] == '$')
 			{
-				j = ms_expand_get_len(hd->line, i + 1);
-				new = ms_expand_get_value(ms, hd->line, i, j);
+				ij[1] = ms_expand_get_len(hd->line, ij[0] + 1);
+				new = ms_expand_get_value(ms, hd->line, ij[0], ij[1]);
 				write(hd->fd, new, ft_strlen(new));
-				i += j;
+				ij[0] += ij[1];
 			}
 			else
-				write(hd->fd, &hd->line[i], 1);
-			i++;
+				write(hd->fd, &hd->line[ij[0]], 1);
+			ij[0]++;
 		}
 	}
 	write(hd->fd, "\n", 1);
@@ -83,26 +56,26 @@ static void	ms_heredoc_writeline(t_info *ms, t_heredoc *hd)
 		free(hd->line);
 }
 
+static int	ms_redir_heredoc_signal(t_heredoc *hd)
+{
+	dup2(hd->fd_stdin, STDIN_FILENO);
+	close(hd->fd_stdin);
+	return (ERROR);
+}
+
+static void	ms_redir_heredoc_close(t_heredoc *hd)
+{
+	close(hd->fd_stdin);
+	close(hd->fd);
+}
+
 int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 {
 	t_heredoc	hd;
 
-	hd.del_qu = 0;
-	hd.fd_stdin = dup(STDIN_FILENO);
-	if (ms->tmp_tkn->next->data == NULL)
-	{
-		printf("Error: no tmp file for heredoc.\n");
-		return (ERROR);
-	}
-	hd.delim = ms->tmp_tkn->next->data;
-	hd.del_qu = ms->tmp_tkn->next->in_dq + ms->tmp_tkn->next->in_q;
-	hd.file = ms_get_tmp_file();
-	hd.fd = open(hd.file, O_RDWR | O_CREAT, 0644);
-	if (hd.fd == -1)
-		printf("Error: no tmp file for heredoc.\n");
-	hd.exit = 1;
+	ms_redir_heredoc_init(&hd, ms);
 	signal(SIGINT, signalhandler_heredoc);
-	while (hd.exit)
+	while (hd.exit && hd.ret)
 	{
 		hd.line = readline("> ");
 		if (hd.line == NULL)
@@ -119,13 +92,8 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 			ms_heredoc_writeline(ms, &hd);
 	}
 	if (write(0, "", 0) == -1)
-	{
-		dup2(hd.fd_stdin, STDIN_FILENO);
-		close(hd.fd_stdin);
-		return (ERROR);
-	}
-	close(hd.fd_stdin);
-	close(hd.fd);
+		return (ms_redir_heredoc_signal(&hd));
+	ms_redir_heredoc_close(&hd);
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(hd.file, 0, 0));
-	return (0);
+	return (EXIT_SUCCESS);
 }
