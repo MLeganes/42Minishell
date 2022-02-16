@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_print.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:47:36 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/15 23:08:35 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 15:50:55 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ int	ms_lstlen(t_env *lst)
 		lst = lst->next;
 		i++;
 	}
+	return (i);
+}
+
+/*
+** returns length, if first char is a number returns 0, if it is ? returns 1
+*/
+int	ms_check_var(char *var)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(var[0]) == 1)
+		return (0);
+	if (var[i] == '?')
+		return (1);
+	while (ft_isalnum(var[i]) || (var[i] == '_'))
+		i++;
 	return (i);
 }
 

@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 10:02:31 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 15:51:03 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** returns length, if first char is a number returns 0, if it is ? returns 1
-*/
-int	ms_check_var(char *var)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(var[0]) == 1)
-		return (0);
-	if (var[i] == '?')
-		return (1);
-	while (ft_isalnum(var[i]) || (var[i] == '_'))
-		i++;
-	return (i);
-}
 
 /*
 ** extracts the var name and content and adds it at the end of env
@@ -56,6 +39,12 @@ static void	ms_var_handler(t_info *ms, char **args, int len, int i)
 			(ft_strlen(args[i]) - len));
 }
 
+static int	arg_error(char *args)
+{
+	error_exit(args, " is not a valid identifier");
+	return (0);
+}
+
 /*
 ** checks if args are valid, if not error is printed
 */
@@ -72,10 +61,7 @@ static int	ms_insert_var(t_info *ms, t_env *env, char **args)
 	while (args[i])
 	{
 		if (args[i][0] == '=')
-		{
-			error_exit(args[i], " is not a valid identifier");
-			break ;
-		}
+			return (arg_error(args[i]));
 		len = ms_check_var(args[i]);
 		var = ft_substr(args[i], 0, len);
 		ms->tmp_env = ms_find_env_var(ms, &var);
@@ -85,8 +71,7 @@ static int	ms_insert_var(t_info *ms, t_env *env, char **args)
 			ms_add_new_var(env, args[i]);
 		else
 			ms_var_handler(ms, args, len, i);
-		if (var)
-			free(var);
+		free_str(var);
 		i++;
 	}
 	return (ret);
