@@ -6,16 +6,39 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:13:41 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:55:08 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	do_expansion(t_info *ms, char **copy, char **var, char **tmp)
+{
+	ms->tmp_env = ms_find_env_var(ms, var);
+	if (ms->tmp_env == NULL)
+	{
+		free_str(*var);
+		ft_putstr_fd("\n", 2);
+		return (ERROR);
+	}
+	(*tmp) = ft_strjoin(*copy, ms->tmp_env->content);
+	free_str(*copy);
+	return (0);
+}
+
+static void	expand_exit_s(char **tmp, char *copy)
+{
+	char	*nbr;
+
+	nbr = ft_itoa(g_exit_status);
+	(*tmp) = ft_strjoin(copy, nbr);
+	free_str(nbr);
+	free_str(copy);
+}
+
 int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 {
 	char	*var;
-	char	*nbr;
 	char	*copy;
 	int		k;
 
@@ -29,33 +52,14 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 	var = ft_substr(str, (*i) + 1, (k - 1));
 	copy = *tmp;
 	if (ft_strcmp(var, "?") == 0)
-	{
-		nbr = ft_itoa(g_exit_status);
-		(*tmp) = ft_strjoin(copy, nbr);
-		free_str(nbr);
-		free_str(copy);
-	}
+		expand_exit_s(tmp, copy);
 	else
 	{
-		copy = *tmp;
-		ms->tmp_env = ms_find_env_var(ms, &var);
-		if (ms->tmp_env == NULL)
-		{
-			free_str(var);
-			ft_putstr_fd("\n", 2);
-			return (-1);
-		}
-		(*tmp) = ft_strjoin(copy, ms->tmp_env->content);
-		free_str(copy);
+		if (do_expansion(ms, &copy, &var, tmp) == ERROR)
+			return (ERROR);
 	}
 	free_str(var);
 	return (k);
-}
-
-void	ms_end_tmp(char **tmp, int *i)
-{
-	(*i) = ft_strlen(*tmp);
-	(*tmp)[(*i)] = '\0';
 }
 
 char	*ms_append_char(char *str, char c)
