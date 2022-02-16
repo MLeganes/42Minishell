@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 00:16:14 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 14:02:14 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ static char	*ms_loop_var(t_info *ms, char *str, int *err)
 			if (k == -1)
 			{
 				*err = -1;
-				if (tmp)
-					free(tmp);
-				if (str)
-					free(str);
+				free_str(tmp);
+				free_str(str);
 				return (NULL);
 			}
 			i += k;
@@ -44,8 +42,7 @@ static char	*ms_loop_var(t_info *ms, char *str, int *err)
 	}
 	if (tmp != NULL)
 		ms_end_tmp(&tmp, &i);
-	if (str != NULL)
-		free(str);
+	free_str(str);
 	return (tmp);
 }
 

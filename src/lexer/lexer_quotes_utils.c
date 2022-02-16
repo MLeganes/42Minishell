@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 00:17:10 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 14:08:22 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 	{
 		nbr = ft_itoa(g_exit_status);
 		(*tmp) = ft_strjoin(copy, nbr);
-		if (nbr)
-			free(nbr);
-		if (copy)
-			free(copy);
+		free_str(nbr);
+		free_str(copy);
 	}
 	else
 	{
@@ -43,17 +41,14 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 		ms->tmp_env = ms_find_env_var(ms, &var);
 		if (ms->tmp_env == NULL)
 		{
-			if (var)
-				free(var);
+			free_str(var);
 			ft_putstr_fd("\n", 2);
 			return (-1);
 		}
 		(*tmp) = ft_strjoin(copy, ms->tmp_env->content);
-		if (copy)
-			free(copy);
+		free_str(copy);
 	}
-	if (var)
-		free(var);
+	free_str(var);
 	return (k);
 }
 
@@ -81,4 +76,11 @@ char	*ms_append_char(char *str, char c)
 	if (str)
 		free(str);
 	return (tmp);
+}
+
+char	*ms_error_return(char *tmp, char *str)
+{
+	free_str(tmp);
+	free_str(str);
+	return (NULL);
 }
