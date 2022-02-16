@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 15:46:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 18:04:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	exec_child(t_info *ms, int fd[2])
 		builtin_selector(ms, ms->tmp_pgm);
 	else
 		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, env);
+	error_exit(ms->tmp_pgm->argv[0], "No such file or directory");
 	free_argv(env);
-	free_after_cmd(ms);
-	exit(EXIT_FAILURE);
+	free_end(ms);
+	exit(127);
 }
