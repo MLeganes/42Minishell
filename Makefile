@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/16 15:59:20 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/16 16:22:05 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ E 		=	exec/
 N 		=	env/
 L 		=	lexer/
 P		=	parser/
+G		=	garbage_collector/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
 SRCS	=	$Sminishell.c $Serror.c $Sgetnextline.c \
@@ -31,7 +32,9 @@ SRCS	=	$Sminishell.c $Serror.c $Sgetnextline.c \
 			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c $S$Bbuiltin_env.c $S$Bbuiltin_exit.c $S$Bbuiltin_export_print.c\
 			$S$Nenv.c $S$Nenv_utils.c $S$Nenv_expand.c $S$Nenv_path.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
-			$Ssignal.c $Sfree2.c $Sfree.c $Sprint.c \
+			$S$Gfree2.c $S$Gfree.c \
+			$Ssignal.c \
+			$Sprint.c \
 
 INCRL		=-I$(HOME)/.brew/opt/readline/include
 LIBRL		=-L$(HOME)/.brew/opt/readline/lib -lreadline
@@ -54,6 +57,7 @@ $O%.o:		$S%.c
 			@[ -d $(O)$(E) ] || mkdir -p $(O)$(E)
 			@[ -d $(O)$(P) ] || mkdir -p $(O)$(P)
 			@[ -d $(O)$(L) ] || mkdir -p $(O)$(L)
+			@[ -d $(O)$(G) ] || mkdir -p $(O)$(G)
 			@echo "\033[1;32m$(NAME)\033[1;0m\033[32m compiling...\033[0m"
 			@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 

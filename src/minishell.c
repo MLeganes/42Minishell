@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 16:07:27 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:24:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	init_struct(t_info *info)
 	info->npgms = 0;
 }
 
-static void minishell(t_info *ms)
+static void	minishell(t_info *ms)
 {
 	if (lexer(ms) == 0)
 	{
