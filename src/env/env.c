@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:07:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 09:59:31 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/16 15:35:05 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,6 @@ t_env	*ms_new_env(char *var, char *content)
 	new->content = content;
 	new->next = NULL;
 	return (new);
-}
-
-t_env	*env_last(t_env *lst)
-{
-	while (lst != NULL && lst->next != NULL)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-void	env_addback(t_env **lst, t_env *new)
-{
-	t_env	*last;
-
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	last = env_last(*lst);
-	last->next = new;
-	new->next = NULL;
 }
 
 t_env	*ms_find_env_var(t_info *ms, char **var)
