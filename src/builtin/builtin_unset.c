@@ -47,6 +47,7 @@ void	exec_unset(t_info *ms, t_program *pgm)
 	char	*var;
 
 	i = 1;
+	var = NULL;
 	while (pgm->argv[i])
 	{
 		j = 0;
@@ -64,7 +65,6 @@ void	exec_unset(t_info *ms, t_program *pgm)
 			return ;
 		i++;
 	}
-	if (var)
-		free(var);
+	free_str(var);
 	return ;
 }

@@ -43,7 +43,7 @@ void	exec_child(t_info *ms, int fd[2])
 		builtin_selector(ms, ms->tmp_pgm);
 	else
 		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, env);
-	free(env);
+	free_argv(env);
 	free_after_cmd(ms);
 	exit(EXIT_FAILURE);
 }
