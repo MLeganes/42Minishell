@@ -35,5 +35,11 @@ echo hello || | uao
 
 echo hello || hostname
 
+echo hello > test1 >test2
+
+echo hello | echo hello2 | cat
+
+echhhoo hello | ls
+
 cd
 

@@ -41,7 +41,11 @@ For Linux distribution, need to install the readline development libraries.
 	e"cho hello"						cmd: bash: echo hello: command not found
 	echo "hello " | cat -e ech"o" "he"llo"o"				cmd: cat: echo: No such file or directory
 
+## Tester
+	cd /tests
+	bash tester.sh -f cmds/mand/0_mand.sh
 
+	you can also add new tests
 
 
 ## Sanitize
