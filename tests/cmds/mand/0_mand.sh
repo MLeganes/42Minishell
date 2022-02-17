@@ -16,6 +16,24 @@ echo $USER$PATH
 
 /bin/echo 'hello'
 
+echo $
+
+echo $ hello
+
+echo $hello
+
+echo "$"
+
+echo "$" hello
+
+echo "$"hello
+
+echo '$'
+
+echo '$' hello
+
+echo '$'hello
+
 echo hello | hostname
 
 unset PATH
