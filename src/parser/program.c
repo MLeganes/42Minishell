@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/17 15:01:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:29:06 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_program	*new_program(void)
 		return (NULL);
 	new->argv = NULL;
 	new->pid = -1;
-	new->status = 0;
 	new->nargvs = 0;
 	new->next = NULL;
 	new->redir = NULL;
