@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 16:24:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:24:53 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init_struct(t_info *info)
 	info->npipes = 0;
 	info->pgmlist = NULL;
 	info->npgms = 0;
+	g_exit_status = 0;
 }
 
 static void	minishell(t_info *ms)

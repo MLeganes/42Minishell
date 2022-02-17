@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:53:44 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:57:38 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:59:56 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static void	ms_case_quote(int chartype, t_info *ms)
 {
+	if (chartype == CHAR_DQUOTE || chartype == CHAR_QUOTE)
+		ms->idx++;
 	if (chartype == CHAR_QUOTE)
 		ms->state = STATE_IN_QUOTE;
 	else if (chartype == CHAR_DQUOTE)
 		ms->state = STATE_IN_DQUOTE;
 	ms->tmp_tkn->type = TOKEN;
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
+	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->cmdline[ms->idx];
 	ms->tmp_tkn->len++;
 }
 

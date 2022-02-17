@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:32:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/12 20:04:52 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:08:09 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	ms_chartype(char c)
 		return (CHAR_LESSER);
 	else if (c == '\0')
 		return (CHAR_NULL);
+	else if (c == '$')
+		return (CHAR_VAR);
 	return (CHAR_GENERAL);
 }
 
