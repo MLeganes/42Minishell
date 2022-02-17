@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:23:46 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/17 21:25:08 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	sig_setter(void)
+{
+	struct termios mio;
+
+	tcgetattr(0, &mio);
+	mio.c_lflag = ~ECHOCTL;
+	tcsetattr(0, 0, &mio);
+	signal(SIGINT, signalhandler_ctrlc);
+}
+
+void	sig_unsetter(void)
+{
+	struct termios mio;
+
+	tcgetattr(0, &mio);
+	mio.c_lflag |= ECHOCTL;
+	tcsetattr(0, 0, &mio);
+	signal(SIGINT, SIG_IGN);
+}
 
 void	signalhandler_ctrlc(int sig)
 {
