@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 00:10:40 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:24:25 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,8 @@ typedef struct s_info
 /*
  * MINISHELL
  */
+void		sig_setter(void);
+void		sig_unsetter(void);
 int			lexer(t_info *info);
 int			parser(t_info *ms);
 void		execute(t_info *ms);

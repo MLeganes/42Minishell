@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 16:24:41 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/17 21:25:20 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(void)
 	while (1)
 	{
 		init_struct(&info);
-		signal(SIGINT, signalhandler_ctrlc);
+		sig_setter();
 		if (isatty(STDIN_FILENO))
 			info.cmdline = readline(info.prompt);
 		else
@@ -58,7 +58,7 @@ int	main(void)
 			free_end(&info);
 			exit (g_exit_status);
 		}
-		signal(SIGINT, SIG_IGN);
+		sig_unsetter();
 		minishell(&info);
 		free_after_cmd(&info);
 	}
