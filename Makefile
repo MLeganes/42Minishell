@@ -6,7 +6,7 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/16 16:22:05 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/17 11:35:02 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS	=	$Sminishell.c $Serror.c $Sgetnextline.c \
 			$S$Pparser.c $S$Predirection.c $S$Predirection_utils.c $S$Pheredoc.c $S$Pheredoc_init.c $S$Pprogram.c \
 			$S$Bbuiltin_cd.c $S$Bbuiltin_pwd.c $S$Bbuiltin_echo.c $S$Bbuiltin.c \
 			$S$Bbuiltin_unset.c $S$Bbuiltin_export.c $S$Bbuiltin_env.c $S$Bbuiltin_exit.c $S$Bbuiltin_export_print.c\
-			$S$Nenv.c $S$Nenv_utils.c $S$Nenv_expand.c $S$Nenv_path.c \
+			$S$Nenv.c $S$Nenv_utils.c $S$Nenv_expand.c $S$Nenv_path_program.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
 			$S$Gfree2.c $S$Gfree.c \
 			$Ssignal.c \

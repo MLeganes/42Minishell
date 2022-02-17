@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 15:30:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/17 23:59:18 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void	execute(t_info *ms)
 	ms->tmp_pgm = ms->pgmlist;
 	ms->fd_old[READ] = STDIN_FILENO;
 	ms->fd_old[WRITE] = -1;
+	/*  */
+	/* More eficient  */
+	/* Better place to do this, when end, export and unset */
+	/*  */
+	ms->env = ms_env_to_arr(ms->env_v);
 	while (ms->tmp_pgm)
 	{
 		islast = 0;
@@ -54,16 +59,11 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			if (isbuiltin(ms->tmp_pgm->argv) == 0
-				&& (ft_strchr(ms->tmp_pgm->argv[0], '/') == NULL))
-			{
-				if (ms_program_updatepath(ms) == ERROR)
-					return ;
-			}
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}	
 	parent_waitpid(ms);
+	free_ms_env(ms);
 }

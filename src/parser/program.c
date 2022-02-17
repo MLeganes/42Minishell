@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:20:15 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/17 15:01:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,32 @@ t_program	*new_program(void)
 		return (NULL);
 	new->argv = NULL;
 	new->pid = -1;
+	new->status = 0;
 	new->nargvs = 0;
 	new->next = NULL;
 	new->redir = NULL;
 	return (new);
 }
 
-int	ms_program_updatepath(t_info *ms)
-{
-	char	*path;
+// int	ms_program_updatepath(t_info *ms)
+// {
+// 	char	*path;
 
-	path = ms_get_path(ms->env, ms->tmp_pgm->argv[0]);
-	if (path != NULL)
-	{
-		if (ms->tmp_pgm->argv[0])
-			free(ms->tmp_pgm->argv[0]);
-		ms->tmp_pgm->argv[0] = path;
-	}
-	else
-	{
-		error_exit(ms->tmp_pgm->argv[0], " command not found");
-		g_exit_status = 127;
-		return (ERROR);
-	}
-	return (0);
-}
+// 	path = ms_get_path(ms->env, ms->tmp_pgm->argv[0]);
+// 	if (path != NULL)
+// 	{
+// 		if (ms->tmp_pgm->argv[0])
+// 			free(ms->tmp_pgm->argv[0]);
+// 		ms->tmp_pgm->argv[0] = path;
+// 	}
+// 	else
+// 	{
+// 		error_exit(ms->tmp_pgm->argv[0], " command not found");
+// 		g_exit_status = 127;
+// 		return (ERROR);
+// 	}
+// 	return (0);
+// }
 
 static t_program	*ms_program_lstlast(t_program *lst)
 {

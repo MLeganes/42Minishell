@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 09:29:29 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 13:51:07 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:12:24 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,23 @@ void	free_str(char *str)
 	{
 		free(str);
 		str = NULL;
+	}
+}
+
+void	free_ms_env(t_info *ms)
+{
+	int	i;
+
+	i = 0;
+	if (ms->env != NULL)
+	{
+		while (ms->env[i] && ft_strlen(ms->env[i]) > 0)
+		{
+			if (ms->env[i] != NULL && ft_strlen(ms->env[i]) > 0)
+				free(ms->env[i]);
+			i++;
+		}
+		if (ms->env)
+			free(ms->env);
 	}
 }
