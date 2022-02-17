@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/17 14:58:10 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 20:56:02 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,34 @@ static char	*get_exp_var(t_info *ms)
 static void	expand(t_info *ms)
 {
 	char	*var;
+	int		i;
+	t_env	*tmp;
 
+	i = 0;
 	var = get_exp_var(ms);
 	if (var)
 		printf("var: %s\n", var);
-
+	tmp = ms_find_env_var(ms, &var);
+	if (tmp != NULL && (tmp->content != NULL))
+	{
+		while (tmp->content[i] != '\0')
+		{
+			if (tmp->content[i] == ' ')
+			{
+				ms_end_tok(ms);
+				ms->tmp_tkn->next = new_tok();
+				ms->tmp_tkn = ms->tmp_tkn->next;
+			}
+			ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, tmp->content[i]);
+			ms->tmp_tkn->len++;
+			i++;
+		}
+		idx--;
+	}
+	else
+	{
+		printf("no such variable\n");
+	}
 	free_str(var);
 }
 
@@ -52,7 +75,7 @@ static void	ms_state_dquote(t_info *ms, int chartype)
 		ms->idx++;
 	if (ms_chartype(ms->cmdline[ms->idx]) != CHAR_VAR)
 	{
-		ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->cmdline[ms->idx];
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->cmdline[ms->idx]);
 		ms->tmp_tkn->len++;
 		ms->tmp_tkn->in_dq = 1;
 	}
@@ -66,22 +89,18 @@ static void	ms_state_quote(t_info *ms, int chartype)
 {
 	if (chartype == CHAR_QUOTE)
 		ms->idx++;
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->cmdline[ms->idx];
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->cmdline[ms->idx]);
 	ms->tmp_tkn->len++;
 	ms->tmp_tkn->in_q = 1;
 	if (chartype == CHAR_QUOTE)
-	{
 		ms->state = STATE_GENERAL;
-		printf("tok: %i\n", ms->tmp_tkn->in_q);
-		printf("tokd: %i\n", ms->tmp_tkn->in_dq);
-	}
 }
 
-static void	ms_end_tok(t_info *ms)
+void	ms_end_tok(t_info *ms)
 {
 	if (ms->tmp_tkn->len > 0)
 	{
-		ms->tmp_tkn->data[ms->tmp_tkn->len] = '\0';
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, '\0');
 		ms->ntok++;
 		ms->tmp_tkn->len = 0;
 	}
@@ -92,7 +111,7 @@ static int	mini_spliter(t_info *ms)
 	int	chartype;
 
 	ms->idx = 0;
-	ms->list = new_tok(ft_strlen(ms->cmdline));
+	ms->list = new_tok();
 	ms->tmp_tkn = ms->list;
 	while (ms->cmdline[ms->idx] != '\0')
 	{
@@ -130,6 +149,7 @@ int	lexer(t_info *ms)
 		}
 		else
 			return (ERROR);
+		print_lexer(ms);
 	}
 	return (0);
 }

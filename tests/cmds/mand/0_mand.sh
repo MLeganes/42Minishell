@@ -41,9 +41,9 @@ unset PATH
 
 cat | ls
 
-<< end <Makefile cat
+\<< end <Makefile cat
 
-<< end cat
+\<< end cat
 
 echo hello | exit | hostname
 
@@ -60,4 +60,11 @@ echo hello | echo hello2 | cat
 echhhoo hello | ls
 
 cd
+
+echo $""
+
+export test="   hello   world   "
+echo $test
+echo l$test
+echo $test'l'
 

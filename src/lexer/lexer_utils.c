@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:53:44 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/17 13:59:56 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 18:16:24 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ static void	ms_case_quote(int chartype, t_info *ms)
 		ms->state = STATE_IN_QUOTE;
 	else if (chartype == CHAR_DQUOTE)
 		ms->state = STATE_IN_DQUOTE;
-	ms->tmp_tkn->type = TOKEN;
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->cmdline[ms->idx];
-	ms->tmp_tkn->len++;
+	if (ms->cmdline[ms->idx] != '\'' && ms->cmdline[ms->idx] != '\"')
+	{
+		ms->tmp_tkn->type = TOKEN;
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->cmdline[ms->idx]);
+		ms->tmp_tkn->len++;
+	}
 }
 
 // Escape sequence "\"" 
@@ -30,21 +33,21 @@ static void	ms_case_escapes(t_info *ms)
 {
 	ms->tmp_tkn->type = TOKEN;
 	ms->idx++;
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->cmdline[ms->idx];
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->cmdline[ms->idx]);
 	ms->tmp_tkn->len++;
 }
 
 static void	ms_case_general(t_info *ms)
 {
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = ms->tmp_c;
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->tmp_c);
 	ms->tmp_tkn->len++;
 	ms->tmp_tkn->type = TOKEN;
 }
 
 void	ms_case_endtoken(t_info *ms)
 {
-	ms->tmp_tkn->data[ms->tmp_tkn->len] = '\0';
-	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, '\0');
+	ms->tmp_tkn->next = new_tok();
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }
 

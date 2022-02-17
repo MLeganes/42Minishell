@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 16:32:49 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 18:22:54 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,8 @@ int			expansion(t_info *ms);
 int			quotes(t_info *info);
 int			expansion(t_info *ms);
 int			ms_chartype(char c);
-t_token		*new_tok(int len);
+t_token		*new_tok(void);
+void		ms_end_tok(t_info *ms);
 char		*ms_append_char(char *str, char c);
 void		ms_state_selector(t_info *ms, int chartype);
 void		ms_case_endtoken(t_info *ms);

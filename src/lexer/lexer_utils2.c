@@ -6,22 +6,20 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:32:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/17 15:08:09 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 18:24:35 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*new_tok(int len)
+t_token	*new_tok(void)
 {
 	t_token	*new;
 
 	new = (t_token *)malloc(sizeof(t_token));
 	if (new == NULL)
 		return (NULL);
-	new->data = ft_calloc(sizeof(char), len + 1);
-	if (new->data == NULL)
-		return (NULL);
+	new->data = NULL;
 	new->type = NONE;
 	new->next = NULL;
 	new->len = 0;
@@ -71,8 +69,8 @@ void	ms_case_multiple(t_info *ms, int chartype)
 {
 	if (ms->tmp_tkn->len > 0)
 		ms_case_endtoken(ms);
-	ms->tmp_tkn->data[0] = chartype;
-	ms->tmp_tkn->data[1] = '\0';
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->tmp_c);
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, '\0');
 	if (chartype == CHAR_AMPERSAND)
 		ms->tmp_tkn->type = AMPERSAND;
 	else if (chartype == CHAR_PIPE)
@@ -80,7 +78,7 @@ void	ms_case_multiple(t_info *ms, int chartype)
 		ms->tmp_tkn->type = PIPE;
 		ms->npipes++;
 	}
-	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
+	ms->tmp_tkn->next = new_tok();
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }
 
@@ -88,11 +86,11 @@ void	ms_case_redirect(t_info *ms, int chartype)
 {
 	if (ms->tmp_tkn->len > 0)
 		ms_case_endtoken(ms);
-	ms->tmp_tkn->data[0] = chartype;
+	ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->tmp_c);
 	if (ms->cmdline[ms->idx + 1] == chartype)
 	{
-		ms->tmp_tkn->data[1] = chartype;
-		ms->tmp_tkn->data[2] = '\0';
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, ms->tmp_c);
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, '\0');
 		if (chartype == CHAR_GREATER)
 			ms->tmp_tkn->type = REDIR_DGREAT;
 		else if (chartype == CHAR_LESSER)
@@ -101,12 +99,12 @@ void	ms_case_redirect(t_info *ms, int chartype)
 	}
 	else
 	{
-		ms->tmp_tkn->data[1] = '\0';
+		ms->tmp_tkn->data = ms_append_char(ms->tmp_tkn->data, '\0');
 		if (chartype == CHAR_GREATER)
 			ms->tmp_tkn->type = REDIR_GREAT;
 		else if (chartype == CHAR_LESSER)
 			ms->tmp_tkn->type = REDIR_LESS;
 	}	
-	ms->tmp_tkn->next = new_tok(ft_strlen(ms->cmdline) - ms->idx);
+	ms->tmp_tkn->next = new_tok();
 	ms->tmp_tkn = ms->tmp_tkn->next;
 }
