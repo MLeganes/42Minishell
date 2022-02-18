@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 05:51:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 12:56:35 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ int	main(void)
 {
 	t_info	info;
 
-	//signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	get_env(&info);
 	while (1)
 	{
 		init_struct(&info);
-		//sig_setter();
-		signals_minishell();
+		sig_setter();
 		if (isatty(STDIN_FILENO))
 			info.cmdline = readline(info.prompt);
 		else
@@ -60,7 +59,7 @@ int	main(void)
 			free_end(&info);
 			exit (g_exit_status);
 		}
-		//sig_unsetter();
+		sig_unsetter();
 		minishell(&info);
 		free_after_cmd(&info);
 	}

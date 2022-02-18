@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 04:53:04 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:08:26 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,6 @@ typedef struct s_info
 /*
  * MINISHELL
  */
-void		sig_setter(void);
-void		sig_unsetter(void);
 int			lexer(t_info *info);
 int			parser(t_info *ms);
 void		execute(t_info *ms);
@@ -255,10 +253,11 @@ int			env_search_program_path(t_info *ms, char *argv);
 /*
  * SIGNAL
  */
-void		signals_minishell(void);
-void		signalhandler_ctrlc(int sig);
 void		sig_fork(int sig);
 void		signalhandler_heredoc(int sig);
+void		sig_setter(void);
+void		sig_unsetter(void);
+void		sig_setter_hd(void);
 /*
  * EXECUTION
  */
