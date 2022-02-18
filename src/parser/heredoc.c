@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 13:23:12 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:48:41 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 	t_heredoc	hd;
 
 	ms_redir_heredoc_init(&hd, ms);
-	signal(SIGINT, signalhandler_heredoc);
+	//signal(SIGINT, signalhandler_heredoc);
 	while (hd.exit && hd.ret)
 	{
 		hd.line = readline("> ");

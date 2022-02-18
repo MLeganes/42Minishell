@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 00:00:24 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 04:12:52 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void	exec_child(t_info *ms, int fd[2])
 		builtin_selector(ms, ms->tmp_pgm);
 	else
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (env_search_program_path(ms, ms->env, ms->tmp_pgm->argv[0]) == 0)
-			execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env);
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, sig_fork);
+		signal(SIGQUIT, sig_fork);
+		execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env);
 	}
+	//exit(g_exit_status);
 	// test if afect to PIPES
 	//free_end(ms);
 }

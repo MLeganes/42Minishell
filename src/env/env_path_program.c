@@ -6,11 +6,13 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/17 23:53:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:56:03 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*ms_get_path(char **env, char *command);
 
 static char	*env_getenv(char **env, char *var)
 {
@@ -30,6 +32,28 @@ static char	*env_getenv(char **env, char *var)
 	return (NULL);
 }
 
+// int 	env_search_no_slash(t_info *ms, char **env, char *argv)
+// {
+// 	char	*ret;
+
+// 	if (env_getenv(env, "PATH") != NULL)
+// 	{
+// 		ret = ms_get_path(env, argv);
+// 		if (ret == NULL)
+// 			return (error_exit_status127(argv));
+// 		else
+// 		{
+// 			if (ms->tmp_pgm->argv[0])
+// 				free(ms->tmp_pgm->argv[0]);
+// 			ms->tmp_pgm->argv[0] = ret;
+// 			g_exit_status = EXIT_SUCCESS;
+// 			return (SUCCESS);
+// 		}
+// 	}
+// 	else
+// 		return (error_exit_status127(argv));
+// }
+
 /* Used in exec-child to get the right path or not*/
 static char	*ms_get_valid_path(char **paths, char *cmd)
 {
@@ -42,7 +66,8 @@ static char	*ms_get_valid_path(char **paths, char *cmd)
 	i = 0;
 	while (paths[i])
 	{
-		if (cmd[0] == '/' && (stat(cmd, &ss) == EXIT_SUCCESS))
+		//if (cmd[0] == '/' && (stat(cmd, &ss) == EXIT_SUCCESS))
+		if (access(cmd, F_OK) == 0)
 			return (cmd);
 		full_path = ft_strjoin(paths[i], command);
 		if (stat(full_path, &ss) == EXIT_SUCCESS)
@@ -97,40 +122,61 @@ static char	*ms_get_path(char **env, char *command)
 	return (NULL);
 }
 
-static int 	env_search_no_slash(t_info *ms, char **env, char *argv)
+/***
+ * 
+ *  NEW VERSION
+ * 
+ ***/
+int	env_search_program_path(t_info *ms, char *argv)
 {
-	char	*ret;
-
-	if (env_getenv(env, "PATH") != NULL)
+	char *path_values;
+	char *tmp;
+	
+	
+	if (access(argv, F_OK) == 0)
+		return (EXIT_SUCCESS);
+		
+	path_values = env_getenv(ms->env, "PATH");
+	if ( path_values == NULL)
 	{
-		ret = ms_get_path(env, argv);
-		if (ret == NULL)
-			return (error_exit_status127(argv));
-		else
+		error_exit_errno(127, argv, "No such file or directory", 0);		
+		if (ms->tmp_pgm->argv[0] != NULL)
+		{
+			free(ms->tmp_pgm->argv[0]);			
+			ms->tmp_pgm->argv[0] = NULL;
+			return (EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		tmp = ms_get_path(ms->env, argv);
+		if (tmp != NULL)
 		{
 			if (ms->tmp_pgm->argv[0])
 				free(ms->tmp_pgm->argv[0]);
-			ms->tmp_pgm->argv[0] = ret;
-			g_exit_status = EXIT_SUCCESS;
-			return (SUCCESS);
+			ms->tmp_pgm->argv[0] = tmp;
+			return (EXIT_SUCCESS);
 		}
 	}
-	else
-		return (error_exit_status127(argv));
+	error_exit_errno(127, argv, "Command not found", 0);
+	if (ms->tmp_pgm->argv[0])
+		free(ms->tmp_pgm->argv[0]);
+	ms->tmp_pgm->argv[0] = NULL;
+	return (EXIT_FAILURE);
 }
-
-int	env_search_program_path(t_info *ms, char **env, char *argv)
-{
-	if ((ft_strchr(argv, '/') == NULL))
-		return (env_search_no_slash(ms, env, argv));
-	else
-	{
-		if (access(argv, F_OK) == 0)
-		{		
-			g_exit_status = EXIT_SUCCESS;
-			return (SUCCESS);
-		}
-		else
-			return (error_exit_status127(argv));
-	}
-}
+// old one!!!!
+// int	env_search_program_path(t_info *ms, char *argv)
+// {
+// 	if ((ft_strchr(argv, '/') == NULL))
+// 		return (env_search_no_slash(ms, ms->env, argv));
+// 	else
+// 	{
+// 		if (access(argv, F_OK) == 0)
+// 		{		
+// 			g_exit_status = EXIT_SUCCESS;
+// 			return (SUCCESS);
+// 		}
+// 		else
+// 			return (error_exit_status127(argv));
+// 	}
+// }

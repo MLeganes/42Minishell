@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 14:17:18 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 04:17:39 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	expansion(t_info *ms)
 			ms->tmp_tkn->data = ms_loop_var(ms, ms->tmp_tkn->data, &err);
 		if (err == -1)
 		{
-			error_exit("error", " no such variable");
+			error_exit("error", "no such variable");
 			return (-1);
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;

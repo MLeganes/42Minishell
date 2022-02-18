@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 18:47:47 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:25:07 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 	if (ms->tmp_tkn->next && ms->tmp_tkn->next->data)
 		new->file = ms->tmp_tkn->next->data;
 	else
-		printf("Error: Incomplete command, no file.\n");
+		error_exit("Redir", "Incomplete command, no file");
 	new->is_app = is_app;
 	new->is_out = is_out;
 	new->next = NULL;
@@ -62,12 +62,12 @@ static int	ms_redir_in(t_redir *tmp, int inb)
 {
 	int	fd;
 
-	fd = open(tmp->file, O_RDONLY, 0);
+	fd = open(tmp->file, O_RDONLY);
 	if (fd < 0)
 	{
 		if (inb == 1)
-			printf("Redirection Error \n");
-		printf("Redirection Error \n");
+			error_exit_errno(1, "Redir", "No such file or directory\n", inb);	
+		error_exit_errno(1, "Redir", "No such file or directory", inb);	
 		return (0);
 	}
 	else
@@ -107,7 +107,7 @@ int	redir_selector(t_info *ms, int inb)
 		else if (tmp->is_out == 1)
 			ms_redir_out(tmp);
 		else
-			printf("Redirection Error \n");
+			error_exit_errno(127, "Redir", "Redirection is nonsense", 0);		
 		tmp = tmp->next;
 	}
 	return (status);

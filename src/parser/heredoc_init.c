@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:27:31 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 15:12:56 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:27:28 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ms_redir_heredoc_init(t_heredoc *hd, t_info *ms)
 	hd->delim = ms->tmp_tkn->next->data;
 	hd->del_qu = ms->tmp_tkn->next->in_dq + ms->tmp_tkn->next->in_q;
 	hd->file = ms_heredoc_tmp_file();
-	hd->fd = open(hd->file, O_RDWR | O_CREAT, 0644);
+	hd->fd = open(hd->file, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (hd->fd == -1)
 	{
 		error_exit(" heredoc ", "no tmp file for heredoc");

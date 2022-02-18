@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/17 21:25:20 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:51:36 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	minishell(t_info *ms)
 {
 	if (lexer(ms) == 0)
 	{
+		errno = 0;
 		if (parser(ms) != ERROR)
 			execute(ms);
 	}
@@ -41,12 +42,13 @@ int	main(void)
 {
 	t_info	info;
 
-	signal(SIGQUIT, SIG_IGN);
+	//signal(SIGQUIT, SIG_IGN);
 	get_env(&info);
 	while (1)
 	{
 		init_struct(&info);
-		sig_setter();
+		//sig_setter();
+		signals_minishell();
 		if (isatty(STDIN_FILENO))
 			info.cmdline = readline(info.prompt);
 		else
@@ -58,7 +60,7 @@ int	main(void)
 			free_end(&info);
 			exit (g_exit_status);
 		}
-		sig_unsetter();
+		//sig_unsetter();
 		minishell(&info);
 		free_after_cmd(&info);
 	}

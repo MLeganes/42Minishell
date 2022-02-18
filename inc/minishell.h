@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 00:24:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 04:53:04 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,13 +251,14 @@ int			ms_check_var(char *var);
 t_env		*ms_new_env(char *var, char *content);
 void		env_addback(t_env **lst, t_env *new);
 // EXEC-CHILD PATH SEARCH
-int			env_search_program_path(t_info *ms, char **env, char *argv);
+int			env_search_program_path(t_info *ms, char *argv);
 /*
  * SIGNAL
  */
+void		signals_minishell(void);
 void		signalhandler_ctrlc(int sig);
+void		sig_fork(int sig);
 void		signalhandler_heredoc(int sig);
-int			termios_change(bool echo_ctl_chr);
 /*
  * EXECUTION
  */
@@ -304,4 +305,5 @@ char		*minishell_get_next_line(int fd);
  */
 void		error_exit(char *arg, char *msg);
 int			error_exit_status127(char *argv);
+void		error_exit_errno(int errornum, char *arg, char *msg, int ms_exit);
 #endif

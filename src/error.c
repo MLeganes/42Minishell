@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:59:43 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/17 23:47:54 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 02:24:57 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,15 @@ int	error_exit_status127(char *argv)
 	error_exit(argv, "No such file or directory");
 	g_exit_status = 127;
 	return (ERROR);
+}
+
+void	error_exit_errno(int errornum, char *arg, char *msg, int ms_exit)
+{
+	//write(1, "minishell: ", 11);
+	//write(1, errormsg, ft_strlen(errormsg));
+	///write(1, "\n", 1);
+	errno = errornum;
+	if (ms_exit == 1)
+		exit(errornum);
+	error_exit(arg, msg);
 }
