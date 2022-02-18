@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:31:46 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/17 20:56:02 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:37:01 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	expand(t_info *ms)
 			ms->tmp_tkn->len++;
 			i++;
 		}
-		idx--;
+		ms->idx--;
 	}
 	else
 	{
@@ -83,6 +83,9 @@ static void	ms_state_dquote(t_info *ms, int chartype)
 		expand(ms);
 	if ((chartype == CHAR_DQUOTE) || (ms_chartype(ms->cmdline[ms->idx]) == CHAR_DQUOTE))
 		ms->state = STATE_GENERAL;
+	if (((ms_chartype(ms->cmdline[ms->idx]) == CHAR_DQUOTE) && ms->cmdline[ms->idx] == '\0')
+		|| (ms_chartype(ms->cmdline[ms->idx] == CHAR_DQUOTE) && ms->cmdline[ms->idx] == ' '))
+		ms_end_tok(ms);
 }
 
 static void	ms_state_quote(t_info *ms, int chartype)
