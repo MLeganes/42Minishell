@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 15:30:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 04:05:57 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ static void	exec_program(t_info *ms, int islast)
 	else
 	{
 		if (pipe(fdp) == -1)
-			printf("Pipe Error \n");
-		if (ft_strlen(ms->tmp_pgm->argv[0]) == 4
-			&& !ft_strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes)
+			error_exit_errno(127, "pipe", "error", 0);
+		if (!ft_strncmp(ms->tmp_pgm->argv[0], "exit", 4) && ms->npipes)
 		{
 			exec_parent(ms, fdp, islast);
 			return ;
 		}
-		if (fork() == 0)
-			exec_child(ms, fdp);
+		ms->tmp_pgm->pid = fork();
+		if (ms->tmp_pgm->pid < 0)
+			error_exit_errno(errno, "fork", strerror(errno), 0);		
+		else if (ms->tmp_pgm->pid == 0)
+			exec_child(ms, fdp);		
 		else
 			exec_parent(ms, fdp, islast);
 		ms->idx++;
@@ -47,6 +49,7 @@ void	execute(t_info *ms)
 	ms->tmp_pgm = ms->pgmlist;
 	ms->fd_old[READ] = STDIN_FILENO;
 	ms->fd_old[WRITE] = -1;
+	ms->env = ms_env_to_arr(ms->env_v);
 	while (ms->tmp_pgm)
 	{
 		islast = 0;
@@ -54,16 +57,13 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			if (isbuiltin(ms->tmp_pgm->argv) == 0
-				&& (ft_strchr(ms->tmp_pgm->argv[0], '/') == NULL))
-			{
-				if (ms_program_updatepath(ms) == ERROR)
-					return ;
-			}
+			if (isbuiltin(ms->tmp_pgm->argv) == 0)
+				env_search_program_path(ms, ms->tmp_pgm->argv[0]);
 			if (ms->tmp_pgm->argv[0])
 				exec_program(ms, islast);
 		}
 		ms->tmp_pgm = ms->tmp_pgm->next;
 	}	
 	parent_waitpid(ms);
+	free_ms_env(ms);
 }

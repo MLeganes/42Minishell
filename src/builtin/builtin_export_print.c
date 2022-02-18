@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_print.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:47:36 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 15:50:55 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:07:11 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ char	**ms_env_to_arr(t_env *env)
 {
 	int		i;
 	char	**arr;
+	int		len;
 
-	arr = (char **)malloc(sizeof(char *) * (ms_lstlen(env) + 1));
+	len = ms_lstlen(env);
+	arr = (char **)malloc(sizeof(char *) * (len + 1));
 	if (arr == NULL)
 		return (NULL);
 	i = 0;
@@ -78,7 +80,7 @@ char	**ms_env_to_arr(t_env *env)
 		i++;
 		env = env->next;
 	}
-	arr[i] = 0;
+	arr[i] = NULL;
 	return (arr);
 }
 

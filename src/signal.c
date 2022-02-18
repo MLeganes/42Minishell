@@ -3,24 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/16 00:23:46 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/18 14:07:44 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signalhandler_ctrlc(int sig)
-{
+static void	signalhandler_ctrlc(int sig)
+{			
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 1);
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+}
+
+void	sig_setter(void)
+{
+	struct termios mio;
+
+	tcgetattr(0, &mio);
+	mio.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &mio);
+	signal(SIGINT, signalhandler_ctrlc);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	sig_unsetter(void)
+{
+	struct termios mio;
+
+	tcgetattr(1, &mio);
+	mio.c_lflag |= ECHOCTL;
+	tcsetattr(1, 0, &mio);
+	signal(SIGINT, SIG_IGN);
+}
+
+void	sig_fork(int sig)
+{
+	if (sig == SIGINT)
+		printf("\n");
+	else if (sig == SIGQUIT)
+		printf("Quit: 3\n");
+}
+
+void	sig_setter_hd(void)
+{
+	struct termios mio;
+
+	tcgetattr(0, &mio);
+	mio.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &mio);
+	signal(SIGINT, signalhandler_heredoc);
 }
 
 void	signalhandler_heredoc(int sig)

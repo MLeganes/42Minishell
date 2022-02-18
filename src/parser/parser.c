@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:36:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/12 18:51:59 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 05:26:12 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-	// create new program-cmd
-		// END-WHILE
-		//if (ms->list && ms->list->type == PIPE)
-			//stop. new program after while
+	
 static int	parser_build_program(t_info *ms)
 {
 	t_program	*pgm;
@@ -40,8 +36,6 @@ static int	parser_build_program(t_info *ms)
 	return (0);
 }
 
-		// if (ms->list && ms->list->next)
-		// 	free(ms->list->data); after parser_built
 int	parser(t_info *ms)
 {
 	ms->tmp_tkn = ms->list;
@@ -54,4 +48,3 @@ int	parser(t_info *ms)
 	}
 	return (0);
 }
-	// check what to free!!!

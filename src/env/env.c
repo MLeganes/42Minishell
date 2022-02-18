@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:07:06 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 15:35:05 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/17 23:54:00 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	get_env(t_info *ms)
 	int			j;
 	extern char	**environ;
 
-	ms->env = environ;
 	i = 0;
 	ms->env_v = NULL;
 	ms->tmp_env = NULL;

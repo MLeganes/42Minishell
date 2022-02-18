@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/17 18:22:54 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:58:22 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <termios.h>
+# include <dirent.h>				// opendir, readdir.q
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -41,6 +42,7 @@
 # define RE			"\033[0m"
 
 # define ERROR		-1
+# define SUCCESS	0
 # define READ		0
 # define WRITE		1
 
@@ -245,14 +247,18 @@ char		*ms_expand_get_value(t_info *ms, char *s, int i, int ret);
 t_env		*ms_find_env_var(t_info *ms, char **var);
 char		**ms_env_to_arr(t_env *env);
 int			ms_check_var(char *var);
-char		*ms_get_path(char **env, char *command);
 t_env		*ms_new_env(char *var, char *content);
 void		env_addback(t_env **lst, t_env *new);
+// EXEC-CHILD PATH SEARCH
+int			env_search_program_path(t_info *ms, char *argv);
 /*
  * SIGNAL
  */
-void		signalhandler_ctrlc(int sig);
+void		sig_fork(int sig);
 void		signalhandler_heredoc(int sig);
+void		sig_setter(void);
+void		sig_unsetter(void);
+void		sig_setter_hd(void);
 /*
  * EXECUTION
  */
@@ -288,6 +294,7 @@ void		free_str(char *str);
 void		free_after_cmd(t_info *ms);
 void		free_end(t_info *ms);
 void		free_argv(char **argv);
+void		free_ms_env(t_info *ms);
 void		free_list(t_info *ms);
 /*
  * GET NEXT LINE
@@ -297,4 +304,6 @@ char		*minishell_get_next_line(int fd);
  * ERROR
  */
 void		error_exit(char *arg, char *msg);
+int			error_exit_status127(char *argv);
+void		error_exit_errno(int errornum, char *arg, char *msg, int ms_exit);
 #endif
