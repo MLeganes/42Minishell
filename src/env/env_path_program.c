@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/18 05:56:03 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:37:31 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int	env_search_program_path(t_info *ms, char *argv)
 			if (ms->tmp_pgm->argv[0])
 				free(ms->tmp_pgm->argv[0]);
 			ms->tmp_pgm->argv[0] = tmp;
+			errno = 0;
 			return (EXIT_SUCCESS);
 		}
 	}
