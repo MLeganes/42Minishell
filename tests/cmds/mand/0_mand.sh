@@ -41,9 +41,9 @@ unset PATH
 
 cat | ls
 
-<< end <Makefile cat
+\<< end <Makefile cat
 
-<< end cat
+\<< end cat
 
 echo hello | exit | hostname
 
