@@ -6,12 +6,12 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 05:25:07 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/19 00:06:06 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// Exit cleaning everything, line 21
+
 static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 {
 	t_redir	*new;
@@ -33,7 +33,14 @@ static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 int	parser_build_redirection(t_info *ms, t_program **pgm)
 {
 	t_redir	*redir;
+	char	*tmp;
 
+	if (ms->tmp_tkn->type != REDIR_DLESS)
+	{
+		tmp = ms->tmp_tkn->next->data;
+		ms->tmp_tkn->next->data = ft_strtrim(tmp, "'\"");
+		free(tmp);
+	}
 	if (ms->tmp_tkn->type == REDIR_GREAT)
 	{
 		redir = new_redirection(ms, 0, 1);
@@ -46,7 +53,7 @@ int	parser_build_redirection(t_info *ms, t_program **pgm)
 	}
 	else if (ms->tmp_tkn->type == REDIR_LESS)
 	{
-		redir = new_redirection(ms, 0, 1);
+		redir = new_redirection(ms, 0, 0);
 		ms_redir_lstadd_last(&(*pgm), redir);
 	}
 	else if (ms->tmp_tkn->type == REDIR_DLESS)
@@ -98,7 +105,7 @@ int	redir_selector(t_info *ms, int inb)
 	t_redir	*tmp;
 	int		status;
 
-	tmp = ms->tmp_pgm->redir;
+	tmp = ms->pgmlist->redir;
 	status = 1;
 	while (tmp)
 	{

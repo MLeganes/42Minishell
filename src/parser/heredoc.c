@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:20:06 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 13:52:13 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:44:26 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 		hd.line = readline("> ");
 		if (hd.line == NULL)
 		{
-			write(STDERR_FILENO, "", 1);
+			write(STDERR_FILENO, "\n", 1);
 			hd.exit = 0;
 		}
 		else if (!ft_strncmp(hd.line, hd.delim, ft_strlen(hd.delim) + 1))
@@ -91,7 +91,7 @@ int	ms_redir_heredoc(t_info *ms, t_program **pgm)
 		else
 			ms_heredoc_writeline(ms, &hd);
 	}
-	if (write(0, "", 0) == -1)
+	if (write(0, "", 0) == -1 || errno == EBADF)
 		return (ms_redir_heredoc_signal(&hd));
 	ms_redir_heredoc_close(&hd);
 	ms_redir_lstadd_last(&(*pgm), new_redirection_heredoc(hd.file, 0, 0));
