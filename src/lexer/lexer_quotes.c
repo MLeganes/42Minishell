@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 20:43:32 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:57:48 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 19:57:46 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,12 @@ static int	ms_d_quotes(t_info *ms, char **tmp, char *str, int *i)
 		(*tmp) = ms_append_char((*tmp), str[(*i)]);
 		(*i)++;
 	}
-	if (str[(*i)] == '$')
+	if (str[(*i)] == '$' && str[(*i) + 1] == '\"')
+	{
+		(*tmp) = ms_append_char((*tmp), '$');
+		(*i)++;
+	}
+	if (str[(*i)] == '$' && str[(*i) + 1] != '\0' && str[(*i) + 1] != '\"')
 	{
 		k = ms_exp_var(ms, tmp, str, i);
 		if (k == -1)

@@ -6,23 +6,24 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/16 14:55:08 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/18 20:14:49 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	do_expansion(t_info *ms, char **copy, char **var, char **tmp)
+static int	do_expansion(t_info *ms, char *copy, char *var, char **tmp)
 {
-	ms->tmp_env = ms_find_env_var(ms, var);
+	ms->tmp_env = ms_find_env_var(ms, &var);
 	if (ms->tmp_env == NULL)
 	{
-		free_str(*var);
+		//free_argv(var);
 		ft_putstr_fd("\n", 2);
 		return (ERROR);
 	}
-	(*tmp) = ft_strjoin(*copy, ms->tmp_env->content);
-	free_str(*copy);
+	(*tmp) = ft_strjoin(copy, ms->tmp_env->content);
+	if (copy)
+		free_str(copy);
 	return (0);
 }
 
@@ -38,27 +39,39 @@ static void	expand_exit_s(char **tmp, char *copy)
 
 int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 {
-	char	*var;
+	char	*s;
+	char	**var;
 	char	*copy;
 	int		k;
+	int		j;
 
 	k = 0;
+	j = 0;
 	var = NULL;
+	ms->idx = 0;
 	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0'
 		&& str[(*i) + k] != ' ' && str[(*i) + k] != '/')
 		k++;
 	if (str[(*i) + k] != '\0')
 		(*tmp) = ms_append_char((*tmp), '\0');
-	var = ft_substr(str, (*i) + 1, (k - 1));
-	copy = *tmp;
-	if (ft_strcmp(var, "?") == 0)
-		expand_exit_s(tmp, copy);
-	else
+	s = ft_substr(str, (*i) + 1, (k - 1));
+	var = ft_split(s, '$');
+	while (var[j])
 	{
-		if (do_expansion(ms, &copy, &var, tmp) == ERROR)
-			return (ERROR);
+		copy = *tmp;
+		if (ft_strcmp(var[j], "?") == 0)
+			expand_exit_s(tmp, copy);
+		else
+		{
+			if (do_expansion(ms, copy, var[j], tmp) == ERROR)
+			{
+				free_argv(var);
+				return (ERROR);
+			}
+		}
+		j++;
 	}
-	free_str(var);
+	free_str(s);
 	return (k);
 }
 

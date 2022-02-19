@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:39:46 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/18 04:17:39 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/18 20:00:15 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ms_loop_var(t_info *ms, char *str, int *err)
 	tmp = NULL;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '\0')
 		{
 			k = ms_exp_var(ms, &tmp, str, &i);
 			if (k == -1)
@@ -55,7 +55,6 @@ int	expansion(t_info *ms)
 			ms->tmp_tkn->data = ms_loop_var(ms, ms->tmp_tkn->data, &err);
 		if (err == -1)
 		{
-			error_exit("error", "no such variable");
 			return (-1);
 		}
 		ms->tmp_tkn = ms->tmp_tkn->next;
