@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 11:55:28 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 14:21:08 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	minishell(t_info *ms)
 void fds_copy(t_info *info)
 {
 	info->fd_copy[0] = 0;
-	info->fd_copy[1] = 0;
+	info->fd_copy[1] = 1;
 	dup2(STDIN_FILENO, info->fd_copy[0]);
 	dup2(STDOUT_FILENO, info->fd_copy[1]);
 }
