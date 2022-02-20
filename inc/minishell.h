@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 11:24:29 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 17:09:17 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,11 @@ int			lexer(t_info *info);
 int			parser(t_info *ms);
 void		execute(t_info *ms);
 int			expansion(t_info *ms);
+/*
+ * FILEDESCRIPTORS
+ */
+void		fds_copy(t_info *ms);
+void		fds_reset(t_info *ms);
 /*
  * LEXER: lexer_quotes
  */

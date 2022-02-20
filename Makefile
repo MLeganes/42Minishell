@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
+#    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/17 11:35:02 by amorcill         ###   ########.fr        #
+#    Updated: 2022/02/20 17:16:15 by arohmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ P		=	parser/
 G		=	garbage_collector/
 
 OBJS	= 	$(patsubst $S%.c, $O%.o, $(SRCS))
-SRCS	=	$Sminishell.c $Serror.c $Sgetnextline.c \
+SRCS	=	$Sminishell.c $Serror.c \
+			$Sfiledescriptor.c \
+			$Sgetnextline.c \
 			$S$Lexpansion.c $S$Llexer.c $S$Llexer_utils.c $S$Llexer_utils2.c $S$Llexer_quotes.c $S$Llexer_quotes_utils.c\
 			$S$Llexer_quotes_utils2.c \
 			$S$Pparser.c $S$Predirection.c $S$Predirection_utils.c $S$Pheredoc.c $S$Pheredoc_init.c $S$Pprogram.c \

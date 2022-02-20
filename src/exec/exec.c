@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 01:52:20 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 17:37:44 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	exec_program(t_info *ms, int islast)
 		}
 		ms->tmp_pgm->pid = fork();
 		if (ms->tmp_pgm->pid < 0)
-			error_exit_errno(errno, "fork", strerror(errno), 0);		
+			error_exit_errno(errno, "fork", strerror(errno), 0);
 		else if (ms->tmp_pgm->pid == 0)
-			exec_child(ms, fdp);		
+			exec_child(ms, fdp);
 		else
 			exec_parent(ms, fdp, islast);
 		ms->idx++;
@@ -57,7 +57,6 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
-			init_fds(ms);
 			if (isbuiltin(ms->tmp_pgm->argv) == 0)
 				env_search_program_path(ms, ms->tmp_pgm->argv[0]);
 			if (ms->tmp_pgm->argv[0])
