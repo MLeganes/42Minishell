@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:31:32 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 04:05:57 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 01:52:20 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_program(t_info *ms, int islast)
 	if (isbuiltin(ms->tmp_pgm->argv) && !ms->npipes)
 	{
 		if (redir_selector(ms, 0))
-			builtin_selector(ms, ms->tmp_pgm);
+			builtin_selector(ms, ms->tmp_pgm, 0);
 	}
 	else
 	{
@@ -57,6 +57,7 @@ void	execute(t_info *ms)
 			islast = 1;
 		if (ms->tmp_pgm->argv)
 		{
+			init_fds(ms);
 			if (isbuiltin(ms->tmp_pgm->argv) == 0)
 				env_search_program_path(ms, ms->tmp_pgm->argv[0]);
 			if (ms->tmp_pgm->argv[0])

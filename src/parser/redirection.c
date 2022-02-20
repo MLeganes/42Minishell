@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/19 00:06:06 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/19 22:05:59 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	parser_build_redirection(t_info *ms, t_program **pgm)
 		if (ms_redir_heredoc(ms, &(*pgm)) == ERROR)
 			return (ERROR);
 	}
-	ms->tmp_tkn = ms->tmp_tkn->next;
+	if (ms->tmp_tkn->next)
+		ms->tmp_tkn = ms->tmp_tkn->next;
 	return (0);
 }
 
@@ -112,7 +113,7 @@ int	redir_selector(t_info *ms, int inb)
 		if (tmp->is_out == 0 && tmp->is_app == 0)
 			status = ms_redir_in(tmp, inb);
 		else if (tmp->is_out == 1)
-			ms_redir_out(tmp);
+			status = ms_redir_out(tmp);
 		else
 			error_exit_errno(127, "Redir", "Redirection is nonsense", 0);		
 		tmp = tmp->next;

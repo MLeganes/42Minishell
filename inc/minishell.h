@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 14:08:26 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 11:24:29 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ typedef struct s_info
 	t_program	*pgmlist;
 	t_program	*tmp_pgm;
 	int			fd_old[2];
-	int			std_out;
+	int			fd_copy[2];
 	int			npgms;
 }	t_info;
 
@@ -228,6 +228,8 @@ char		*ms_error_return(char *tmp, char *str, int *err, int b);
 /*
  * PARSER: parser, program(command), redirection and heredoc.
  */
+
+void		init_fds(t_info *ms);
 int			parser_build_redirection(t_info *ms, t_program **pgm);
 int			redir_selector(t_info *ms, int inb);
 t_program	*new_program(void);
@@ -268,8 +270,8 @@ void		parent_waitpid(t_info *ms);
  * BUILTIN COMMANDS
  */
 int			isbuiltin(char **argv);
-void		builtin_selector(t_info *ms, t_program *pgm);
-void		exec_echo(t_info *ms, t_program *pgm);
+void		builtin_selector(t_info *ms, t_program *pgm, int  isfork);
+void		exec_echo(t_program *pgm);
 void		exec_cd(t_info *ms, t_program *pgm);
 void		exec_pwd(t_info *ms, t_program *pgm);
 int			exec_export(t_info *ms, t_program *pgm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 19:49:55 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 11:51:26 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,39 @@ static void	minishell(t_info *ms)
 	}
 }
 
+void fds_copy(t_info *info)
+{
+	info->fd_copy[0] = 0;
+	info->fd_copy[1] = 0;
+	dup2(STDIN_FILENO, info->fd_copy[0]);
+	dup2(STDOUT_FILENO, info->fd_copy[1]);
+}
+
+void	init_fds(t_info *mini)
+{
+	dup2(mini->fd_copy[0], STDIN_FILENO);
+	dup2(mini->fd_copy[1], STDOUT_FILENO);
+}
+
 int	main(void)
 {
 	t_info	info;
+	int 	err;
 
 	signal(SIGQUIT, SIG_IGN);
 	get_env(&info);
+	fds_copy(&info);
 	while (1)
 	{
 		init_struct(&info);
 		sig_setter();
 		if (isatty(STDIN_FILENO))
+		{
+			err = errno;
 			info.cmdline = readline(info.prompt);
+		}
 		else
-			info.cmdline = minishell_get_next_line(0);
+		 	info.cmdline = minishell_get_next_line(0);
 		if (info.cmdline == NULL)
 		{
 			if (isatty(STDIN_FILENO))
@@ -59,9 +78,11 @@ int	main(void)
 			free_end(&info);
 			exit (g_exit_status);
 		}
+		errno = err;
 		sig_unsetter();
 		minishell(&info);
 		free_after_cmd(&info);
+		init_fds(&info);
 	}
 	free_end(&info);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:18:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/09 16:32:42 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/19 22:42:07 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	isbuiltin(char **argv)
 	return (0);
 }
 
-void	builtin_selector(t_info *ms, t_program *pgm)
+void	builtin_selector(t_info *ms, t_program *pgm, int isfork)
 {
 	if (ft_strlen(pgm->argv[0]) == 3 && !ft_strncmp(pgm->argv[0], "pwd", 3))
 		exec_pwd(ms, pgm);
@@ -39,7 +39,7 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 		exec_cd(ms, pgm);
 	else if (ft_strlen(pgm->argv[0]) == 4
 		&& !ft_strncmp(pgm->argv[0], "echo", 4))
-		exec_echo(ms, pgm);
+		exec_echo(pgm);
 	else if (ft_strlen(pgm->argv[0]) == 3
 		&& !ft_strncmp(pgm->argv[0], "env", 3))
 		exec_env(ms);
@@ -52,5 +52,7 @@ void	builtin_selector(t_info *ms, t_program *pgm)
 	else if (ft_strlen(pgm->argv[0]) == 4
 		&& !ft_strncmp(pgm->argv[0], "exit", 4))
 		exec_exit(pgm);
+	if (isfork == 1)
+		exit(EXIT_SUCCESS);
 	return ;
 }
