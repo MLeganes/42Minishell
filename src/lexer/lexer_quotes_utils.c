@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/20 21:21:58 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:34:06 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	loop_var(t_info *ms, char **tmp, char **var)
 		}
 		j++;
 	}
+	free_argv(var);
 	return (0);
 }
 
@@ -68,6 +69,7 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 
 	k = 0;
 	var = NULL;
+	s = NULL;
 	ms->idx = 0;
 	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0'
 		&& str[(*i) + k] != '\''
@@ -77,9 +79,9 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 		(*tmp) = ms_append_char((*tmp), '\0');
 	s = ft_substr(str, (*i) + 1, (k - 1));
 	var = ft_split(s, '$');
+	free_str(s);
 	if (loop_var(ms, tmp, var) == ERROR)
 		return (ERROR);
-	free_str(s);
 	return (k);
 }
 
