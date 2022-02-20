@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path_program.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/18 11:37:31 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:32:35 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,6 @@ static char	*env_getenv(char **env, char *var)
 	return (NULL);
 }
 
-// int 	env_search_no_slash(t_info *ms, char **env, char *argv)
-// {
-// 	char	*ret;
-
-// 	if (env_getenv(env, "PATH") != NULL)
-// 	{
-// 		ret = ms_get_path(env, argv);
-// 		if (ret == NULL)
-// 			return (error_exit_status127(argv));
-// 		else
-// 		{
-// 			if (ms->tmp_pgm->argv[0])
-// 				free(ms->tmp_pgm->argv[0]);
-// 			ms->tmp_pgm->argv[0] = ret;
-// 			g_exit_status = EXIT_SUCCESS;
-// 			return (SUCCESS);
-// 		}
-// 	}
-// 	else
-// 		return (error_exit_status127(argv));
-// }
-
 /* Used in exec-child to get the right path or not*/
 static char	*ms_get_valid_path(char **paths, char *cmd)
 {
@@ -66,9 +44,10 @@ static char	*ms_get_valid_path(char **paths, char *cmd)
 	i = 0;
 	while (paths[i])
 	{
-		//if (cmd[0] == '/' && (stat(cmd, &ss) == EXIT_SUCCESS))
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
+		else
+			g_exit_status = 127;
 		full_path = ft_strjoin(paths[i], command);
 		if (stat(full_path, &ss) == EXIT_SUCCESS)
 		{
@@ -165,19 +144,3 @@ int	env_search_program_path(t_info *ms, char *argv)
 	ms->tmp_pgm->argv[0] = NULL;
 	return (EXIT_FAILURE);
 }
-// old one!!!!
-// int	env_search_program_path(t_info *ms, char *argv)
-// {
-// 	if ((ft_strchr(argv, '/') == NULL))
-// 		return (env_search_no_slash(ms, ms->env, argv));
-// 	else
-// 	{
-// 		if (access(argv, F_OK) == 0)
-// 		{		
-// 			g_exit_status = EXIT_SUCCESS;
-// 			return (SUCCESS);
-// 		}
-// 		else
-// 			return (error_exit_status127(argv));
-// 	}
-// }
