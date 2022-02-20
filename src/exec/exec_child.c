@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 16:18:56 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:24:10 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ static void	ms_dup_close_fd_old(t_info *ms)
 	close(ms->fd_old[WRITE]);
 	dup2(ms->fd_old[READ], STDIN_FILENO);
 	close(ms->fd_old[READ]);
+}
+
+static void	set_error(t_info *ms)
+{
+	if (errno == EACCES)
+		error_exit_errno(127, ms->tmp_pgm->argv[0], " permission denied", 0);
+	free_end(ms);
+	if (errno == ENOENT)
+		g_exit_status = 127;
+	else
+		g_exit_status = 126;
+	exit(g_exit_status);
 }
 
 void	exec_child(t_info *ms, int fd[2])
@@ -44,16 +56,6 @@ void	exec_child(t_info *ms, int fd[2])
 		signal(SIGQUIT, SIG_DFL);
 		res = execve(ms->tmp_pgm->argv[0], ms->tmp_pgm->argv, ms->env);
 		if (res < 0)
-		{
-			if (errno == EACCES)
-				error_exit(ms->tmp_pgm->argv[0], " permission denied");
-			else
-				error_exit(ms->tmp_pgm->argv[0], " command not found");
-			free_end(ms);
-			g_exit_status = errno;
-			exit(errno);
-		}
+			set_error(ms);
 	}
-	// test if afect to PIPES
-	// is not ending if there is a failed command
 }
