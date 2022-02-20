@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:41:33 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/16 15:51:03 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/19 20:58:52 by annarohmnn       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	ms_var_handler(t_info *ms, char **args, int len, int i)
 static int	arg_error(char *args)
 {
 	error_exit(args, " is not a valid identifier");
-	return (0);
+	g_exit_status = 1;
+	return (1);
 }
 
 /*

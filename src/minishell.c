@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:00:24 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 11:51:26 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 11:55:28 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,42 @@ static void	init_struct(t_info *info)
 	info->pgmlist = NULL;
 	info->npgms = 0;
 }
+int	syntax_check(t_info *ms)
+{
+	int		i;
+	t_token	*token;
+
+	token = ms->list;
+	i = 0;
+	while (token != NULL)
+	{
+		if ((token->type == PIPE && token->next->type == PIPE && token->next->next->type == PIPE)
+			|| (token->type == REDIR_GREAT && token->next->type == REDIR_GREAT)
+			|| (token->type == REDIR_GREAT && token->next->type == REDIR_LESS)
+			|| (token->type == REDIR_LESS && token->next->type == REDIR_LESS)
+			|| (token->type == REDIR_LESS && token->next->type == REDIR_GREAT)
+			|| (token->type == REDIR_DLESS && token->next->type == REDIR_DLESS)
+			|| (token->type == REDIR_DGREAT && token->next->type == REDIR_DGREAT)
+			|| (token->type == REDIR_DGREAT && (ft_strcmp(token->next->data, "") == 0))
+			|| (token->type == REDIR_DLESS && (ft_strcmp(token->next->data, "") == 0))
+			|| (token->type == REDIR_LESS && (ft_strcmp(token->next->data, "") == 0))
+			|| (token->type == REDIR_GREAT && (ft_strcmp(token->next->data, "") == 0))
+			|| (token->type == PIPE && (ft_strcmp(token->next->data, "") == 0))
+			|| (i == 0 && token->type == PIPE))
+		{
+			error_exit(token->data, "Syntax error near unexpected token");
+			g_exit_status = 2;
+			return (ERROR);
+		}
+		token = token->next;
+		i++;
+	}
+	return (0);
+}
 
 static void	minishell(t_info *ms)
 {
-	if (lexer(ms) == 0)
+	if ((lexer(ms) == 0) && (syntax_check(ms) == 0))
 	{
 		errno = 0;
 		if (parser(ms) != ERROR)
