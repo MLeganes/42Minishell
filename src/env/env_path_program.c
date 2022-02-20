@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/20 15:32:35 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:26:41 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int	env_search_program_path(t_info *ms, char *argv)
 	
 	if (access(argv, F_OK) == 0)
 		return (EXIT_SUCCESS);
-		
 	path_values = env_getenv(ms->env, "PATH");
 	if ( path_values == NULL)
 	{
@@ -139,8 +138,9 @@ int	env_search_program_path(t_info *ms, char *argv)
 		}
 	}
 	error_exit_errno(127, argv, "Command not found", 0);
+	g_exit_status = 127;
 	if (ms->tmp_pgm->argv[0])
 		free(ms->tmp_pgm->argv[0]);
-	ms->tmp_pgm->argv[0] = NULL;
+	ms->tmp_pgm->argv[0] = ft_strdup("");
 	return (EXIT_FAILURE);
 }
