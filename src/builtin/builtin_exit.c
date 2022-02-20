@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:28:44 by arohmann          #+#    #+#             */
-/*   Updated: 2022/02/12 20:29:08 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:55:35 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,24 @@ void	ms_exit_status(char **args, int ret)
 int	exec_exit(t_program *pgm)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (pgm->argv[1] == NULL)
 		exit(g_exit_status);
+	if (pgm->argv[2] != NULL)
+	{
+		ft_putstr_fd("exit\n", 2);
+		error_exit(pgm->argv[0], " too many arguments");
+		g_exit_status = 1;
+		return (1);
+	}
+	if ((pgm->argv[1][i] == '+' || pgm->argv[1][i] == '-'))
+		i++;
 	while (((ft_strcmp(pgm->argv[1], "") == 0) || pgm->argv[1][i] != '\0' ))
 	{
-		if ((pgm->argv[1][0] != '+' || pgm->argv[1][0] != '-')
+		if ((pgm->argv[1][i] != '+' || pgm->argv[1][i] != '-')
 				&& ft_isdigit(pgm->argv[1][i]) != 1)
 		{
 			ft_putstr_fd("exit\n", 2);
@@ -54,12 +65,6 @@ int	exec_exit(t_program *pgm)
 		i++;
 	}
 	ms_exit_status(pgm->argv, 0);
-	if (pgm->argv[2] != NULL)
-	{
-		ft_putstr_fd("exit\n", 2);
-		error_exit(pgm->argv[0], " too many arguments");
-		g_exit_status = 1;
-		return (1);
-	}
+
 	return (0);
 }

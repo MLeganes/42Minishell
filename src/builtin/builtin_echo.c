@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:45:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/19 21:42:58 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:06:06 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_word_count(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
 
 void	exec_echo(t_program *pgm)
 {
@@ -37,11 +27,10 @@ void	exec_echo(t_program *pgm)
 	while (pgm->argv[i])
 	{
 		ft_putstr_fd(pgm->argv[i], STDOUT_FILENO);
+		if (pgm->argv[i + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
-		if (i < ft_word_count(pgm->argv))
-			ft_putstr_fd(" ", STDOUT_FILENO);
-		// if (pgm->argv[i + 1])
-		// 	ft_putchar_fd(' ', STDOUT_FILENO);
+		g_exit_status = 0;
 	}
 	if (flag != 1)
 		ft_putchar_fd('\n', STDOUT_FILENO);
