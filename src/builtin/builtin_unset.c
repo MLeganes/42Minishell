@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annarohmnn <annarohmnn@student.42.fr>      +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:58:59 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/19 20:51:20 by annarohmnn       ###   ########.fr       */
+/*   Updated: 2022/02/20 21:12:11 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ static void	ms_del_env_var(t_env **env, char *var)
 	}
 }
 
+static void	no_var(t_program *pgm, int i)
+{
+	error_exit(pgm->argv[i], "not a valid identifier");
+	g_exit_status = 1;
+	return ;
+}
+
 void	exec_unset(t_info *ms, t_program *pgm)
 {
 	int		i;
@@ -62,11 +69,7 @@ void	exec_unset(t_info *ms, t_program *pgm)
 		if (ms_find_env_var(ms, &var) != NULL)
 			ms_del_env_var(&ms->env_v, var);
 		else
-		{
-			error_exit(pgm->argv[i], "not a valid identifier");
-			g_exit_status = 1;
-			return ;
-		}
+			no_var(pgm, i);
 		i++;
 	}
 	free_str(var);

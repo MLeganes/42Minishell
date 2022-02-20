@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:59:43 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/18 02:24:57 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:29:51 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	error_exit_status127(char *argv)
 
 void	error_exit_errno(int errornum, char *arg, char *msg, int ms_exit)
 {
-	//write(1, "minishell: ", 11);
-	//write(1, errormsg, ft_strlen(errormsg));
-	///write(1, "\n", 1);
-	errno = errornum;
+	g_exit_status = errornum;
 	if (ms_exit == 1)
 		exit(errornum);
 	error_exit(arg, msg);

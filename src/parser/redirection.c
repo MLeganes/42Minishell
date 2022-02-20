@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:22:34 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/19 22:05:59 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:02:42 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static t_redir	*new_redirection(t_info *ms, int is_app, int is_out)
 
 int	parser_build_redirection(t_info *ms, t_program **pgm)
 {
-	t_redir	*redir;
 	char	*tmp;
 
 	if (ms->tmp_tkn->type != REDIR_DLESS)
@@ -42,20 +41,11 @@ int	parser_build_redirection(t_info *ms, t_program **pgm)
 		free(tmp);
 	}
 	if (ms->tmp_tkn->type == REDIR_GREAT)
-	{
-		redir = new_redirection(ms, 0, 1);
-		ms_redir_lstadd_last(&(*pgm), redir);
-	}
+		ms_redir_lstadd_last(&(*pgm), new_redirection(ms, 0, 1));
 	else if (ms->tmp_tkn->type == REDIR_DGREAT)
-	{
-		redir = new_redirection(ms, 1, 1);
-		ms_redir_lstadd_last(&(*pgm), redir);
-	}
+		ms_redir_lstadd_last(&(*pgm), new_redirection(ms, 1, 1));
 	else if (ms->tmp_tkn->type == REDIR_LESS)
-	{
-		redir = new_redirection(ms, 0, 0);
-		ms_redir_lstadd_last(&(*pgm), redir);
-	}
+		ms_redir_lstadd_last(&(*pgm), new_redirection(ms, 0, 0));
 	else if (ms->tmp_tkn->type == REDIR_DLESS)
 	{	
 		if (ms_redir_heredoc(ms, &(*pgm)) == ERROR)
@@ -74,8 +64,8 @@ static int	ms_redir_in(t_redir *tmp, int inb)
 	if (fd < 0)
 	{
 		if (inb == 1)
-			error_exit_errno(1, "Redir", "No such file or directory\n", inb);	
-		error_exit_errno(1, "Redir", "No such file or directory", inb);	
+			error_exit_errno(1, "Redir", "No such file or directory\n", inb);
+		error_exit_errno(1, "Redir", "No such file or directory", inb);
 		return (0);
 	}
 	else
@@ -115,7 +105,7 @@ int	redir_selector(t_info *ms, int inb)
 		else if (tmp->is_out == 1)
 			status = ms_redir_out(tmp);
 		else
-			error_exit_errno(127, "Redir", "Redirection is nonsense", 0);		
+			error_exit_errno(127, "Redir", "Redirection is nonsense", 0);
 		tmp = tmp->next;
 	}
 	return (status);

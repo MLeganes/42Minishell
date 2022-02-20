@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:09:53 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/20 20:01:37 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:07:14 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,13 @@ static char	*ms_get_valid_path(char **paths, char *cmd)
 		full_path = ft_strjoin(paths[i], command);
 		if (stat(full_path, &ss) == EXIT_SUCCESS)
 		{
-			if (command)
-				free(command);
+			free_str(command);
 			return (full_path);
 		}
-		if (full_path)
-			free(full_path);
+		free_str(full_path);
 		i++;
 	}
-	if (command)
-		free(command);
+	free_str(command);
 	return (NULL);
 }
 
@@ -101,6 +98,18 @@ static char	*ms_get_path(char **env, char *command)
 	return (NULL);
 }
 
+static int	get_path_error(t_info *ms, char *argv)
+{
+	error_exit_errno(127, argv, "No such file or directory", 0);
+	if (ms->tmp_pgm->argv[0] != NULL)
+	{
+		free(ms->tmp_pgm->argv[0]);
+		ms->tmp_pgm->argv[0] = NULL;
+		return (EXIT_FAILURE);
+	}
+	return (0);
+}
+
 /***
  * 
  *  NEW VERSION
@@ -108,23 +117,14 @@ static char	*ms_get_path(char **env, char *command)
  ***/
 int	env_search_program_path(t_info *ms, char *argv)
 {
-	char *path_values;
-	char *tmp;
-	
-	
+	char	*path_values;
+	char	*tmp;
+
 	if (access(argv, F_OK) == 0)
 		return (EXIT_SUCCESS);
 	path_values = env_getenv(ms->env, "PATH");
-	if ( path_values == NULL)
-	{
-		error_exit_errno(127, argv, "No such file or directory", 0);		
-		if (ms->tmp_pgm->argv[0] != NULL)
-		{
-			free(ms->tmp_pgm->argv[0]);			
-			ms->tmp_pgm->argv[0] = NULL;
-			return (EXIT_FAILURE);
-		}
-	}
+	if (path_values == NULL)
+		return (get_path_error(ms, argv));
 	else
 	{
 		tmp = ms_get_path(ms->env, argv);

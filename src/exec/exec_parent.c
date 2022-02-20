@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:07:02 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 04:07:33 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:52:09 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,20 @@
 void	parent_waitpid(t_info *ms)
 {
 	int	status;
-	int ex;
+	int	ex;
 
 	status = 0;
 	while (ms->idx > 0)
 	{
 		wait(&status);
 		if (WIFEXITED(status))
-			{
+		{
 			ex = WEXITSTATUS(status);
 			errno = ex;
+			g_exit_status = errno;
+			if (errno == 2)
+				g_exit_status = 127;
 		}
-		
-		// if (WIFEXITED(status) == true)
-		// {
-		// 	printf("Parent IF status = %d G_exit_status: %d \n", status, g_exit_status);
-		// 	g_exit_status = WEXITSTATUS(status);
-		// }
-		// else
-		// {
-		// 	printf("Parent ELSE status = %d G_exit_status: %d \n", status, g_exit_status);
-		// 	g_exit_status = 127;
-		// 	error_exit("cmd ", strerror(errno));
-		// }
-		// if (WIFSIGNALED(status))
-		// {
-		// 	printf("Parent WIF-SIGNAL status = %d G_exit_status: %d \n", status, g_exit_status);
-		// 	if (WTERMSIG(status) == 3)
-		// 		write(STDERR_FILENO, "Quit: 3\n", 8);
-		// 	else if (WTERMSIG(status) == 2)
-		// 		write(STDERR_FILENO, "\n", 1);
-		// 	g_exit_status = 128 + WTERMSIG(status);
-		// }
 		ms->idx--;
 	}
 }

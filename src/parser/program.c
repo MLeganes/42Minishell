@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:48:55 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 00:29:06 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 17:50:34 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,6 @@ t_program	*new_program(void)
 	new->redir = NULL;
 	return (new);
 }
-
-// int	ms_program_updatepath(t_info *ms)
-// {
-// 	char	*path;
-
-// 	path = ms_get_path(ms->env, ms->tmp_pgm->argv[0]);
-// 	if (path != NULL)
-// 	{
-// 		if (ms->tmp_pgm->argv[0])
-// 			free(ms->tmp_pgm->argv[0]);
-// 		ms->tmp_pgm->argv[0] = path;
-// 	}
-// 	else
-// 	{
-// 		error_exit(ms->tmp_pgm->argv[0], " command not found");
-// 		g_exit_status = 127;
-// 		return (ERROR);
-// 	}
-// 	return (0);
-// }
 
 static t_program	*ms_program_lstlast(t_program *lst)
 {

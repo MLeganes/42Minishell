@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 12:58:31 by annarohmnn        #+#    #+#             */
-/*   Updated: 2022/02/18 20:14:49 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:21:58 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	do_expansion(t_info *ms, char *copy, char *var, char **tmp)
 	ms->tmp_env = ms_find_env_var(ms, &var);
 	if (ms->tmp_env == NULL)
 	{
-		//free_argv(var);
 		ft_putstr_fd("\n", 2);
 		return (ERROR);
 	}
@@ -37,25 +36,12 @@ static void	expand_exit_s(char **tmp, char *copy)
 	free_str(copy);
 }
 
-int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
+static int	loop_var(t_info *ms, char **tmp, char **var)
 {
-	char	*s;
-	char	**var;
 	char	*copy;
-	int		k;
 	int		j;
 
-	k = 0;
 	j = 0;
-	var = NULL;
-	ms->idx = 0;
-	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0'
-		&& str[(*i) + k] != ' ' && str[(*i) + k] != '/')
-		k++;
-	if (str[(*i) + k] != '\0')
-		(*tmp) = ms_append_char((*tmp), '\0');
-	s = ft_substr(str, (*i) + 1, (k - 1));
-	var = ft_split(s, '$');
 	while (var[j])
 	{
 		copy = *tmp;
@@ -71,6 +57,28 @@ int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
 		}
 		j++;
 	}
+	return (0);
+}
+
+int	ms_exp_var(t_info *ms, char **tmp, char *str, int *i)
+{
+	char	*s;
+	char	**var;
+	int		k;
+
+	k = 0;
+	var = NULL;
+	ms->idx = 0;
+	while (str[(*i) + k] != '\"' && str[(*i) + k] != '\0'
+		&& str[(*i) + k] != '\''
+		&& str[(*i) + k] != ' ' && str[(*i) + k] != '/')
+		k++;
+	if (str[(*i) + k] != '\0')
+		(*tmp) = ms_append_char((*tmp), '\0');
+	s = ft_substr(str, (*i) + 1, (k - 1));
+	var = ft_split(s, '$');
+	if (loop_var(ms, tmp, var) == ERROR)
+		return (ERROR);
 	free_str(s);
 	return (k);
 }
@@ -93,13 +101,4 @@ char	*ms_append_char(char *str, char c)
 	if (str)
 		free(str);
 	return (tmp);
-}
-
-char	*ms_error_return(char *tmp, char *str, int *err, int b)
-{
-	if (b == 1)
-		*err = -1;
-	free_str(tmp);
-	free_str(str);
-	return (NULL);
 }

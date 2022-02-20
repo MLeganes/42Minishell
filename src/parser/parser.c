@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:36:16 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 05:26:12 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:53:32 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-	
+
 static int	parser_build_program(t_info *ms)
 {
 	t_program	*pgm;

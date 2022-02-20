@@ -6,7 +6,7 @@
 #    By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 11:49:03 by amorcill          #+#    #+#              #
-#    Updated: 2022/02/20 17:16:15 by arohmann         ###   ########.fr        #
+#    Updated: 2022/02/20 20:50:38 by arohmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS	=	$Sminishell.c $Serror.c \
 			$S$Nenv.c $S$Nenv_utils.c $S$Nenv_expand.c $S$Nenv_path_program.c \
 			$S$Eexec.c $S$Eexec_parent.c $S$Eexec_child.c \
 			$S$Gfree2.c $S$Gfree.c \
-			$Ssignal.c \
+			$Ssignal.c $Ssignal_utils.c\
 			$Sprint.c \
 
 INCRL		=-I$(HOME)/.brew/opt/readline/include

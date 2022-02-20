@@ -6,7 +6,7 @@
 /*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 11:56:50 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/20 17:09:17 by arohmann         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:34:53 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <termios.h>
-# include <dirent.h>				// opendir, readdir.q
+# include <dirent.h>
 /* ************************************************************************** */
 /* USER INCLUDES															  */
 /* ************************************************************************** */
@@ -275,7 +275,7 @@ void		parent_waitpid(t_info *ms);
  * BUILTIN COMMANDS
  */
 int			isbuiltin(char **argv);
-void		builtin_selector(t_info *ms, t_program *pgm, int  isfork);
+void		builtin_selector(t_info *ms, t_program *pgm, int isfork);
 void		exec_echo(t_program *pgm);
 void		exec_cd(t_info *ms, t_program *pgm);
 void		exec_pwd(t_info *ms, t_program *pgm);

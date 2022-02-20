@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arohmann <arohmann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:09:36 by amorcill          #+#    #+#             */
-/*   Updated: 2022/02/18 14:07:44 by amorcill         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:49:57 by arohmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	signalhandler_ctrlc(int sig)
-{			
+{
 	if (sig == SIGINT)
 	{
 		printf("\n");
@@ -25,7 +25,7 @@ static void	signalhandler_ctrlc(int sig)
 
 void	sig_setter(void)
 {
-	struct termios mio;
+	struct termios	mio;
 
 	tcgetattr(0, &mio);
 	mio.c_lflag &= ~ECHOCTL;
@@ -36,7 +36,7 @@ void	sig_setter(void)
 
 void	sig_unsetter(void)
 {
-	struct termios mio;
+	struct termios	mio;
 
 	tcgetattr(1, &mio);
 	mio.c_lflag |= ECHOCTL;
@@ -54,16 +54,10 @@ void	sig_fork(int sig)
 
 void	sig_setter_hd(void)
 {
-	struct termios mio;
+	struct termios	mio;
 
 	tcgetattr(0, &mio);
 	mio.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &mio);
 	signal(SIGINT, signalhandler_heredoc);
-}
-
-void	signalhandler_heredoc(int sig)
-{
-	if (sig == SIGINT)
-		close(STDIN_FILENO);
 }
