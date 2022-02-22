@@ -80,5 +80,6 @@ To run my test cases:
 
 * [GNU manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
 * [GNU readline](https://tiswww.case.edu/php/chet/readline/rltop.html)
+* [System Programming](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book)
 * [Writing your own shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
 * [shell syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
