@@ -8,7 +8,7 @@ Minishell is developed and tested on macOS and UNIX/LINUX systems.
 
 ## Installation
 
-* `git clone git@github.com:MLeganes/42Minishell.git` this repository
+* `git clone git@github.com:MLeganes/42Minishell.git`
 * `cd 42Minishell`
 
 ## Running Minishell
@@ -43,6 +43,17 @@ For compilers, include in Makefie:
 	export LDFLAGS="-L$(HOME).brew/opt/readline/lib"
 	export CPPFLAGS="-I$(HOME).brew/opt/readline/include"
 
+## Tester
+To run the general test:
+
+	cd /tests
+	bash tester.sh m
+
+To run my test cases:
+	
+	cd /tests
+	bash tester.sh -f cmds/mand/0_mand.sh
+
 ## Dockers and Valgrind
 
  [42toolbox](https://github.com/alexandregv/42toolbox)
@@ -65,9 +76,9 @@ For compilers, include in Makefie:
 
 	docker run -ti -v $(PWD):/test memory-test:0.1 bash -c "cd /test/; make && valgrind --leak-check=full --show-leak-kinds=all ./minishell; rm -f ./minishell"
 
-## Acknowledgments
+## Links
 
-* [GNU-manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
-* [GNU-readline](https://tiswww.case.edu/php/chet/readline/rltop.html)
-* [WritingYourOwnShell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+* [GNU manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
+* [GNU readline](https://tiswww.case.edu/php/chet/readline/rltop.html)
+* [Writing your own shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
 * [shell syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
