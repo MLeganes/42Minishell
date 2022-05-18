@@ -21,9 +21,7 @@ Minishell is developed and tested on macOS and UNIX/LINUX systems.
 
 To run this proyect is needed the GNU Readline Library. Install it in macOS using the Package Manager [Homebrew](https://brew.sh/)
 
-### Homebrew for macOS
-
-Installing:
+### Install Homebrew for macOS
 
 	rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
 
@@ -31,7 +29,7 @@ Installing:
 
 * [GNU-readline](https://tiswww.case.edu/php/chet/readline/rltop.html)
 
-Installing in MacOS with Homebrew:
+Installing in macOS with Homebrew:
 
 	brew install readline
 
